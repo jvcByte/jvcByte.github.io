@@ -857,7 +857,13 @@ main {
   margin-bottom: 10px;
 }
 
-.project-item { display: none; }
+.project-item { 
+  display: none;
+  animation: scaleUp 0.25s ease forwards;
+  border: 1px solid var(--jet);
+  border-radius: 16px;
+  padding: 0 10px;
+}
 
 .project-item.active {
   display: block;
@@ -942,6 +948,14 @@ main {
   color: var(--light-gray-70);
   font-size: var(--fs-6);
   font-weight: var(--fw-300);
+}
+
+.project-description {
+  color: var(--light-gray);
+  font-size: var(--fs-6);
+  font-weight: var(--fw-300);
+  line-height: 1.6;
+  text-align: start;
 }
 
 
