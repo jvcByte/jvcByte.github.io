@@ -13,7 +13,28 @@ class PortfolioCMS {
             blog: []
         };
         
+        // GitHub configuration
+        this.githubConfig = this.loadGitHubConfig();
+        
         this.init();
+    }
+
+    loadGitHubConfig() {
+        const config = localStorage.getItem('githubConfig');
+        if (config) {
+            return JSON.parse(config);
+        }
+        return {
+            owner: '',
+            repo: '',
+            branch: 'main',
+            token: '',
+            apiEndpoint: ''
+        };
+    }
+
+    saveGitHubConfig() {
+        localStorage.setItem('githubConfig', JSON.stringify(this.githubConfig));
     }
 
     async init() {
@@ -65,6 +86,31 @@ class PortfolioCMS {
         // Preview Button
         document.getElementById('preview-btn').addEventListener('click', () => {
             window.open('./index.html', '_blank');
+        });
+
+        // Settings Button
+        document.getElementById('config-btn')?.addEventListener('click', () => {
+            this.showSettingsModal();
+        });
+
+        // Settings Modal
+        document.getElementById('close-settings')?.addEventListener('click', () => {
+            this.hideSettingsModal();
+        });
+
+        document.getElementById('save-settings')?.addEventListener('click', () => {
+            this.saveSettings();
+        });
+
+        document.getElementById('test-connection')?.addEventListener('click', () => {
+            this.testGitHubConnection();
+        });
+
+        // Close modal on outside click
+        document.getElementById('settings-modal')?.addEventListener('click', (e) => {
+            if (e.target.id === 'settings-modal') {
+                this.hideSettingsModal();
+            }
         });
 
         // Add buttons
@@ -848,82 +894,251 @@ class PortfolioCMS {
         });
     }
 
-    // Save Data - Direct file manipulation using File System Access API
-    async saveAllData() {
+    // Settings Modal
+    showSettingsModal() {
+        const modal = document.getElementById('settings-modal');
+        if (modal) {
+            // Populate form with current config
+            document.getElementById('github-owner').value = this.githubConfig.owner || '';
+            document.getElementById('github-repo').value = this.githubConfig.repo || '';
+            document.getElementById('github-branch').value = this.githubConfig.branch || 'main';
+            document.getElementById('github-token').value = this.githubConfig.token || '';
+            document.getElementById('api-endpoint').value = this.githubConfig.apiEndpoint || '';
+            
+            modal.style.display = 'flex';
+        }
+    }
+
+    hideSettingsModal() {
+        const modal = document.getElementById('settings-modal');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    saveSettings() {
+        this.githubConfig.owner = document.getElementById('github-owner').value.trim();
+        this.githubConfig.repo = document.getElementById('github-repo').value.trim();
+        this.githubConfig.branch = document.getElementById('github-branch').value.trim() || 'main';
+        this.githubConfig.token = document.getElementById('github-token').value.trim();
+        this.githubConfig.apiEndpoint = document.getElementById('api-endpoint').value.trim();
+        
+        this.saveGitHubConfig();
+        this.showToast('Settings saved!', 'success');
+        this.hideSettingsModal();
+    }
+
+    async testGitHubConnection() {
+        if (!this.githubConfig.owner || !this.githubConfig.repo || !this.githubConfig.token) {
+            this.showToast('Please fill in all required fields', 'error');
+            return;
+        }
+
+        this.showToast('Testing connection...', 'warning');
+        
         try {
-            this.showToast('Saving data to JSON files...', 'warning');
+            const success = await this.updateFileViaGitHub('personal.json', this.data.personal, true);
+            if (success) {
+                this.showToast('✅ Connection successful!', 'success');
+            } else {
+                this.showToast('❌ Connection failed. Check your settings.', 'error');
+            }
+        } catch (error) {
+            this.showToast('❌ Error: ' + error.message, 'error');
+        }
+    }
+
+    // Save Data - Update files via GitHub API
+    async saveAllData() {
+        // Check if GitHub is configured
+        if (!this.githubConfig.owner || !this.githubConfig.repo || !this.githubConfig.token) {
+            this.showToast('⚠️ Please configure GitHub settings first', 'warning');
+            this.showSettingsModal();
+            return;
+        }
+
+        try {
+            this.showToast('Saving JSON files to GitHub...', 'warning');
             
-            // Use File System Access API to write directly to files
-            await this.saveFilesDirectly();
+            const files = {
+                'personal': this.data.personal,
+                'services': this.data.services,
+                'awards': this.data.awards,
+                'skills': this.data.skills,
+                'experience': this.data.experience,
+                'education': this.data.education,
+                'certifications': this.data.certifications,
+                'projects': this.data.projects,
+                'blog': this.data.blog
+            };
+
+            let savedCount = 0;
+            let failedFiles = [];
             
-            this.showToast('All JSON files saved successfully!', 'success');
+            for (const [filename, data] of Object.entries(files)) {
+                const success = await this.updateFileViaGitHub(`${filename}.json`, data);
+                if (success) {
+                    savedCount++;
+                } else {
+                    failedFiles.push(filename);
+                }
+            }
+            
+            if (savedCount === Object.keys(files).length) {
+                this.showToast(`✅ Successfully saved all ${savedCount} JSON files to GitHub!`, 'success');
+            } else if (savedCount > 0) {
+                this.showToast(`⚠️ Saved ${savedCount}/${Object.keys(files).length} files. Some files failed.`, 'warning');
+                console.warn('Failed files:', failedFiles);
+            } else {
+                this.showToast('❌ Failed to save files. Check your GitHub settings.', 'error');
+            }
         } catch (error) {
             console.error('Error saving files:', error);
             this.showToast('Error: ' + error.message, 'error');
         }
     }
 
-    async saveFilesDirectly() {
-        const files = {
-            'personal.json': this.data.personal,
-            'services.json': this.data.services,
-            'awards.json': this.data.awards,
-            'skills.json': this.data.skills,
-            'experience.json': this.data.experience,
-            'education.json': this.data.education,
-            'certifications.json': this.data.certifications,
-            'projects.json': this.data.projects,
-            'blog.json': this.data.blog
-        };
-
-        // Check if File System Access API is supported
-        if (!('showDirectoryPicker' in window)) {
-            throw new Error('File System Access API not supported. Please use Chrome/Edge browser.');
-        }
-
+    async updateFileViaGitHub(filename, content, testMode = false) {
         try {
-            // Get directory handle for the project root
-            const dirHandle = await window.showDirectoryPicker({
-                mode: 'readwrite'
-            });
-
-            // Get the data directory
-            const dataDir = await dirHandle.getDirectoryHandle('data', { create: false });
-
-            // Save each file
-            for (const [filename, data] of Object.entries(files)) {
-                await this.writeJSONFile(dataDir, filename, data);
-            }
-
-        } catch (error) {
-            if (error.name === 'AbortError') {
-                throw new Error('File access cancelled by user');
-            } else if (error.name === 'NotFoundError') {
-                throw new Error('Data directory not found. Please select the project root directory.');
+            const apiEndpoint = this.githubConfig.apiEndpoint;
+            
+            if (apiEndpoint) {
+                // Use custom API endpoint (serverless function)
+                return await this.updateViaAPI(apiEndpoint, filename, content);
             } else {
-                throw error;
+                // Use GitHub API directly
+                return await this.updateViaGitHubAPI(filename, content, testMode);
             }
+        } catch (error) {
+            console.error(`Failed to update ${filename}:`, error);
+            return false;
         }
     }
 
-    async writeJSONFile(dataDir, filename, data) {
-        try {
-            // Get file handle
-            const fileHandle = await dataDir.getFileHandle(filename, { create: true });
-            
-            // Create writable stream
-            const writable = await fileHandle.createWritable();
-            
-            // Write JSON content
-            const content = JSON.stringify(data, null, 2);
-            await writable.write(content);
-            await writable.close();
-            
-            console.log(`✅ ${filename} saved successfully`);
-        } catch (error) {
-            console.error(`❌ Failed to save ${filename}:`, error);
-            throw new Error(`Failed to save ${filename}: ${error.message}`);
+    async updateViaAPI(endpoint, filename, content) {
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                filename,
+                content,
+                token: this.githubConfig.token,
+                repo: this.githubConfig.repo,
+                owner: this.githubConfig.owner,
+                branch: this.githubConfig.branch
+            })
+        });
+
+        const result = await response.json();
+        
+        if (response.ok && result.success) {
+            console.log(`✅ ${filename} updated via API`);
+            return true;
+        } else {
+            console.error(`❌ Failed to update ${filename}:`, result.error);
+            return false;
         }
+    }
+
+    async updateViaGitHubAPI(filename, content, testMode = false) {
+        // Get current file SHA
+        const filePath = `data/${filename}`;
+        const getFileUrl = `https://api.github.com/repos/${this.githubConfig.owner}/${this.githubConfig.repo}/contents/${filePath}?ref=${this.githubConfig.branch}`;
+        
+        let fileSha = null;
+        try {
+            const getFileResponse = await fetch(getFileUrl, {
+                headers: {
+                    'Authorization': `token ${this.githubConfig.token}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (getFileResponse.ok) {
+                const fileData = await getFileResponse.json();
+                fileSha = fileData.sha;
+            }
+        } catch (error) {
+            // File might not exist, that's okay
+            console.log('File does not exist or error fetching:', error.message);
+        }
+
+        // Prepare content
+        const jsonContent = JSON.stringify(content, null, 2);
+        const base64Content = btoa(unescape(encodeURIComponent(jsonContent)));
+
+        // Update file
+        const updateUrl = `https://api.github.com/repos/${this.githubConfig.owner}/${this.githubConfig.repo}/contents/${filePath}`;
+        
+        const updatePayload = {
+            message: testMode ? `Test update ${filename} via CMS` : `Update ${filename} via CMS`,
+            content: base64Content,
+            branch: this.githubConfig.branch
+        };
+
+        if (fileSha) {
+            updatePayload.sha = fileSha;
+        }
+
+        const updateResponse = await fetch(updateUrl, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${this.githubConfig.token}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatePayload)
+        });
+
+        if (!updateResponse.ok) {
+            const errorData = await updateResponse.json();
+            throw new Error(errorData.message || 'Failed to update file');
+        }
+
+        const result = await updateResponse.json();
+        console.log(`✅ ${filename} updated on GitHub`);
+        return true;
+    }
+
+    // Fallback: Save via downloads
+    saveViaDownloads() {
+        const files = {
+            'personal': this.data.personal,
+            'services': this.data.services,
+            'awards': this.data.awards,
+            'skills': this.data.skills,
+            'experience': this.data.experience,
+            'education': this.data.education,
+            'certifications': this.data.certifications,
+            'projects': this.data.projects,
+            'blog': this.data.blog
+        };
+
+        this.showToast('Downloading JSON files... Please save them to the data/ folder.', 'warning');
+        
+        // Small delay to ensure toast is visible
+        setTimeout(() => {
+            for (const [filename, data] of Object.entries(files)) {
+                this.downloadJSONFile(filename, data);
+            }
+            this.showToast(`✅ Downloaded ${Object.keys(files).length} JSON files. Please replace files in data/ folder.`, 'success');
+        }, 500);
+    }
+    
+    downloadJSONFile(filename, data) {
+        const jsonContent = JSON.stringify(data, null, 2);
+        const blob = new Blob([jsonContent], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${filename}.json`;
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
     }
 
     // Toast Notifications

@@ -16,11 +16,12 @@
             <div class="header-content">
                 <h1>Portfolio CMS</h1>
                 <div class="header-actions">
+                    <button id="config-btn" class="btn btn-secondary">⚙️ Settings</button>
                     <button id="save-all-btn" class="btn btn-primary" title="Save changes directly to JSON files">Save All Changes</button>
                     <button id="preview-btn" class="btn btn-secondary">Preview Site</button>
                 </div>
                 <div class="save-instructions">
-                    <small>💡 Click "Save All Changes" and select your project folder to update JSON files directly</small>
+                    <small>💡 Configure GitHub settings first, then click "Save All Changes" to update JSON files directly in your repository</small>
                 </div>
             </div>
         </header>
@@ -185,6 +186,51 @@
                 <button id="add-blog-post" class="btn btn-secondary">Add Blog Post</button>
             </section>
         </main>
+
+        <!-- Settings Modal -->
+        <div id="settings-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>GitHub Configuration</h2>
+                    <button class="modal-close" id="close-settings">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Configure your GitHub repository settings to enable direct file updates.</p>
+                    <div class="form-group">
+                        <label for="github-owner">GitHub Username/Organization</label>
+                        <input type="text" id="github-owner" placeholder="jvcbyte">
+                        <small>The owner of the repository</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="github-repo">Repository Name</label>
+                        <input type="text" id="github-repo" placeholder="jvcbyte.github.io">
+                        <small>The name of your repository</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="github-branch">Branch</label>
+                        <input type="text" id="github-branch" value="main" placeholder="main">
+                        <small>Default branch (usually 'main' or 'master')</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="github-token">GitHub Personal Access Token</label>
+                        <input type="password" id="github-token" placeholder="ghp_xxxxxxxxxxxx">
+                        <small>
+                            <a href="https://github.com/settings/tokens" target="_blank">Create a token</a> with <code>repo</code> scope.
+                            Token is stored locally in your browser.
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="api-endpoint">API Endpoint (Optional)</label>
+                        <input type="text" id="api-endpoint" placeholder="https://your-api.vercel.app/api/update-file">
+                        <small>Leave empty to use GitHub API directly. Use if you have a serverless function.</small>
+                    </div>
+                    <div class="form-actions">
+                        <button id="save-settings" class="btn btn-primary">Save Settings</button>
+                        <button id="test-connection" class="btn btn-secondary">Test Connection</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Toast Notification -->
         <div id="toast" class="toast"></div>

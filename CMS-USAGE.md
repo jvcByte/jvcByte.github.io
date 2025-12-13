@@ -2,32 +2,63 @@
 
 ## How to Use the CMS
 
-### ✅ **Direct File Saving (No Downloads!)**
+### ✅ **Online File Updates via GitHub API**
 
-1. **Open the CMS**: Open `cms.html` in Chrome or Edge browser
-2. **Edit your content**: Make changes to any section (personal info, services, awards, etc.)
-3. **Save changes**: Click "Save All Changes" button
-4. **Select project folder**: Choose your project root directory when prompted
-5. **Done!** All JSON files in the `data/` folder are updated directly
+1. **Open the CMS**: Open `cms.html` in your browser (works on any modern browser)
+2. **Configure GitHub**: Click the "⚙️ Settings" button and enter your GitHub repository details
+3. **Edit your content**: Make changes to any section (personal info, services, awards, etc.)
+4. **Save changes**: Click "Save All Changes" button
+5. **Done!** All JSON files are updated directly in your GitHub repository
 
-### 🔧 **Requirements**
+### 🔧 **Initial Setup**
 
-- **Browser**: Chrome or Edge (File System Access API support required)
-- **Permissions**: Allow file system access when prompted
+#### Step 1: Create a GitHub Personal Access Token
+
+1. Go to [GitHub Settings > Developer settings > Personal access tokens](https://github.com/settings/tokens)
+2. Click "Generate new token (classic)"
+3. Give it a name like "Portfolio CMS"
+4. Select the `repo` scope (full control of private repositories)
+5. Click "Generate token"
+6. **Copy the token immediately** (you won't see it again!)
+
+#### Step 2: Configure CMS Settings
+
+1. Open `cms.html` in your browser
+2. Click the "⚙️ Settings" button
+3. Fill in:
+   - **GitHub Username/Organization**: Your GitHub username (e.g., `jvcbyte`)
+   - **Repository Name**: Your repository name (e.g., `jvcbyte.github.io`)
+   - **Branch**: Usually `main` or `master`
+   - **GitHub Personal Access Token**: Paste the token you created
+   - **API Endpoint** (Optional): Leave empty to use GitHub API directly, or use a serverless function URL
+4. Click "Save Settings"
+5. (Optional) Click "Test Connection" to verify it works
 
 ### 📁 **How It Works**
 
-1. The CMS uses the **File System Access API** to write directly to your JSON files
-2. When you click "Save All Changes", it asks for your project directory
-3. It then updates each JSON file in the `data/` folder with your changes
-4. No downloads, no manual file replacement needed!
+1. The CMS uses GitHub API to update files directly in your repository
+2. When you click "Save All Changes", it:
+   - Sends updates to GitHub API for each JSON file
+   - Creates commits automatically with message "Update [filename] via CMS"
+   - Updates files in the `data/` folder of your repository
+3. Changes are live immediately after GitHub Pages rebuilds (usually within seconds)
 
 ### 🚨 **Important Notes**
 
-- **First time**: You'll need to select your project root directory
-- **Browser support**: Only works in Chrome/Edge (modern browsers with File System Access API)
-- **Permissions**: Browser will ask for file system access - click "Allow"
-- **Backup**: Always commit your changes to Git before major edits
+- **Security**: Your GitHub token is stored locally in your browser (localStorage)
+- **Token Scope**: The token needs `repo` scope to update files
+- **Public Repos**: For public repositories, you can use a token with `public_repo` scope
+- **Rate Limits**: GitHub API has rate limits, but normal usage should be fine
+- **Backup**: Always commit your changes to Git before major edits (though CMS auto-commits)
+
+### 🔄 **Alternative: Using Serverless Function**
+
+If you prefer to use a serverless function (Vercel, Netlify, etc.):
+
+1. Deploy the `api/update-file.js` file to your serverless platform
+2. In CMS settings, enter the API endpoint URL
+3. The function will handle GitHub API calls securely
+4. Your token is still required but handled server-side
 
 ### 🎯 **What Gets Updated**
 
@@ -46,9 +77,8 @@ When you save, these files are updated directly:
 
 1. Edit content in CMS
 2. Click "Save All Changes"
-3. Select project directory (first time only)
-4. Files are updated automatically
-5. Commit changes to Git
-6. Push to GitHub for live updates
+3. Files are updated automatically in data/ folder
+4. Commit changes to Git
+5. Push to GitHub for live updates
 
-**No servers, no downloads, just direct file manipulation!** 🎉
+**No servers, no downloads, no prompts - just automatic file updates!** 🎉
