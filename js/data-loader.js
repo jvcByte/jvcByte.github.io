@@ -35,7 +35,14 @@ class PortfolioDataLoader {
 
             for (const file of dataFiles) {
                 try {
-                    const response = await fetch(`./data/${file}.json`);
+                    // Add cache-busting parameter to prevent stale data
+                    const cacheBuster = `?v=${Date.now()}`;
+                    const response = await fetch(`./data/${file}.json${cacheBuster}`, {
+                        cache: 'no-cache',
+                        headers: {
+                            'Cache-Control': 'no-cache'
+                        }
+                    });
                     if (response.ok) {
                         this.data[file] = await response.json();
                     }

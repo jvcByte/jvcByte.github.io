@@ -54,7 +54,14 @@ class PortfolioCMS {
 
             for (const file of dataFiles) {
                 try {
-                    const response = await fetch(`./data/${file}.json`);
+                    // Add cache-busting parameter to prevent stale data
+                    const cacheBuster = `?v=${Date.now()}`;
+                    const response = await fetch(`./data/${file}.json${cacheBuster}`, {
+                        cache: 'no-cache',
+                        headers: {
+                            'Cache-Control': 'no-cache'
+                        }
+                    });
                     if (response.ok) {
                         this.data[file] = await response.json();
                     } else {
@@ -163,7 +170,8 @@ class PortfolioCMS {
 
         // Preview Button
         document.getElementById('preview-btn').addEventListener('click', () => {
-            window.open('./index.html', '_blank');
+            // Open with cache-busting to ensure fresh data
+            window.open(`./index.html?v=${Date.now()}`, '_blank');
         });
 
         // Settings Button
@@ -1218,9 +1226,20 @@ class PortfolioCMS {
             
             if (savedCount === Object.keys(files).length) {
                 this.showToast(`✅ Successfully saved all ${savedCount} JSON files to GitHub!`, 'success');
+                // Reload data after successful save to reflect changes
+                setTimeout(async () => {
+                    await this.loadData();
+                    this.renderAllSections();
+                    this.showToast('Data refreshed!', 'success');
+                }, 1000);
             } else if (savedCount > 0) {
                 this.showToast(`⚠️ Saved ${savedCount}/${Object.keys(files).length} files. Some files failed.`, 'warning');
                 console.warn('Failed files:', failedFiles);
+                // Still reload data for successfully saved files
+                setTimeout(async () => {
+                    await this.loadData();
+                    this.renderAllSections();
+                }, 1000);
             } else {
                 this.showToast('❌ Failed to save files. Check your GitHub settings.', 'error');
             }
