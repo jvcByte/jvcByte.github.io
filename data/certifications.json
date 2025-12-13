@@ -5,7 +5,7 @@
     "issuer": "Cisco Networking Academy",
     "issueDate": "Jul 2025",
     "credentialId": "aa35a936-6d45-447e-bd03-25bee899d7d1",
-    "image": "./assets/projects/cisco_ceh.png",
+    "image": "./assets/images/projects/cisco_ceh.png",
     "imageClass": "award-large-image"
   },
   {
@@ -14,7 +14,7 @@
     "issuer": "Hedera Hashgraph",
     "issueDate": "Oct 2025",
     "credentialId": "aa35a936-6d45-447e-bd03-25bee899d7d1",
-    "image": "./assets/projects/hashgraph_dc.png",
+    "image": "./assets/images/projects/hashgraph_dc.png",
     "imageClass": "award-large-image"
   }
 ]
