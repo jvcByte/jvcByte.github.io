@@ -9,7 +9,7 @@
   {
     "id": 2,
     "title": "Award of Excellence - NACOS",
-    "description": "Award of Excellence from Nigerian Association of Computing Students (NACOS) for best grade in software engineering department 2024/2025.",
+    "description": "Award of Excellence from Nigerian Association of Computing Students (NACOS) for outstanding academic performance in software engineering department 2023/2024.",
     "image": "./assets/images/awards/award_excel_1.png",
     "imageClass": ""
   },
@@ -26,5 +26,19 @@
     "description": "Design and Implementation of smart Farming System.",
     "image": "./assets/images/awards/atu.png",
     "imageClass": "award-large-image"
+  },
+  {
+    "id": 1765632992674,
+    "title": "Award of Excellence - NACOS",
+    "description": "Award of Excellence from Nigerian Association of Computing Students (NACOS) for outstanding academic performance in software engineering department 2024/2025.",
+    "image": "./assets/images/awards/excel_award_2.png",
+    "imageClass": ""
+  },
+  {
+    "id": 1765633331796,
+    "title": "Leadership Legacy Award",
+    "description": "Leadership Award from Nigerian Association of Computing Students (NACOS) in software engineering department 2024/2025.",
+    "image": "./assets/images/awards/leadership_award.png",
+    "imageClass": ""
   }
 ]
