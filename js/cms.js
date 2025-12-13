@@ -57,15 +57,93 @@ class PortfolioCMS {
                     const response = await fetch(`./data/${file}.json`);
                     if (response.ok) {
                         this.data[file] = await response.json();
+                    } else {
+                        // Initialize with default structure if file doesn't exist
+                        this.initializeDefaultData(file);
                     }
                 } catch (error) {
                     console.warn(`Could not load ${file}.json:`, error);
+                    this.initializeDefaultData(file);
                 }
             }
+            
+            // Ensure arrays and objects are properly initialized
+            this.ensureDataStructure();
         } catch (error) {
             console.error('Error loading data:', error);
             this.showToast('Error loading data', 'error');
         }
+    }
+
+    initializeDefaultData(file) {
+        switch(file) {
+            case 'personal':
+                if (!this.data.personal) this.data.personal = { socialLinks: [] };
+                break;
+            case 'services':
+                if (!this.data.services) this.data.services = [];
+                break;
+            case 'awards':
+                if (!this.data.awards) this.data.awards = [];
+                break;
+            case 'skills':
+                if (!this.data.skills) this.data.skills = { aboutSkills: [], resumeSkills: [] };
+                break;
+            case 'experience':
+                if (!this.data.experience) this.data.experience = [];
+                break;
+            case 'education':
+                if (!this.data.education) this.data.education = [];
+                break;
+            case 'certifications':
+                if (!this.data.certifications) this.data.certifications = [];
+                break;
+            case 'projects':
+                if (!this.data.projects) this.data.projects = [];
+                break;
+            case 'blog':
+                if (!this.data.blog) this.data.blog = [];
+                break;
+        }
+    }
+
+    ensureDataStructure() {
+        // Ensure personal has socialLinks array
+        if (!this.data.personal.socialLinks) {
+            this.data.personal.socialLinks = [];
+        }
+        
+        // Ensure skills has both arrays
+        if (!this.data.skills) {
+            this.data.skills = { aboutSkills: [], resumeSkills: [] };
+        }
+        if (!this.data.skills.aboutSkills) {
+            this.data.skills.aboutSkills = [];
+        }
+        if (!this.data.skills.resumeSkills) {
+            this.data.skills.resumeSkills = [];
+        }
+        
+        // Ensure all array fields are arrays
+        ['services', 'awards', 'experience', 'education', 'certifications', 'projects', 'blog'].forEach(key => {
+            if (!Array.isArray(this.data[key])) {
+                this.data[key] = [];
+            }
+        });
+        
+        // Ensure experience items have achievements arrays
+        this.data.experience.forEach(exp => {
+            if (!exp.achievements) {
+                exp.achievements = [];
+            }
+        });
+        
+        // Ensure education items have courses arrays
+        this.data.education.forEach(edu => {
+            if (!edu.courses) {
+                edu.courses = [];
+            }
+        });
     }
 
     // Event Listeners
@@ -594,49 +672,83 @@ class PortfolioCMS {
     }
 
     updateService(index, field, value) {
-        if (!this.data.services[index]) return;
+        if (!this.data.services || !this.data.services[index]) {
+            console.error('Invalid service index:', index);
+            return;
+        }
         this.data.services[index][field] = value;
     }
 
     updateAward(index, field, value) {
-        if (!this.data.awards[index]) return;
+        if (!this.data.awards || !this.data.awards[index]) {
+            console.error('Invalid award index:', index);
+            return;
+        }
         this.data.awards[index][field] = value;
     }
 
     updateSkill(type, index, value) {
         const skillsArray = type === 'about' ? this.data.skills.aboutSkills : this.data.skills.resumeSkills;
-        if (skillsArray[index] !== undefined) {
-            skillsArray[index] = value;
+        if (!skillsArray || skillsArray[index] === undefined) {
+            console.error('Invalid skill index:', index, 'type:', type);
+            return;
         }
+        skillsArray[index] = value;
     }
 
     updateExperience(index, field, value) {
-        if (!this.data.experience[index]) return;
+        if (!this.data.experience || !this.data.experience[index]) {
+            console.error('Invalid experience index:', index);
+            return;
+        }
         this.data.experience[index][field] = value;
     }
 
     updateAchievement(expIndex, achIndex, value) {
-        if (!this.data.experience[expIndex] || !this.data.experience[expIndex].achievements) return;
+        if (!this.data.experience || !this.data.experience[expIndex] || !this.data.experience[expIndex].achievements) {
+            console.error('Invalid achievement index:', expIndex, achIndex);
+            return;
+        }
+        if (achIndex < 0 || achIndex >= this.data.experience[expIndex].achievements.length) {
+            console.error('Achievement index out of bounds:', achIndex);
+            return;
+        }
         this.data.experience[expIndex].achievements[achIndex] = value;
     }
 
     updateEducation(index, field, value) {
-        if (!this.data.education[index]) return;
+        if (!this.data.education || !this.data.education[index]) {
+            console.error('Invalid education index:', index);
+            return;
+        }
         this.data.education[index][field] = value;
     }
 
     updateCourse(eduIndex, courseIndex, value) {
-        if (!this.data.education[eduIndex] || !this.data.education[eduIndex].courses) return;
+        if (!this.data.education || !this.data.education[eduIndex] || !this.data.education[eduIndex].courses) {
+            console.error('Invalid course index:', eduIndex, courseIndex);
+            return;
+        }
+        if (courseIndex < 0 || courseIndex >= this.data.education[eduIndex].courses.length) {
+            console.error('Course index out of bounds:', courseIndex);
+            return;
+        }
         this.data.education[eduIndex].courses[courseIndex] = value;
     }
 
     updateCertification(index, field, value) {
-        if (!this.data.certifications[index]) return;
+        if (!this.data.certifications || !this.data.certifications[index]) {
+            console.error('Invalid certification index:', index);
+            return;
+        }
         this.data.certifications[index][field] = value;
     }
 
     updateProject(index, field, value) {
-        if (!this.data.projects[index]) return;
+        if (!this.data.projects || !this.data.projects[index]) {
+            console.error('Invalid project index:', index);
+            return;
+        }
         this.data.projects[index][field] = value;
         
         // Update the card's data-category if category changed
@@ -933,7 +1045,10 @@ class PortfolioCMS {
     }
 
     updateBlogPost(index, field, value) {
-        if (!this.data.blog[index]) return;
+        if (!this.data.blog || !this.data.blog[index]) {
+            console.error('Invalid blog post index:', index);
+            return;
+        }
         this.data.blog[index][field] = value;
     }
 
@@ -1238,4 +1353,6 @@ class PortfolioCMS {
 let cms;
 document.addEventListener('DOMContentLoaded', () => {
     cms = new PortfolioCMS();
+    // Make cms globally accessible
+    window.cms = cms;
 });
