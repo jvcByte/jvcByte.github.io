@@ -1129,7 +1129,6 @@ class PortfolioCMS {
             document.getElementById('github-repo').value = this.githubConfig.repo || '';
             document.getElementById('github-branch').value = this.githubConfig.branch || 'main';
             document.getElementById('github-token').value = this.githubConfig.token || '';
-            document.getElementById('api-endpoint').value = this.githubConfig.apiEndpoint || '';
             
             modal.style.display = 'flex';
         }
@@ -1147,7 +1146,6 @@ class PortfolioCMS {
         this.githubConfig.repo = document.getElementById('github-repo').value.trim();
         this.githubConfig.branch = document.getElementById('github-branch').value.trim() || 'main';
         this.githubConfig.token = document.getElementById('github-token').value.trim();
-        this.githubConfig.apiEndpoint = document.getElementById('api-endpoint').value.trim();
         
         this.saveGitHubConfig();
         this.showToast('Settings saved!', 'success');

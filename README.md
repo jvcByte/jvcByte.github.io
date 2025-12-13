@@ -16,16 +16,18 @@ A modern, responsive portfolio website built with HTML, CSS, and JavaScript, fea
 ├── index.html              # Main portfolio page
 ├── cms.html                # Content Management System
 ├── assets/
-│   ├── css/
-│   │   ├── style.css       # Main portfolio styles
-│   │   └── cms.css         # CMS styles
-│   ├── js/
-│   │   ├── script.js       # Main portfolio functionality
-│   │   ├── data-loader.js  # Dynamic content loader
-│   │   └── cms.js          # CMS functionality
-│   ├── images/             # Profile images and icons
-│   ├── projects/           # Project screenshots
-│   └── blogs/              # Blog post images
+│   ├── fonts/              # custom fonts
+│   └── images/             # Profile images and icons
+│       ├── awards/         # Awards screenshot
+│       ├── blogs/          # Blog post images
+│       └── projects/       # Project screenshots
+├── css/
+│   ├── style.css       # Main portfolio styles
+│   └── cms.css         # CMS styles
+├── js/
+│   ├── script.js       # Main portfolio functionality
+│   ├── data-loader.js  # Dynamic content loader
+│   └── cms.js          # CMS functionality
 ├── data/                   # JSON data files
 │   ├── personal.json       # Personal information
 │   ├── services.json       # Services offered

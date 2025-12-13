@@ -30,7 +30,6 @@
    - **Repository Name**: Your repository name (e.g., `jvcbyte.github.io`)
    - **Branch**: Usually `main` or `master`
    - **GitHub Personal Access Token**: Paste the token you created
-   - **API Endpoint** (Optional): Leave empty to use GitHub API directly, or use a serverless function URL
 4. Click "Save Settings"
 5. (Optional) Click "Test Connection" to verify it works
 
@@ -50,15 +49,6 @@
 - **Public Repos**: For public repositories, you can use a token with `public_repo` scope
 - **Rate Limits**: GitHub API has rate limits, but normal usage should be fine
 - **Backup**: Always commit your changes to Git before major edits (though CMS auto-commits)
-
-### 🔄 **Alternative: Using Serverless Function**
-
-If you prefer to use a serverless function (Vercel, Netlify, etc.):
-
-1. Deploy the `api/update-file.js` file to your serverless platform
-2. In CMS settings, enter the API endpoint URL
-3. The function will handle GitHub API calls securely
-4. Your token is still required but handled server-side
 
 ### 🎯 **What Gets Updated**
 

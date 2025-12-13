@@ -14,7 +14,7 @@
    - Open `cms.html` in your browser
    - Click "⚙️ Settings"
    - Enter:
-     - Owner: `jvcbyte` (your username)
+     - Owner: `jvcByte` (your username)
      - Repo: `jvcbyte.github.io` (your repo name)
      - Branch: `main`
      - Token: (paste your token)
@@ -24,37 +24,6 @@
    - Make changes in the CMS
    - Click "Save All Changes"
    - Files update automatically in your GitHub repo
-
-## Serverless Function Setup (Optional)
-
-If you want to use a serverless function instead of direct GitHub API:
-
-### Vercel
-
-1. Create `vercel.json`:
-```json
-{
-  "functions": {
-    "api/update-file.js": {
-      "runtime": "nodejs18.x"
-    }
-  }
-}
-```
-
-2. Deploy to Vercel
-3. Use the function URL in CMS settings
-
-### Netlify
-
-1. Create `netlify.toml`:
-```toml
-[build]
-  functions = "api"
-```
-
-2. Deploy to Netlify
-3. Use the function URL in CMS settings
 
 ## Security Notes
 
