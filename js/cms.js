@@ -848,53 +848,22 @@ class PortfolioCMS {
         });
     }
 
-    // Save Data
+    // Save Data - Direct file manipulation using File System Access API
     async saveAllData() {
         try {
-            this.showToast('Saving data...', 'warning');
+            this.showToast('Saving data to JSON files...', 'warning');
             
-            // Try to save to server first
-            const serverSaved = await this.saveToServer();
+            // Use File System Access API to write directly to files
+            await this.saveFilesDirectly();
             
-            if (serverSaved) {
-                this.showToast('Data saved successfully to server!', 'success');
-            } else {
-                // Fallback to download if server is not available
-                this.showToast('Server not available. Downloading files...', 'warning');
-                this.downloadDataFiles();
-                this.showToast('Data files downloaded. Please replace files manually.', 'info');
-            }
+            this.showToast('All JSON files saved successfully!', 'success');
         } catch (error) {
-            console.error('Error saving data:', error);
-            this.showToast('Error saving data', 'error');
+            console.error('Error saving files:', error);
+            this.showToast('Error: ' + error.message, 'error');
         }
     }
 
-    async saveToServer() {
-        try {
-            const response = await fetch('/api/save-all-data', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ data: this.data })
-            });
-
-            if (response.ok) {
-                const result = await response.json();
-                console.log('Server save result:', result);
-                return true;
-            } else {
-                console.warn('Server save failed:', response.status);
-                return false;
-            }
-        } catch (error) {
-            console.warn('Server not available:', error.message);
-            return false;
-        }
-    }
-
-    downloadDataFiles() {
+    async saveFilesDirectly() {
         const files = {
             'personal.json': this.data.personal,
             'services.json': this.data.services,
@@ -907,17 +876,54 @@ class PortfolioCMS {
             'blog.json': this.data.blog
         };
 
-        Object.entries(files).forEach(([filename, data]) => {
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        });
+        // Check if File System Access API is supported
+        if (!('showDirectoryPicker' in window)) {
+            throw new Error('File System Access API not supported. Please use Chrome/Edge browser.');
+        }
+
+        try {
+            // Get directory handle for the project root
+            const dirHandle = await window.showDirectoryPicker({
+                mode: 'readwrite'
+            });
+
+            // Get the data directory
+            const dataDir = await dirHandle.getDirectoryHandle('data', { create: false });
+
+            // Save each file
+            for (const [filename, data] of Object.entries(files)) {
+                await this.writeJSONFile(dataDir, filename, data);
+            }
+
+        } catch (error) {
+            if (error.name === 'AbortError') {
+                throw new Error('File access cancelled by user');
+            } else if (error.name === 'NotFoundError') {
+                throw new Error('Data directory not found. Please select the project root directory.');
+            } else {
+                throw error;
+            }
+        }
+    }
+
+    async writeJSONFile(dataDir, filename, data) {
+        try {
+            // Get file handle
+            const fileHandle = await dataDir.getFileHandle(filename, { create: true });
+            
+            // Create writable stream
+            const writable = await fileHandle.createWritable();
+            
+            // Write JSON content
+            const content = JSON.stringify(data, null, 2);
+            await writable.write(content);
+            await writable.close();
+            
+            console.log(`✅ ${filename} saved successfully`);
+        } catch (error) {
+            console.error(`❌ Failed to save ${filename}:`, error);
+            throw new Error(`Failed to save ${filename}: ${error.message}`);
+        }
     }
 
     // Toast Notifications

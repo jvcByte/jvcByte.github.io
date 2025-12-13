@@ -47,6 +47,18 @@ body {
   align-items: center;
   max-width: 1400px;
   margin: 0 auto;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.save-instructions {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background-color: rgba(255, 123, 0, 0.1);
+  border-radius: 4px;
+  border-left: 3px solid var(--primary-color);
 }
 
 .header-content h1 {
