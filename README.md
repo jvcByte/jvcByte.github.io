@@ -46,29 +46,6 @@ A modern, responsive portfolio website built with HTML, CSS, and JavaScript, fea
 ### 1. View the Portfolio
 Simply open `index.html` in your web browser to view the portfolio website.
 
-### 2. Use the Content Management System
-1. Open `cms.html` in your web browser
-2. Navigate through different sections using the top navigation
-3. Edit content directly in the forms
-4. Click "Save All Changes" to download updated JSON files
-5. Replace the files in the `data/` folder with the downloaded files
-
-### 3. Local Development
-For the best experience, serve the files through a local web server:
-
-```bash
-# Using Python 3
-python -m http.server 8000
-
-# Using Node.js (if you have http-server installed)
-npx http-server
-
-# Using PHP
-php -S localhost:8000
-```
-
-Then visit `http://localhost:8000` to view the portfolio.
-
 ## CMS Features
 
 The Content Management System allows you to manage:
@@ -99,8 +76,8 @@ The Content Management System allows you to manage:
 4. Add CMS management in `cms.html` and `cms.js`
 
 ### Styling
-- Modify `assets/css/style.css` for portfolio styling
-- Modify `assets/css/cms.css` for CMS styling
+- Modify `css/style.css` for portfolio styling
+- Modify `css/cms.css` for CMS styling
 - The design uses CSS custom properties for easy color scheme changes
 
 ### Adding New Project Categories
