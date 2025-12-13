@@ -751,58 +751,132 @@ class PortfolioCMS {
 
     // Remove Methods
     removeSocialLink(index) {
-        this.data.personal.socialLinks.splice(index, 1);
-        this.renderSocialLinks();
+        if (!this.data.personal.socialLinks || index < 0 || index >= this.data.personal.socialLinks.length) {
+            console.error('Invalid index for social link removal');
+            return;
+        }
+        if (confirm('Are you sure you want to remove this social link?')) {
+            this.data.personal.socialLinks.splice(index, 1);
+            this.renderSocialLinks();
+            this.showToast('Social link removed', 'success');
+        }
     }
 
     removeService(index) {
-        this.data.services.splice(index, 1);
-        this.renderServices();
+        if (!this.data.services || index < 0 || index >= this.data.services.length) {
+            console.error('Invalid index for service removal');
+            return;
+        }
+        if (confirm('Are you sure you want to remove this service?')) {
+            this.data.services.splice(index, 1);
+            this.renderServices();
+            this.showToast('Service removed', 'success');
+        }
     }
 
     removeAward(index) {
-        this.data.awards.splice(index, 1);
-        this.renderAwards();
+        if (!this.data.awards || index < 0 || index >= this.data.awards.length) {
+            console.error('Invalid index for award removal');
+            return;
+        }
+        if (confirm('Are you sure you want to remove this award?')) {
+            this.data.awards.splice(index, 1);
+            this.renderAwards();
+            this.showToast('Award removed', 'success');
+        }
     }
 
     removeSkill(type, index) {
-        if (type === 'about') {
-            this.data.skills.aboutSkills.splice(index, 1);
-            this.renderSkillsList('about', 'about-skills-container');
-        } else {
-            this.data.skills.resumeSkills.splice(index, 1);
-            this.renderSkillsList('resume', 'resume-skills-container');
+        const skillsArray = type === 'about' ? this.data.skills.aboutSkills : this.data.skills.resumeSkills;
+        if (!skillsArray || index < 0 || index >= skillsArray.length) {
+            console.error('Invalid index for skill removal');
+            return;
+        }
+        if (confirm('Are you sure you want to remove this skill?')) {
+            skillsArray.splice(index, 1);
+            this.renderSkillsList(type, type === 'about' ? 'about-skills-container' : 'resume-skills-container');
+            this.showToast('Skill removed', 'success');
         }
     }
 
     removeExperience(index) {
-        this.data.experience.splice(index, 1);
-        this.renderExperience();
+        if (!this.data.experience || index < 0 || index >= this.data.experience.length) {
+            console.error('Invalid index for experience removal');
+            return;
+        }
+        if (confirm('Are you sure you want to remove this experience?')) {
+            this.data.experience.splice(index, 1);
+            this.renderExperience();
+            this.showToast('Experience removed', 'success');
+        }
     }
 
     removeAchievement(expIndex, achIndex) {
-        this.data.experience[expIndex].achievements.splice(achIndex, 1);
-        this.renderExperience();
+        if (!this.data.experience[expIndex] || !this.data.experience[expIndex].achievements) {
+            console.error('Invalid index for achievement removal');
+            return;
+        }
+        if (achIndex < 0 || achIndex >= this.data.experience[expIndex].achievements.length) {
+            console.error('Invalid achievement index');
+            return;
+        }
+        if (confirm('Are you sure you want to remove this achievement?')) {
+            this.data.experience[expIndex].achievements.splice(achIndex, 1);
+            this.renderExperience();
+            this.showToast('Achievement removed', 'success');
+        }
     }
 
     removeEducation(index) {
-        this.data.education.splice(index, 1);
-        this.renderEducation();
+        if (!this.data.education || index < 0 || index >= this.data.education.length) {
+            console.error('Invalid index for education removal');
+            return;
+        }
+        if (confirm('Are you sure you want to remove this education entry?')) {
+            this.data.education.splice(index, 1);
+            this.renderEducation();
+            this.showToast('Education entry removed', 'success');
+        }
     }
 
     removeCourse(eduIndex, courseIndex) {
-        this.data.education[eduIndex].courses.splice(courseIndex, 1);
-        this.renderEducation();
+        if (!this.data.education[eduIndex] || !this.data.education[eduIndex].courses) {
+            console.error('Invalid index for course removal');
+            return;
+        }
+        if (courseIndex < 0 || courseIndex >= this.data.education[eduIndex].courses.length) {
+            console.error('Invalid course index');
+            return;
+        }
+        if (confirm('Are you sure you want to remove this course?')) {
+            this.data.education[eduIndex].courses.splice(courseIndex, 1);
+            this.renderEducation();
+            this.showToast('Course removed', 'success');
+        }
     }
 
     removeCertification(index) {
-        this.data.certifications.splice(index, 1);
-        this.renderCertifications();
+        if (!this.data.certifications || index < 0 || index >= this.data.certifications.length) {
+            console.error('Invalid index for certification removal');
+            return;
+        }
+        if (confirm('Are you sure you want to remove this certification?')) {
+            this.data.certifications.splice(index, 1);
+            this.renderCertifications();
+            this.showToast('Certification removed', 'success');
+        }
     }
 
     removeProject(index) {
-        this.data.projects.splice(index, 1);
-        this.renderProjects();
+        if (!this.data.projects || index < 0 || index >= this.data.projects.length) {
+            console.error('Invalid index for project removal');
+            return;
+        }
+        if (confirm('Are you sure you want to remove this project?')) {
+            this.data.projects.splice(index, 1);
+            this.renderProjects();
+            this.showToast('Project removed', 'success');
+        }
     }
 
     renderBlog() {
@@ -878,8 +952,15 @@ class PortfolioCMS {
     }
 
     removeBlogPost(index) {
-        this.data.blog.splice(index, 1);
-        this.renderBlog();
+        if (!this.data.blog || index < 0 || index >= this.data.blog.length) {
+            console.error('Invalid index for blog post removal');
+            return;
+        }
+        if (confirm('Are you sure you want to remove this blog post?')) {
+            this.data.blog.splice(index, 1);
+            this.renderBlog();
+            this.showToast('Blog post removed', 'success');
+        }
     }
 
     // Filter Projects
