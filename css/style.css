@@ -634,46 +634,103 @@ main {
   z-index: -1;
 }
 
-.award-icon-box { margin-bottom: 10px; }
+/* Award Images Consistency */
+.award-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 370px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: var(--eerie-black-2);
+}
 
-.award-icon-box img { margin: auto; }
+.award-icon-box img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  transition: transform 0.3s ease;
+}
 
-.award-content-box { text-align: start; }
+.award-icon-box img:hover {
+  transform: scale(1.05);
+}
 
-.award-item-title { margin-bottom: 7px; }
+/* Ensure award items have consistent layout */
+.award-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
 
-.award-item-text {
+.award-content-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.award-item-title {
   color: var(--light-gray);
   font-size: var(--fs-6);
-  font-weight: var(--fw-3);
+  font-weight: var(--fw-500);
   line-height: 1.6;
 }
 
-.award-large-image {
+/* Specific award image classes */
+.award-icon-box .award-image-large,
+.award-icon-box .award-image-medium,
+.award-icon-box .award-image-small {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Apply same consistency to resume certifications */
+.resume .award-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   max-width: 370px;
-  height: auto;
-  margin: 0 auto;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: var(--eerie-black-2);
 }
 
-/* Large screens - increase award image size */
-@media (min-width: 1200px) {
-  .award-large-image {
-    max-width: 370px;
-  }
+.resume .award-icon-box img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  transition: transform 0.3s ease;
 }
 
-/* Medium screens */
-@media (max-width: 1199px) and (min-width: 768px) {
-  .award-large-image {
+.resume .award-icon-box img:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive adjustments for awards */
+@media (max-width: 768px) {
+  .award-icon-box,
+  .resume .award-icon-box {
+    height: 150px;
     max-width: 280px;
   }
 }
 
-/* Small screens */
-@media (max-width: 767px) {
-  .award-large-image {
-    max-width: 210px;
+@media (max-width: 480px) {
+  .award-icon-box,
+  .resume .award-icon-box {
+    height: 120px;
+    max-width: 240px;
   }
 }
 
@@ -941,13 +998,17 @@ main {
 }
 
 .zoomable-image.award-large-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
   cursor: pointer;
   transition: transform 0.3s ease, filter 0.3s ease;
   border-radius: 10px;
 }
 
 .zoomable-image.award-large-image:hover {
-  transform: scale(1.18);
+  transform: scale(1.05);
   filter: brightness(1.1);
 }
 
