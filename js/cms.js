@@ -899,15 +899,37 @@ class PortfolioCMS {
     }
 
     removeSkill(type, index) {
-        const skillsArray = type === 'about' ? this.data.skills.aboutSkills : this.data.skills.resumeSkills;
-        if (!skillsArray || index < 0 || index >= skillsArray.length) {
-            console.error('Invalid index for skill removal');
+        // Ensure skills structure exists
+        if (!this.data.skills) {
+            console.error('Skills data structure not found');
+            this.showToast('Error: Skills data not loaded', 'error');
             return;
         }
+        
+        const skillsArray = type === 'about' ? this.data.skills.aboutSkills : this.data.skills.resumeSkills;
+        
+        if (!skillsArray) {
+            console.error('Skills array not found for type:', type);
+            this.showToast('Error: Skills array not found', 'error');
+            return;
+        }
+        
+        if (index < 0 || index >= skillsArray.length) {
+            console.error('Invalid index for skill removal:', index, 'Array length:', skillsArray.length);
+            this.showToast('Error: Invalid skill index', 'error');
+            return;
+        }
+        
         if (confirm('Are you sure you want to remove this skill?')) {
+            const removedSkill = skillsArray[index];
             skillsArray.splice(index, 1);
+            
+            // Log for debugging
+            console.log(`Removed skill "${removedSkill}" from ${type} skills. New array:`, skillsArray);
+            console.log('Updated skills data:', JSON.stringify(this.data.skills, null, 2));
+            
             this.renderSkillsList(type, type === 'about' ? 'about-skills-container' : 'resume-skills-container');
-            this.showToast('Skill removed', 'success');
+            this.showToast('Skill removed. Remember to click "Save All Changes"!', 'success');
         }
     }
 
@@ -1155,6 +1177,20 @@ class PortfolioCMS {
 
         try {
             this.showToast('Saving JSON files to GitHub...', 'warning');
+            
+            // Ensure skills structure is correct before saving
+            if (!this.data.skills) {
+                this.data.skills = { aboutSkills: [], resumeSkills: [] };
+            }
+            if (!Array.isArray(this.data.skills.aboutSkills)) {
+                this.data.skills.aboutSkills = [];
+            }
+            if (!Array.isArray(this.data.skills.resumeSkills)) {
+                this.data.skills.resumeSkills = [];
+            }
+            
+            // Log skills data for debugging
+            console.log('Saving skills data:', JSON.stringify(this.data.skills, null, 2));
             
             const files = {
                 'personal': this.data.personal,
