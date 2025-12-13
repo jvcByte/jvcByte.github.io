@@ -1,6 +1,6 @@
 {
   "aboutSkills": [
-    "Git",
+    "Rust",
     "Solidity",
     "TypeScript",
     "C++",
@@ -9,10 +9,11 @@
     "SQL",
     "Shell Scripting",
     "Java",
-    "PCB Design"
+    "PCB Design",
+    "Git"
   ],
   "resumeSkills": [
-    "Git",
+    "Rust",
     "Learning",
     "TypeScript",
     "Go",
@@ -22,6 +23,7 @@
     "APIs",
     "Error handling",
     "Deployment",
-    "PCB Design"
+    "PCB Design",
+    "Rust"
   ]
 }
