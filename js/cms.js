@@ -853,14 +853,44 @@ class PortfolioCMS {
         try {
             this.showToast('Saving data...', 'warning');
             
-            // In a real implementation, you would send this data to a server
-            // For now, we'll just download the JSON files
-            this.downloadDataFiles();
+            // Try to save to server first
+            const serverSaved = await this.saveToServer();
             
-            this.showToast('Data saved successfully! Files downloaded.', 'success');
+            if (serverSaved) {
+                this.showToast('Data saved successfully to server!', 'success');
+            } else {
+                // Fallback to download if server is not available
+                this.showToast('Server not available. Downloading files...', 'warning');
+                this.downloadDataFiles();
+                this.showToast('Data files downloaded. Please replace files manually.', 'info');
+            }
         } catch (error) {
             console.error('Error saving data:', error);
             this.showToast('Error saving data', 'error');
+        }
+    }
+
+    async saveToServer() {
+        try {
+            const response = await fetch('/api/save-all-data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ data: this.data })
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log('Server save result:', result);
+                return true;
+            } else {
+                console.warn('Server save failed:', response.status);
+                return false;
+            }
+        } catch (error) {
+            console.warn('Server not available:', error.message);
+            return false;
         }
     }
 
