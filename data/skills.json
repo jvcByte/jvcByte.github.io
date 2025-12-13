@@ -1,0 +1,27 @@
+{
+  "aboutSkills": [
+    "Git",
+    "Solidity", 
+    "TypeScript",
+    "C++",
+    "Python",
+    "PHP",
+    "SQL",
+    "Shell Scripting",
+    "Java",
+    "PCB Design"
+  ],
+  "resumeSkills": [
+    "Git",
+    "Learning",
+    "TypeScript", 
+    "Go",
+    "Python",
+    "Testing",
+    "Databases",
+    "APIs",
+    "Error handling",
+    "Deployment",
+    "PCB Design"
+  ]
+}

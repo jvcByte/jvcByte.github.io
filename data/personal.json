@@ -1,0 +1,35 @@
+{
+  "name": "John Valentine",
+  "title": "Software Engineer",
+  "email": "jvc****@gmail.com",
+  "phone": "+234 816 *** **65",
+  "location": "Abuja, Nigeria",
+  "avatar": "./assets/images/my-avatar.png",
+  "avatarLarge": "./assets/images/my-avatar.jpg",
+  "bio": [
+    "Welcome to my personal portfolio! I'm a versatile Software Engineer who researches and checks documentation before implementation, taking the Software Development Life Cycle (SDLC) as a lifestyle.",
+    "This portfolio showcases my journey across multiple technology domains, from blockchain and distributed ledger technologies to traditional web development, mobile applications, and embedded systems. Explore my projects, review my experience, and discover how I bridge the gap between emerging technologies and practical solutions."
+  ],
+  "socialLinks": [
+    {
+      "platform": "LinkedIn",
+      "url": "https://www.linkedin.com/in/jvcbyte",
+      "icon": "logo-linkedin"
+    },
+    {
+      "platform": "GitHub", 
+      "url": "https://github.com/jvcByte",
+      "icon": "logo-github"
+    },
+    {
+      "platform": "Twitter",
+      "url": "https://x.com/jvcByte",
+      "icon": "logo-twitter"
+    },
+    {
+      "platform": "WhatsApp",
+      "url": "https://wa.me/08164906365",
+      "icon": "logo-whatsapp"
+    }
+  ]
+}

@@ -2138,3 +2138,62 @@ textarea.form-input::-webkit-resizer {
       height: 14px;
     }
   }
+/* Loadi
+ng State */
+.loading-data .about-text,
+.loading-data .service-list,
+.loading-data .award-list,
+.loading-data .skills-list,
+.loading-data .timeline-list,
+.loading-data .project-list,
+.loading-data .blog-posts-list {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.loading-data .about-text::after {
+  content: "Loading content...";
+  display: block;
+  color: var(--orange-yellow-crayola);
+  font-style: italic;
+  margin-top: 10px;
+}
+
+/* Dynamic content animations */
+.service-item,
+.award-item,
+.skills-item,
+.timeline-item,
+.project-item,
+.blog-post-item {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger animation for lists */
+.service-item:nth-child(1) { animation-delay: 0.1s; }
+.service-item:nth-child(2) { animation-delay: 0.2s; }
+.service-item:nth-child(3) { animation-delay: 0.3s; }
+.service-item:nth-child(4) { animation-delay: 0.4s; }
+
+.award-item:nth-child(1) { animation-delay: 0.1s; }
+.award-item:nth-child(2) { animation-delay: 0.2s; }
+.award-item:nth-child(3) { animation-delay: 0.3s; }
+.award-item:nth-child(4) { animation-delay: 0.4s; }
+
+.project-item:nth-child(1) { animation-delay: 0.1s; }
+.project-item:nth-child(2) { animation-delay: 0.2s; }
+.project-item:nth-child(3) { animation-delay: 0.3s; }
+.project-item:nth-child(4) { animation-delay: 0.4s; }
+.project-item:nth-child(5) { animation-delay: 0.5s; }
+.project-item:nth-child(6) { animation-delay: 0.6s; }

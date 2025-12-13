@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "ERC-7743: Multi-Owner Non-Fungible Tokens (MO-NFT)",
+    "category": "Blog",
+    "date": "2025-07-20",
+    "description": "A non-fungible token that supports multiple owners, allowing shared ownership and transferability among users.",
+    "image": "./assets/blogs/blog-2.png",
+    "url": "https://jvcbyte.hashnode.dev/erc-7743-multi-owner-non-fungible-tokens-mo-nft",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "title": "Blockchain: What It Is and How It Works",
+    "category": "Blog", 
+    "date": "2024-07-09",
+    "description": "Blockchain is an immutable digital ledger that enables secure transactions across a peer-to-peer network. Read more...",
+    "image": "./assets/blogs/blog-1.png",
+    "url": "https://medium.com/@jvcByte/blockchain-what-it-is-and-how-it-works-6e9b06fc7344",
+    "featured": true
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "title": "Vice Chancellor Award - Embedded System",
+    "description": "Implementation of an Automated water pumping system.",
+    "image": "./assets/projects/embeded_award.png",
+    "imageClass": "award-large-image"
+  },
+  {
+    "id": 2,
+    "title": "Award of Excellence - NACOS",
+    "description": "Award of Excellence from Nigerian Association of Computing Students (NACOS) for best grade in software engineering department 2024/2025.",
+    "image": "./assets/projects/award_excel_1.png",
+    "imageClass": ""
+  },
+  {
+    "id": 3,
+    "title": "Vice Chancellor Award - IoT",
+    "description": "Development of IoT-Based (Internet of Things) smart Lighting System.",
+    "image": "./assets/projects/iot_award.png",
+    "imageClass": "award-large-image"
+  },
+  {
+    "id": 4,
+    "title": "3rd ATU challenge - Smart Farming",
+    "description": "Design and Implementation of smart Farming System.",
+    "image": "./assets/projects/atu.png",
+    "imageClass": "award-large-image"
+  }
+]

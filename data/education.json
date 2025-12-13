@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "institution": "Veritas University, Abuja",
+    "degree": "Bachelor of Science in Software Engineering",
+    "period": "2022 — 2025",
+    "courses": [
+      "SEN 101 - Introduction to Computing and Applications.",
+      "GST 171 - Ethics.",
+      "SEN 207 - Data Structure and Algorithms.",
+      "GST 221 - Peace Studies & Conflict Resolution.",
+      "SEN 305 - Web Application Development.",
+      "SEN 309 - Concept of Programming Language.",
+      "SEN 316 - Embedded Systems.",
+      "SEN 407 - Distributed, Parallel, and Cloud Computing.",
+      "SEN 406 - Fault Tolerant Computing."
+    ]
+  },
+  {
+    "id": 2,
+    "institution": "Government Science Secondary School, Zuba",
+    "degree": "+2 Science",
+    "period": "2016 — 2018",
+    "courses": []
+  }
+]

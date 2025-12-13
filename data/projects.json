@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "title": "AIsilo",
+    "category": "web3",
+    "description": "AIsilo is a decentralized marketplace for AI models and datasets that combines client-side encryption, IPFS storage, and Hedera blockchain for immutable metadata and access control.",
+    "image": "./assets/projects/aisilo.png",
+    "url": "https://aisilo.vercel.app/",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "title": "File It",
+    "category": "web3",
+    "description": "A decentralized, blockchain-based secure data encryption and storage platform. Your data your own, zero knowledge platform.",
+    "image": "./assets/projects/fileit.png",
+    "url": "https://file-it.vercel.app/",
+    "featured": true
+  },
+  {
+    "id": 3,
+    "title": "Cohort XIII DAO",
+    "category": "web3",
+    "description": "A simple DAO for managing proposals and voting.",
+    "image": "./assets/projects/cxiiidao.png",
+    "url": "https://github.com/jvcByte/CXIII_DAO",
+    "featured": false
+  },
+  {
+    "id": 4,
+    "title": "Tranzit Mobility",
+    "category": "web2",
+    "description": "A comprehensive transportation management system built with Next.js. Features real-time tracking, route optimization, and seamless user experience for urban mobility solutions.",
+    "image": "./assets/projects/tranzit.png",
+    "url": "https://tranzit.cc/",
+    "featured": true
+  },
+  {
+    "id": 5,
+    "title": "CVD Predictor",
+    "category": "web2",
+    "description": "Machine learning application for cardiovascular disease prediction using Python. Integrates data analysis, predictive modeling, and interactive visualizations to help assess health risks.",
+    "image": "./assets/projects/cvd.png",
+    "url": "https://cvd-expert.streamlit.app/",
+    "featured": false
+  },
+  {
+    "id": 6,
+    "title": "Smart Farm",
+    "category": "iot & embedded systems",
+    "description": "IoT-based agricultural monitoring system featuring real-time sensor data collection, automated irrigation control, and environmental monitoring for precision farming applications.",
+    "image": "./assets/projects/smartfarm.png",
+    "url": "https://smart-farm-one.vercel.app/",
+    "featured": true
+  },
+  {
+    "id": 7,
+    "title": "SealedTrust - Escrow Service on Blockchain",
+    "category": "web3",
+    "description": "Decentralized escrow service built on blockchain technology for secure peer-to-peer transactions. Implements smart contracts for automated dispute resolution and transparent fund management.",
+    "image": "./assets/projects/stv2.png",
+    "url": "https://stv2.vercel.app/",
+    "featured": false
+  },
+  {
+    "id": 8,
+    "title": "Automotive E-commerce",
+    "category": "graphics design",
+    "description": "Modern and intuitive UI/UX design for automotive e-commerce platform. Features product catalogs, shopping cart interface, and checkout flow optimized for automotive parts and accessories.",
+    "image": "./assets/projects/automotive.png",
+    "url": "https://www.figma.com/proto/s1VpoweYdxCtd2KKpc3Onh/Automotive-e-comerce?node-id=7-517&starting-point-node-id=7%3A517&t=6HbP5OQcp7agjySK-1",
+    "featured": false
+  },
+  {
+    "id": 9,
+    "title": "Invoice Application",
+    "category": "web2",
+    "description": "Professional invoicing application with PDF generation, client management, and payment tracking. Built with Next.js for small businesses and freelancers.",
+    "image": "./assets/projects/invoice.png",
+    "url": "https://invoice-app-eight-chi.vercel.app/",
+    "featured": false
+  },
+  {
+    "id": 10,
+    "title": "AI Chatbot",
+    "category": "web2",
+    "description": "Intelligent conversational AI chatbot with natural language processing capabilities. Features context awareness, multi-language support, and seamless integration with messaging platforms.",
+    "image": "./assets/projects/chatbot.png",
+    "url": "https://chatbot-eta-sandy.vercel.app/",
+    "featured": false
+  },
+  {
+    "id": 11,
+    "title": "Student Management System",
+    "category": "web2",
+    "description": "Comprehensive student information system for educational institutions. Features enrollment management, grade tracking, attendance monitoring, and automated report generation.",
+    "image": "./assets/projects/student_management.png",
+    "url": "https://student-management-system-zeta-teal.vercel.app/",
+    "featured": false
+  },
+  {
+    "id": 12,
+    "title": "Blog",
+    "category": "web2",
+    "description": "Responsive blog platform with content management system, user authentication, and commenting functionality. Built with Next.js for content creators and readers.",
+    "image": "./assets/projects/blog.png",
+    "url": "https://some-dummy-site.vercel.app/",
+    "featured": false
+  },
+  {
+    "id": 13,
+    "title": "Cute App for Memories",
+    "category": "web2",
+    "description": "Personal memory sharing application with photo galleries, timeline features, and social sharing capabilities. Designed for preserving and sharing life's precious moments with loved ones.",
+    "image": "./assets/projects/memory_app.png",
+    "url": "https://cute-app-for-memories.vercel.app/",
+    "featured": false
+  },
+  {
+    "id": 14,
+    "title": "Gesture Based Access Control",
+    "category": "iot & embedded systems",
+    "description": "Advanced access control system using computer vision and gesture recognition. Integrates cameras, microcontrollers, and machine learning algorithms for secure, contactless authentication.",
+    "image": "./assets/projects/gesture_based_access.png",
+    "url": "https://github.com/jvcByte/gesture-based-access-control",
+    "featured": true
+  },
+  {
+    "id": 15,
+    "title": "Smart City",
+    "category": "iot & embedded systems",
+    "description": "Comprehensive smart city management platform integrating various IoT sensors for traffic monitoring, waste management, environmental tracking, and public safety systems.",
+    "image": "./assets/projects/smart_city.png",
+    "url": "https://pes-pi.vercel.app/",
+    "featured": false
+  },
+  {
+    "id": 16,
+    "title": "Sealed Trust",
+    "category": "web3",
+    "description": "A very minimalistic implementation of escrow system on blockchain.",
+    "image": "./assets/projects/sealedtrust.png",
+    "url": "https://sealed-trust.vercel.app/",
+    "featured": false
+  },
+  {
+    "id": 17,
+    "title": "Coaching Site",
+    "category": "graphics design",
+    "description": "Professional coaching website design with modern UI/UX principles. Features service showcases, booking systems, testimonials, and responsive layouts optimized for coaching businesses.",
+    "image": "./assets/projects/coaching_site.png",
+    "url": "https://www.figma.com/proto/J7SaQocps21SRJa8kHkpKJ/Untitled?node-id=52-137&t=AveeNsuACc3BaQum-1",
+    "featured": false
+  },
+  {
+    "id": 18,
+    "title": "Valentino - Web Library",
+    "category": "graphics design",
+    "description": "Comprehensive design system and component library for web applications. Features reusable UI components, design tokens, style guides, and documentation for consistent brand experiences.",
+    "image": "./assets/projects/web_library.png",
+    "url": "https://www.figma.com/proto/xTfecvOnfogXhT8vvxzQq7/Web-Library?node-id=56-4&starting-point-node-id=44%3A60&t=cr0wzPNDcK3YwNpS-1",
+    "featured": false
+  },
+  {
+    "id": 19,
+    "title": "To Do App",
+    "category": "graphics design",
+    "description": "Clean and intuitive task management application design with drag-and-drop functionality, priority systems, and productivity tracking features for enhanced user workflow.",
+    "image": "./assets/projects/to_do_app.png",
+    "url": "https://www.figma.com/proto/mx8v69iAAU8H09pu9cmCGI/Val-To-Do?node-id=23-659&starting-point-node-id=23%3A659&t=jdS6zJk1idAi2ksO-1",
+    "featured": false
+  },
+  {
+    "id": 20,
+    "title": "Brain Bulb - Social Media",
+    "category": "graphics design",
+    "description": "Twitter clone design.",
+    "image": "./assets/projects/brain_bulb.png",
+    "url": "https://www.figma.com/proto/CtBgOfeHZgFTLnhS8TAbeY/social-media-app?node-id=10-2&starting-point-node-id=10%3A2&t=4kz1ifwTm2aCVsfC-1",
+    "featured": false
+  }
+]
