@@ -17,7 +17,7 @@
   },
   {
     "id": 2,
-    "position": "Solidity Intern",
+    "position": "Project Team Lead",
     "company": "Know the Blocks Maven (KBM)",
     "startDate": "2024-07-01",
     "endDate": "2024-10-08",
@@ -34,26 +34,51 @@
   },
   {
     "id": 3,
-    "position": "Full Stack Developer",
-    "company": "SealedTrust",
-    "startDate": "2024-04-01",
-    "endDate": "2025-02-01",
+    "position": "Computer Support Technician",
+    "company": "Self-employed",
+    "startDate": "2023-11-01",
+    "endDate": "2024-10-01",
     "achievements": [
-      "Gained experience on when, why and how to use a framework or library.",
-      "messed around with a lot of new frameworks and libraries.",
-      "Gained hands-on experience in debugging, troubleshooting, and refining app features to improve user experience."
+      "Installed and configured Ubuntu on HP and Dell laptops for students.",
+      "Resolved driver and boot-loader issues, enabling dual-boot and UEFI/BIOS compatibility.",
+      "Performed manual partitioning, GRUB repair, and kernel module tweaking for hardware compatibility."
     ]
   },
   {
     "id": 4,
-    "position": "Web3 Developer",
+    "position": "Blockchain Developer",
     "company": "Web3Bridge",
     "startDate": "2025-07-01",
     "endDate": "present",
     "achievements": [
-      "Implemented a DAO for proposing changes.",
+      "Implemented a DAO for voting on proposals.",
       "Implemented a secure data storage on blockchain while optimising performance.",
       "Implemented an AI marketplace on blockchain."
+    ]
+  },
+  {
+    "id": 5,
+    "position": "Coding Mentor",
+    "company": "Learn2Earn",
+    "startDate": "2025-11-01",
+    "endDate": "present",
+    "achievements": [
+      "Guide students using the peer-to-peer learning platform.",
+      "Conduct code reviews and offer mentorship support.",
+      "Facilitate group activities and maintain platform engagement.",
+      "Support technical events and collaborations.",
+      "Monitor learners’ progress and report challenges or bugs.",
+      "Uphold Learn2Earn NG's policies on data protection, equity, and safe learning.",
+      "Ensure a deep understanding of the peer-to-peer pedagogy and its concrete",
+      "applications, with the ability to explain it to different stakeholders.",
+      "Communicate and support students during the Learning period.",
+      "Perform database queries for analytics and insights.",
+      "Ensure students’ progress at the expected pace.",
+      "Engage with employers and partners for program enrichment.",
+      "Monitor and audit student work for individual support.",
+      "Maintain clear records of student activity and progress.",
+      "Promoting a collaborative environment, based on autonomy and peer learning.",
+      "Ensure service needs, including working occasionally on evenings and weekends"
     ]
   }
 ]
