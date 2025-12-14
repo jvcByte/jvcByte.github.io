@@ -1,30 +1,22 @@
 [
   {
     "id": 1,
-    "position": "Web3 Developer",
-    "company": "Web3Bridge",
-    "startDate": "2025-07-01",
-    "endDate": "present",
+    "position": "PHP Intern",
+    "company": "Software Engineering Dept.",
+    "startDate": "2023-07-01",
+    "endDate": "2023-10-01",
     "achievements": [
-      "Implemented a DAO for proposing changes.",
-      "Implemented a secure data storage on blockchain while optimising performance.",
-      "Implemented an AI marketplace on blockchain."
+      "Developed new features and transformed UI designs into fully functional user interfaces.",
+      "Optimized application performance to ensure a smooth and engaging user experience.",
+      "Supported other team members initiatives by developing solutions to common problems and sharing those solutions.",
+      "Identified and resolved bugs, improving app stability and performance.",
+      "Wrote clean, maintainable, and testable code following best practices.",
+      "Utilization of latest version of support libraries to ensure backend compatibility.",
+      "Collaborated with backend developers, designers, and cross-functional teams to deliver scalable, high-quality solutions."
     ]
   },
   {
     "id": 2,
-    "position": "Full Stack Developer",
-    "company": "SealedTrust",
-    "startDate": "2024-04-01",
-    "endDate": "2025-02-01",
-    "achievements": [
-      "Gained experience on when, why and how to use a framework or library.",
-      "messed around with a lot of new frameworks and libraries.",
-      "Gained hands-on experience in debugging, troubleshooting, and refining app features to improve user experience."
-    ]
-  },
-  {
-    "id": 3,
     "position": "Solidity Intern",
     "company": "Know the Blocks Maven (KBM)",
     "startDate": "2024-07-01",
@@ -41,19 +33,27 @@
     ]
   },
   {
-    "id": 4,
-    "position": "PHP Intern",
-    "company": "Software Engineering Dept.",
-    "startDate": "2023-07-01",
-    "endDate": "2023-10-01",
+    "id": 3,
+    "position": "Full Stack Developer",
+    "company": "SealedTrust",
+    "startDate": "2024-04-01",
+    "endDate": "2025-02-01",
     "achievements": [
-      "Developed new features and transformed UI designs into fully functional user interfaces.",
-      "Optimized application performance to ensure a smooth and engaging user experience.",
-      "Supported other team members initiatives by developing solutions to common problems and sharing those solutions.",
-      "Identified and resolved bugs, improving app stability and performance.",
-      "Wrote clean, maintainable, and testable code following best practices.",
-      "Utilization of latest version of support libraries to ensure backend compatibility.",
-      "Collaborated with backend developers, designers, and cross-functional teams to deliver scalable, high-quality solutions."
+      "Gained experience on when, why and how to use a framework or library.",
+      "messed around with a lot of new frameworks and libraries.",
+      "Gained hands-on experience in debugging, troubleshooting, and refining app features to improve user experience."
+    ]
+  },
+  {
+    "id": 4,
+    "position": "Web3 Developer",
+    "company": "Web3Bridge",
+    "startDate": "2025-07-01",
+    "endDate": "present",
+    "achievements": [
+      "Implemented a DAO for proposing changes.",
+      "Implemented a secure data storage on blockchain while optimising performance.",
+      "Implemented an AI marketplace on blockchain."
     ]
   }
 ]
