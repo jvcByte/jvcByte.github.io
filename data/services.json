@@ -8,7 +8,7 @@
   {
     "id": 2,
     "title": "Backend Development",
-    "description": "Implementation of backend systems and APIs using Node.js, Python, and Rust. Specializing in scalable architectures, database design, and server-side logic that powers modern applications.",
+    "description": "Implementation of backend systems and APIs using Node.js, Python, and Go. Specializing in scalable architectures, database design, and server-side logic that powers modern applications.",
     "icon": "./assets/images/icon-backend.svg"
   },
   {
