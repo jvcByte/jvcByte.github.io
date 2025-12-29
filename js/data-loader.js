@@ -2,6 +2,7 @@
 class PortfolioDataLoader {
     constructor() {
         this.data = {};
+        this.skeletonManager = new SkeletonStateManager();
         this.init();
     }
 
@@ -9,49 +10,560 @@ class PortfolioDataLoader {
         // Show loading state
         this.showLoadingState();
         
-        await this.loadAllData();
-        this.populatePortfolio();
+        try {
+            await this.loadDataWithTimeout();
+            this.populatePortfolio();
+        } catch (error) {
+            console.error('Failed to initialize portfolio data:', error);
+            this.handleLoadingError(error);
+        } finally {
+            // Always hide loading state
+            this.hideLoadingState();
+        }
+    }
+
+    async loadDataWithTimeout() {
+        const LOADING_TIMEOUT = 15000; // 15 seconds
+        const WARNING_TIMEOUT = 8000; // 8 seconds warning
         
-        // Hide loading state
-        this.hideLoadingState();
+        let warningTimeout;
+        let loadingTimeout;
+        
+        try {
+            // Set warning timeout
+            warningTimeout = setTimeout(() => {
+                this.showLoadingWarning();
+            }, WARNING_TIMEOUT);
+            
+            // Set loading timeout
+            const timeoutPromise = new Promise((_, reject) => {
+                loadingTimeout = setTimeout(() => {
+                    reject(new Error('Loading timeout: Data loading took too long'));
+                }, LOADING_TIMEOUT);
+            });
+            
+            // Race between data loading and timeout
+            await Promise.race([
+                this.loadAllData(),
+                timeoutPromise
+            ]);
+            
+            // Clear timeouts if successful
+            clearTimeout(warningTimeout);
+            clearTimeout(loadingTimeout);
+            
+        } catch (error) {
+            // Clear timeouts
+            clearTimeout(warningTimeout);
+            clearTimeout(loadingTimeout);
+            
+            // Re-throw error to be handled by init()
+            throw error;
+        }
+    }
+
+    showLoadingWarning() {
+        // Show warning message to user
+        this.showUserMessage('Loading is taking longer than expected...', 'warning');
+        
+        // Announce to screen readers
+        if (this.skeletonManager) {
+            this.skeletonManager.announceToScreenReader(
+                'Loading is taking longer than expected, please wait', 
+                'assertive'
+            );
+        }
+    }
+
+    handleLoadingError(error) {
+        console.error('Loading error:', error);
+        
+        // Determine error type and show appropriate fallback
+        if (error.message.includes('timeout')) {
+            this.showTimeoutFallback();
+        } else if (error.message.includes('network') || error.name === 'TypeError') {
+            this.showNetworkErrorFallback();
+        } else {
+            this.showGenericErrorFallback();
+        }
+        
+        // Announce error to screen readers
+        if (this.skeletonManager) {
+            this.skeletonManager.announceToScreenReader(
+                'Content loading failed. Retry options are available.', 
+                'assertive'
+            );
+        }
+    }
+
+    showTimeoutFallback() {
+        this.showErrorFallback({
+            title: 'Loading Timeout',
+            message: 'The content is taking longer than expected to load.',
+            type: 'timeout',
+            showRetry: true,
+            showOfflineContent: true
+        });
+    }
+
+    showNetworkErrorFallback() {
+        this.showErrorFallback({
+            title: 'Connection Error',
+            message: 'Unable to load content. Please check your internet connection.',
+            type: 'network',
+            showRetry: true,
+            showOfflineContent: true
+        });
+    }
+
+    showGenericErrorFallback() {
+        this.showErrorFallback({
+            title: 'Loading Error',
+            message: 'Something went wrong while loading the content.',
+            type: 'generic',
+            showRetry: true,
+            showOfflineContent: false
+        });
+    }
+
+    showErrorFallback(options) {
+        const {
+            title = 'Loading Error',
+            message = 'Unable to load content',
+            type = 'generic',
+            showRetry = true,
+            showOfflineContent = false
+        } = options;
+
+        // Create error fallback container
+        const errorContainer = document.createElement('div');
+        errorContainer.className = `error-fallback error-fallback-${type}`;
+        errorContainer.setAttribute('role', 'alert');
+        errorContainer.setAttribute('aria-live', 'assertive');
+        
+        errorContainer.innerHTML = `
+            <div class="error-content">
+                <div class="error-icon">
+                    <ion-icon name="${this.getErrorIcon(type)}"></ion-icon>
+                </div>
+                <h3 class="error-title">${title}</h3>
+                <p class="error-message">${message}</p>
+                <div class="error-actions">
+                    ${showRetry ? `
+                        <button class="btn-retry" onclick="portfolioDataLoader.retryLoading()">
+                            <ion-icon name="refresh-outline"></ion-icon>
+                            Retry Loading
+                        </button>
+                    ` : ''}
+                    ${showOfflineContent ? `
+                        <button class="btn-offline" onclick="portfolioDataLoader.showOfflineContent()">
+                            <ion-icon name="document-outline"></ion-icon>
+                            View Offline Content
+                        </button>
+                    ` : ''}
+                    <button class="btn-contact" onclick="portfolioDataLoader.showContactInfo()">
+                        <ion-icon name="mail-outline"></ion-icon>
+                        Contact Info
+                    </button>
+                </div>
+            </div>
+        `;
+
+        // Insert error fallback into main content area
+        const mainContent = document.querySelector('main') || document.body;
+        
+        // Remove existing error fallbacks
+        const existingErrors = mainContent.querySelectorAll('.error-fallback');
+        existingErrors.forEach(error => error.remove());
+        
+        // Insert new error fallback
+        mainContent.insertBefore(errorContainer, mainContent.firstChild);
+        
+        // Focus the error container for accessibility
+        errorContainer.focus();
+        
+        // Show user message
+        this.showUserMessage(message, 'error');
+    }
+
+    getErrorIcon(type) {
+        const icons = {
+            timeout: 'time-outline',
+            network: 'wifi-outline',
+            generic: 'alert-circle-outline'
+        };
+        return icons[type] || 'alert-circle-outline';
+    }
+
+    showUserMessage(message, type = 'info') {
+        // Remove existing messages
+        const existingMessages = document.querySelectorAll('.user-message');
+        existingMessages.forEach(msg => msg.remove());
+        
+        // Create message element
+        const messageElement = document.createElement('div');
+        messageElement.className = `user-message user-message-${type}`;
+        messageElement.setAttribute('role', type === 'error' ? 'alert' : 'status');
+        messageElement.setAttribute('aria-live', type === 'error' ? 'assertive' : 'polite');
+        
+        messageElement.innerHTML = `
+            <div class="message-content">
+                <ion-icon name="${this.getMessageIcon(type)}"></ion-icon>
+                <span class="message-text">${message}</span>
+                <button class="message-close" onclick="this.parentElement.parentElement.remove()" aria-label="Close message">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+        `;
+        
+        // Insert at top of page
+        document.body.insertBefore(messageElement, document.body.firstChild);
+        
+        // Auto-remove after delay (except for errors)
+        if (type !== 'error') {
+            setTimeout(() => {
+                if (messageElement.parentNode) {
+                    messageElement.remove();
+                }
+            }, 5000);
+        }
+    }
+
+    getMessageIcon(type) {
+        const icons = {
+            info: 'information-circle-outline',
+            warning: 'warning-outline',
+            error: 'alert-circle-outline',
+            success: 'checkmark-circle-outline'
+        };
+        return icons[type] || 'information-circle-outline';
+    }
+
+    async retryLoading() {
+        // Remove error fallbacks
+        const errorFallbacks = document.querySelectorAll('.error-fallback');
+        errorFallbacks.forEach(error => error.remove());
+        
+        // Remove user messages
+        const userMessages = document.querySelectorAll('.user-message');
+        userMessages.forEach(msg => msg.remove());
+        
+        // Show loading message
+        this.showUserMessage('Retrying to load content...', 'info');
+        
+        // Show skeletons again
+        this.showLoadingState();
+        
+        try {
+            await this.loadDataWithTimeout();
+            this.populatePortfolio();
+            this.showUserMessage('Content loaded successfully!', 'success');
+        } catch (error) {
+            console.error('Retry failed:', error);
+            this.handleLoadingError(error);
+        } finally {
+            this.hideLoadingState();
+        }
+    }
+
+    showOfflineContent() {
+        // Remove error fallbacks
+        const errorFallbacks = document.querySelectorAll('.error-fallback');
+        errorFallbacks.forEach(error => error.remove());
+        
+        // Load basic offline content
+        this.loadOfflineContent();
+        this.showUserMessage('Showing offline content', 'info');
+    }
+
+    loadOfflineContent() {
+        // Populate with basic static content when data loading fails
+        const offlineData = {
+            personal: {
+                name: 'Portfolio Owner',
+                title: 'Developer & Designer',
+                bio: ['Welcome to my portfolio. Content is currently unavailable, but you can still contact me using the information below.'],
+                email: 'contact@example.com',
+                location: 'Available for remote work'
+            },
+            services: [
+                {
+                    title: 'Web Development',
+                    description: 'Full-stack web development services',
+                    icon: './assets/images/icon-dev.svg'
+                },
+                {
+                    title: 'UI/UX Design',
+                    description: 'User interface and experience design',
+                    icon: './assets/images/icon-design.svg'
+                }
+            ]
+        };
+        
+        // Store offline data and populate
+        this.data = offlineData;
+        this.populatePersonalInfo();
+        this.populateServices();
+        
+        // Hide skeletons for populated sections
+        this.hideSectionSkeleton('about');
+        this.hideSectionSkeleton('services');
+    }
+
+    showContactInfo() {
+        // Remove error fallbacks
+        const errorFallbacks = document.querySelectorAll('.error-fallback');
+        errorFallbacks.forEach(error => error.remove());
+        
+        // Show contact information
+        const contactInfo = document.createElement('div');
+        contactInfo.className = 'contact-fallback';
+        contactInfo.setAttribute('role', 'main');
+        contactInfo.innerHTML = `
+            <div class="contact-content">
+                <h2>Contact Information</h2>
+                <p>While the full portfolio content is unavailable, you can still reach out:</p>
+                <div class="contact-methods">
+                    <div class="contact-item">
+                        <ion-icon name="mail-outline"></ion-icon>
+                        <a href="mailto:contact@example.com">contact@example.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <ion-icon name="location-outline"></ion-icon>
+                        <span>Available for remote work</span>
+                    </div>
+                </div>
+                <button class="btn-retry" onclick="portfolioDataLoader.retryLoading()">
+                    <ion-icon name="refresh-outline"></ion-icon>
+                    Try Loading Again
+                </button>
+            </div>
+        `;
+        
+        const mainContent = document.querySelector('main') || document.body;
+        mainContent.insertBefore(contactInfo, mainContent.firstChild);
+        
+        this.showUserMessage('Showing contact information', 'info');
+    }
+
+    async retrySectionLoading(sectionName) {
+        console.log(`Retrying loading for section: ${sectionName}`);
+        
+        // Hide any error skeletons for this section
+        if (this.skeletonManager) {
+            this.skeletonManager.hideErrorSkeleton(sectionName);
+        }
+        
+        // Show loading skeleton
+        this.showSectionSkeleton(sectionName);
+        
+        // Map section names to data files
+        const sectionToFileMap = {
+            about: 'personal',
+            services: 'services',
+            awards: 'awards',
+            skills: 'skills',
+            timeline: ['experience', 'education'],
+            projects: 'projects',
+            blog: 'blog'
+        };
+        
+        const filesToLoad = sectionToFileMap[sectionName];
+        if (!filesToLoad) {
+            console.warn(`No data files mapped for section: ${sectionName}`);
+            return;
+        }
+        
+        const files = Array.isArray(filesToLoad) ? filesToLoad : [filesToLoad];
+        
+        try {
+            // Retry loading the specific files for this section
+            for (const file of files) {
+                const cacheBuster = `?v=${Date.now()}`;
+                const response = await fetch(`./data/${file}.json${cacheBuster}`, {
+                    cache: 'no-cache',
+                    headers: {
+                        'Cache-Control': 'no-cache'
+                    },
+                    signal: AbortSignal.timeout(5000)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                this.data[file] = await response.json();
+            }
+            
+            // Populate the specific section
+            this.populateSection(sectionName);
+            
+            // Hide skeleton for this section
+            this.hideSectionSkeleton(sectionName);
+            
+            // Show success message
+            this.showUserMessage(`${sectionName} content loaded successfully!`, 'success');
+            
+        } catch (error) {
+            console.error(`Failed to retry loading ${sectionName}:`, error);
+            
+            // Show error skeleton instead of regular skeleton
+            if (this.skeletonManager) {
+                this.skeletonManager.showErrorSkeleton(sectionName, 
+                    error.message.includes('timeout') ? 'timeout' : 'network'
+                );
+            }
+            
+            // Show error message
+            this.showUserMessage(`Failed to load ${sectionName} content`, 'error');
+        }
+    }
+
+    populateSection(sectionName) {
+        // Populate specific section based on section name
+        switch (sectionName) {
+            case 'about':
+                this.populatePersonalInfo();
+                break;
+            case 'services':
+                this.populateServices();
+                break;
+            case 'awards':
+                this.populateAwards();
+                break;
+            case 'skills':
+                this.populateSkills();
+                break;
+            case 'timeline':
+                this.populateExperience();
+                this.populateEducation();
+                break;
+            case 'projects':
+                this.populateProjects();
+                break;
+            case 'blog':
+                this.populateBlog();
+                break;
+            default:
+                console.warn(`Unknown section: ${sectionName}`);
+        }
     }
 
     showLoadingState() {
-        // Add loading class to body
-        document.body.classList.add('loading-data');
+        // Show skeleton loading states for all sections using SkeletonStateManager with timeout
+        const sectionsToLoad = ['about', 'services', 'awards', 'skills', 'timeline', 'projects', 'blog'];
+        
+        // Use enhanced skeleton display with timeout support
+        sectionsToLoad.forEach((sectionName, index) => {
+            setTimeout(() => {
+                this.skeletonManager.showSkeletonWithTimeout(sectionName, 30000); // 30 second timeout per section
+            }, index * 50); // 50ms stagger between sections
+        });
+        
+        // Add loading class to body for global skeleton state
+        document.body.classList.add('loading-skeleton');
+        document.body.classList.remove('content-loaded');
     }
 
     hideLoadingState() {
-        // Remove loading class from body
-        document.body.classList.remove('loading-data');
+        // Hide all skeleton loading states using SkeletonStateManager
+        this.skeletonManager.hideAllSkeletons();
+        
+        // Update body classes to reflect content loaded state with enhanced timing
+        setTimeout(() => {
+            document.body.classList.remove('loading-skeleton');
+            document.body.classList.add('content-loaded');
+        }, 400); // Increased from 300ms to match enhanced skeleton transition timing
+    }
+
+    // Methods for controlling individual section skeleton states
+    showSectionSkeleton(sectionName) {
+        this.skeletonManager.showSkeleton(sectionName);
+    }
+
+    hideSectionSkeleton(sectionName) {
+        this.skeletonManager.hideSkeleton(sectionName);
+    }
+
+    isSectionSkeletonActive(sectionName) {
+        return this.skeletonManager.isSkeletonActive(sectionName);
     }
 
     async loadAllData() {
-        try {
-            const dataFiles = [
-                'personal', 'services', 'awards', 'skills', 
-                'experience', 'education', 'certifications', 'projects', 'blog'
-            ];
+        const dataFiles = [
+            'personal', 'services', 'awards', 'skills', 
+            'experience', 'education', 'certifications', 'projects', 'blog'
+        ];
 
-            for (const file of dataFiles) {
-                try {
-                    // Add cache-busting parameter to prevent stale data
-                    const cacheBuster = `?v=${Date.now()}`;
-                    const response = await fetch(`./data/${file}.json${cacheBuster}`, {
-                        cache: 'no-cache',
-                        headers: {
-                            'Cache-Control': 'no-cache'
-                        }
-                    });
-                    if (response.ok) {
-                        this.data[file] = await response.json();
-                    }
-                } catch (error) {
-                    console.warn(`Could not load ${file}.json:`, error);
+        const loadingPromises = dataFiles.map(async (file) => {
+            try {
+                // Add cache-busting parameter to prevent stale data
+                const cacheBuster = `?v=${Date.now()}`;
+                const response = await fetch(`./data/${file}.json${cacheBuster}`, {
+                    cache: 'no-cache',
+                    headers: {
+                        'Cache-Control': 'no-cache'
+                    },
+                    // Add timeout for individual file requests
+                    signal: AbortSignal.timeout(5000) // 5 second timeout per file
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
+                
+                const data = await response.json();
+                this.data[file] = data;
+                
+                return { file, success: true, data };
+            } catch (error) {
+                console.warn(`Could not load ${file}.json:`, error);
+                
+                // Store error information for potential retry
+                this.data[file] = null;
+                
+                return { file, success: false, error: error.message };
             }
-        } catch (error) {
-            console.error('Error loading portfolio data:', error);
+        });
+
+        // Wait for all files to complete (successful or failed)
+        const results = await Promise.allSettled(loadingPromises);
+        
+        // Process results and determine if we have enough data to proceed
+        const successfulLoads = results.filter(result => 
+            result.status === 'fulfilled' && result.value.success
+        );
+        
+        const failedLoads = results.filter(result => 
+            result.status === 'rejected' || 
+            (result.status === 'fulfilled' && !result.value.success)
+        );
+        
+        // Log loading statistics
+        console.log(`Data loading complete: ${successfulLoads.length}/${dataFiles.length} files loaded successfully`);
+        
+        if (failedLoads.length > 0) {
+            console.warn('Failed to load files:', failedLoads.map(result => 
+                result.status === 'fulfilled' ? result.value.file : 'unknown'
+            ));
+        }
+        
+        // If critical files failed to load, throw an error
+        const criticalFiles = ['personal'];
+        const failedCriticalFiles = failedLoads.filter(result => {
+            const fileName = result.status === 'fulfilled' ? result.value.file : 'unknown';
+            return criticalFiles.includes(fileName);
+        });
+        
+        if (failedCriticalFiles.length > 0) {
+            throw new Error(`Critical files failed to load: ${failedCriticalFiles.map(result => 
+                result.status === 'fulfilled' ? result.value.file : 'unknown'
+            ).join(', ')}`);
+        }
+        
+        // If more than half the files failed, consider it a network error
+        if (failedLoads.length > dataFiles.length / 2) {
+            throw new Error('network: Too many files failed to load, possible network issue');
         }
     }
 
@@ -120,13 +632,17 @@ class PortfolioDataLoader {
             });
         }
 
-        // Update bio
+        // Update bio and hide about section skeleton
         if (personal.bio && Array.isArray(personal.bio)) {
             const aboutTextSection = document.querySelector('.about-text');
             if (aboutTextSection) {
+                // Clear existing content and add new bio content
                 aboutTextSection.innerHTML = personal.bio.map(paragraph => 
                     `<p>${paragraph}</p>`
                 ).join('');
+                
+                // Hide about section skeleton after content is populated
+                this.hideSectionSkeleton('about');
             }
         }
 
@@ -161,6 +677,7 @@ class PortfolioDataLoader {
         const serviceList = document.querySelector('.service-list');
         if (!serviceList) return;
 
+        // Clear existing content
         serviceList.innerHTML = '';
 
         services.forEach(service => {
@@ -177,6 +694,9 @@ class PortfolioDataLoader {
             `;
             serviceList.appendChild(li);
         });
+
+        // Hide services section skeleton after content is populated
+        this.hideSectionSkeleton('services');
     }
 
     populateAwards() {
@@ -186,6 +706,7 @@ class PortfolioDataLoader {
         const awardList = document.querySelector('.award-list');
         if (!awardList) return;
 
+        // Clear existing content
         awardList.innerHTML = '';
 
         awards.forEach(award => {
@@ -203,6 +724,9 @@ class PortfolioDataLoader {
             `;
             awardList.appendChild(li);
         });
+
+        // Hide awards section skeleton after content is populated
+        this.hideSectionSkeleton('awards');
     }
 
     populateSkills() {
@@ -213,7 +737,9 @@ class PortfolioDataLoader {
         if (skills.aboutSkills) {
             const aboutSkillsList = document.querySelector('.about .skills-list');
             if (aboutSkillsList) {
+                // Clear existing content
                 aboutSkillsList.innerHTML = '';
+
                 skills.aboutSkills.forEach(skill => {
                     const li = document.createElement('li');
                     li.className = 'skills-item';
@@ -227,7 +753,9 @@ class PortfolioDataLoader {
         if (skills.resumeSkills) {
             const resumeSkillsList = document.querySelector('.resume .skills-list');
             if (resumeSkillsList) {
+                // Clear existing content
                 resumeSkillsList.innerHTML = '';
+
                 skills.resumeSkills.forEach(skill => {
                     const li = document.createElement('li');
                     li.className = 'skills-item';
@@ -236,6 +764,9 @@ class PortfolioDataLoader {
                 });
             }
         }
+
+        // Hide skills section skeleton after content is populated
+        this.hideSectionSkeleton('skills');
     }
 
     populateExperience() {
@@ -245,6 +776,7 @@ class PortfolioDataLoader {
         const timelineList = document.getElementById('experience-timeline');
         if (!timelineList) return;
 
+        // Clear existing content
         timelineList.innerHTML = '';
 
         // Add experience items (most recent first)
@@ -271,6 +803,9 @@ class PortfolioDataLoader {
             
             timelineList.appendChild(li);
         });
+
+        // Hide timeline section skeleton after content is populated
+        this.hideSectionSkeleton('timeline');
     }
 
     populateEducation() {
@@ -338,6 +873,7 @@ class PortfolioDataLoader {
         const projectList = document.querySelector('.project-list');
         if (!projectList) return;
 
+        // Clear existing content
         projectList.innerHTML = '';
 
         projects.forEach(project => {
@@ -362,6 +898,9 @@ class PortfolioDataLoader {
             
             projectList.appendChild(li);
         });
+
+        // Hide projects section skeleton after content is populated
+        this.hideSectionSkeleton('projects');
     }
 
     formatCategory(category) {
@@ -381,6 +920,7 @@ class PortfolioDataLoader {
         const blogList = document.querySelector('.blog-posts-list');
         if (!blogList) return;
 
+        // Clear existing content
         blogList.innerHTML = '';
 
         blog.forEach(post => {
@@ -413,6 +953,9 @@ class PortfolioDataLoader {
             
             blogList.appendChild(li);
         });
+
+        // Hide blog section skeleton after content is populated
+        this.hideSectionSkeleton('blog');
     }
 
     formatDateRange(startDate, endDate) {
@@ -438,5 +981,6 @@ class PortfolioDataLoader {
 
 // Initialize data loader when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    new PortfolioDataLoader();
+    // Create global reference for error handling
+    window.portfolioDataLoader = new PortfolioDataLoader();
 });
