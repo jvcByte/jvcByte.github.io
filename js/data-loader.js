@@ -703,7 +703,10 @@ class PortfolioDataLoader {
         const awards = this.data.awards;
         if (!awards || !Array.isArray(awards)) return;
 
-        const awardList = document.querySelector('.award-list');
+        // Select the awards list specifically (second .award-list in the resume section)
+        const awardLists = document.querySelectorAll('.award-list');
+        const awardList = awardLists[1]; // Second award-list is for Awards & Recognition
+        
         if (!awardList) return;
 
         // Clear existing content
