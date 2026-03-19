@@ -317,6 +317,7 @@ main {
 .sidebar-info {
   position: relative;
   display: flex;
+  overflow: hidden;
   justify-content: flex-start;
   align-items: center;
   gap: 15px;
@@ -340,7 +341,7 @@ main {
   background: var(--onyx);
   font-size: var(--fs-8);
   font-weight: var(--fw-300);
-  width: max-content;
+  width: contain;
   padding: 3px 12px;
   border-radius: 8px;
 }
@@ -2033,21 +2034,6 @@ textarea.form-input::-webkit-resizer {
 	 */
 
   .timeline-text { max-width: 700px; }
-
-  /**
-	 * active status blink
-	 */
-
-.active-status {
-  height: 12px;
-  width: 12px;
-  border-radius: 50%;
-  background-color: #39ff14;
-  animation: 1.5s pulse infinite ease-in-out;
-  position: absolute;
-  bottom: 103px;
-  right: 19px;
-}
 
 @keyframes pulse {
   0% {
