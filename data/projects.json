@@ -4,7 +4,7 @@
     "title": "certificate-verification-system",
     "category": "web3",
     "description": "A complete prototype system for issuing, managing, and verifying academic certificates using blockchain technology and IPFS.",
-    "image": "assets/images/projects/certchain.png",
+    "image": "./assets/images/projects/certchain.png",
     "url": "https://certificatechain.vercel.app/",
     "featured": false
   },
