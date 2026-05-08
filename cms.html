@@ -22,6 +22,7 @@
             <div class="header-content">
                 <h1>Portfolio CMS</h1>
                 <div class="header-actions">
+                    <button id="view-portfolio-btn" class="btn btn-secondary">📂 View Portfolio</button>
                     <button id="config-btn" class="btn btn-secondary">⚙️ Settings</button>
                     <button id="save-all-btn" class="btn btn-primary" title="Save changes directly to JSON files">Save All Changes</button>
                     <button id="preview-btn" class="btn btn-secondary">Preview Site</button>
@@ -163,7 +164,10 @@
 
             <!-- Projects Section -->
             <section id="projects-section" class="cms-section">
-                <h2>Projects</h2>
+                <div class="section-header">
+                    <h2>Projects</h2>
+                    <button id="add-project" class="btn btn-primary">➕ Add Project</button>
+                </div>
                 <div class="projects-filter">
                     <label for="project-filter">Filter by Category:</label>
                     <select id="project-filter">
@@ -177,7 +181,6 @@
                 <div id="projects-container">
                     <!-- Projects will be dynamically loaded here -->
                 </div>
-                <button id="add-project" class="btn btn-secondary">Add Project</button>
             </section>
 
             <!-- Blog Section -->

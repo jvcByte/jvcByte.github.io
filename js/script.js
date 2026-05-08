@@ -34,14 +34,16 @@ for (let i = 0; i < selectItems.length; i++) {
   });
 }
 
-// filter variables
-const filterItems = document.querySelectorAll("[data-filter-item]");
+// filter variables - removed from here, will query dynamically
 
 const filterFunc = function (selectedValue) {
+  // Query filter items dynamically each time the function runs
+  const filterItems = document.querySelectorAll("[data-filter-item]");
+  
   for (let i = 0; i < filterItems.length; i++) {
     if (selectedValue === "all") {
       filterItems[i].classList.add("active");
-    } else if (selectedValue === filterItems[i].dataset.category) {
+    } else if (filterItems[i].dataset.category && selectedValue === filterItems[i].dataset.category.toLowerCase()) {
       filterItems[i].classList.add("active");
     } else {
       filterItems[i].classList.remove("active");

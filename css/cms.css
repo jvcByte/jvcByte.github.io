@@ -481,6 +481,20 @@ body {
   to { transform: rotate(360deg); }
 }
 
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.btn-warning {
+  background-color: var(--warning-color);
+  color: white;
+}
+
+.btn-warning:hover {
+  background-color: #f57c00;
+}
+
 /* Drag and Drop */
 .draggable {
   cursor: move;
@@ -497,6 +511,37 @@ body {
   max-height: 100px;
   border-radius: 8px;
   margin-top: 0.5rem;
+}
+
+/* Image Upload Container */
+.image-upload-container {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.image-upload-container input[type="text"] {
+  flex: 1;
+}
+
+.image-upload-container input[type="file"] {
+  display: none;
+}
+
+.image-upload-container .btn {
+  white-space: nowrap;
+}
+
+/* Section Header */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.section-header h2 {
+  margin-bottom: 0;
 }
 
 /* Checkbox */

@@ -174,6 +174,12 @@ class PortfolioCMS {
             window.open(`./index.html?v=${Date.now()}`, '_blank');
         });
 
+        // View Portfolio Button
+        document.getElementById('view-portfolio-btn')?.addEventListener('click', () => {
+            // Navigate to portfolio page
+            window.location.href = './index.html';
+        });
+
         // Settings Button
         document.getElementById('config-btn')?.addEventListener('click', () => {
             this.showSettingsModal();
@@ -857,7 +863,7 @@ class PortfolioCMS {
     }
 
     addProject() {
-        this.data.projects.push({
+        this.data.projects.unshift({
             id: Date.now(),
             title: '',
             category: 'web2',
@@ -867,6 +873,7 @@ class PortfolioCMS {
             featured: false
         });
         this.renderProjects();
+        this.showToast('New project added at the top', 'success');
     }
 
     // Remove Methods
@@ -1119,6 +1126,7 @@ class PortfolioCMS {
             }
         });
     }
+
 
     // Settings Modal
     showSettingsModal() {
