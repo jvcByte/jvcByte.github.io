@@ -70,11 +70,11 @@
       })
       .then((data) => {
         thisForm.querySelector(".loading").classList.remove("d-block");
-        // Support both plain "OK" (php-email-form) and Web3Forms JSON response
+        // Support plain "OK", Web3Forms JSON {success:true}, and Formspree JSON {ok:true}
         let success = false;
         try {
           const json = JSON.parse(data);
-          success = json.success === true;
+          success = json.success === true || json.ok === true;
         } catch (e) {
           success = data.trim() === "OK";
         }
