@@ -1653,9 +1653,9 @@ section,
   padding: 25px;
   background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.8) 0%,
-    rgba(0, 0, 0, 0.4) 60%,
-    rgba(0, 0, 0, 0) 100%
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(0, 0, 0, 0.7) 60%,
+    rgba(0, 0, 0, 0.1) 100%
   );
   z-index: 3;
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -1670,7 +1670,7 @@ section,
 
 .portfolio .portfolio-wrap .portfolio-info .category {
   display: inline-block;
-  color: var(--accent-color);
+  color: #f0a500;
   font-size: 14px;
   font-weight: 500;
   text-transform: uppercase;
@@ -1680,7 +1680,7 @@ section,
 
 .portfolio .portfolio-wrap .portfolio-info h4 {
   font-size: 20px;
-  color: var(--contrast-color);
+  color: #ffffff;
   font-weight: 700;
   margin-bottom: 15px;
 }
@@ -1691,20 +1691,20 @@ section,
 }
 
 .portfolio .portfolio-wrap .portfolio-info .portfolio-links a {
-  color: var(--contrast-color);
+  color: #ffffff;
   width: 40px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: color-mix(in srgb, var(--accent-color), transparent 30%);
+  background-color: rgba(240, 165, 0, 0.7);
   border-radius: 50%;
   font-size: 18px;
   transition: 0.3s;
 }
 
 .portfolio .portfolio-wrap .portfolio-info .portfolio-links a:hover {
-  background-color: var(--accent-color);
+  background-color: #f0a500;
   transform: translateY(-3px);
 }
 
