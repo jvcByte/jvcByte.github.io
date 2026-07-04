@@ -1,242 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio CMS - Content Management System</title>
-    <link rel="stylesheet" href="./css/cms.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!--- favicon -->
-    <link
-        rel="shortcut icon"
-        href="./assets/images/icon-design.svg"
-        type="image/x-icon"
-    />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CMS — John Valentine Portfolio</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="shortcut icon" href="assets/images/jvc-image.png" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="vendors/bootstrap-icons/bootstrap-icons.css" />
+  <link rel="stylesheet" href="css/cms.css" />
 </head>
 <body>
-    <div class="cms-container">
-        <!-- Header -->
-        <header class="cms-header">
-            <div class="header-content">
-                <h1>Portfolio CMS</h1>
-                <div class="header-actions">
-                    <button id="view-portfolio-btn" class="btn btn-secondary">📂 View Portfolio</button>
-                    <button id="config-btn" class="btn btn-secondary">⚙️ Settings</button>
-                    <button id="save-all-btn" class="btn btn-primary" title="Save changes directly to JSON files">Save All Changes</button>
-                    <button id="preview-btn" class="btn btn-secondary">Preview Site</button>
-                </div>
-            </div>
-        </header>
 
-        <!-- Navigation -->
-        <nav class="cms-nav">
-            <ul class="nav-list">
-                <li><button class="nav-btn active" data-section="personal">Personal Info</button></li>
-                <li><button class="nav-btn" data-section="services">Services</button></li>
-                <li><button class="nav-btn" data-section="awards">Awards</button></li>
-                <li><button class="nav-btn" data-section="skills">Skills</button></li>
-                <li><button class="nav-btn" data-section="experience">Experience</button></li>
-                <li><button class="nav-btn" data-section="education">Education</button></li>
-                <li><button class="nav-btn" data-section="certifications">Certifications</button></li>
-                <li><button class="nav-btn" data-section="projects">Projects</button></li>
-                <li><button class="nav-btn" data-section="blog">Blog</button></li>
-            </ul>
-        </nav>
-
-        <!-- Main Content -->
-        <main class="cms-main">
-            <!-- Personal Info Section -->
-            <section id="personal-section" class="cms-section active">
-                <h2>Personal Information</h2>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name">
-                    </div>
-                    <div class="form-group">
-                        <label for="title">Professional Title</label>
-                        <input type="text" id="title" name="title">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email">
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone</label>
-                        <input type="text" id="phone" name="phone">
-                    </div>
-                    <div class="form-group">
-                        <label for="location">Location</label>
-                        <input type="text" id="location" name="location">
-                    </div>
-                    <div class="form-group">
-                        <label for="avatar">Avatar Path</label>
-                        <input type="text" id="avatar" name="avatar">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="bio">Bio (Paragraph 1)</label>
-                    <textarea id="bio-1" name="bio-1" rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="bio">Bio (Paragraph 2)</label>
-                    <textarea id="bio-2" name="bio-2" rows="3"></textarea>
-                </div>
-                
-                <h3>Social Links</h3>
-                <div id="social-links-container">
-                    <!-- Social links will be dynamically loaded here -->
-                </div>
-                <button id="add-social-link" class="btn btn-secondary">Add Social Link</button>
-            </section>
-
-            <!-- Services Section -->
-            <section id="services-section" class="cms-section">
-                <h2>Services</h2>
-                <div id="services-container">
-                    <!-- Services will be dynamically loaded here -->
-                </div>
-                <button id="add-service" class="btn btn-secondary">Add Service</button>
-            </section>
-
-            <!-- Awards Section -->
-            <section id="awards-section" class="cms-section">
-                <h2>Awards & Recognition</h2>
-                <div id="awards-container">
-                    <!-- Awards will be dynamically loaded here -->
-                </div>
-                <button id="add-award" class="btn btn-secondary">Add Award</button>
-            </section>
-
-            <!-- Skills Section -->
-            <section id="skills-section" class="cms-section">
-                <h2>Skills</h2>
-                <div class="skills-tabs">
-                    <button class="tab-btn active" data-tab="about-skills">About Page Skills</button>
-                    <button class="tab-btn" data-tab="resume-skills">Resume Page Skills</button>
-                </div>
-                
-                <div id="about-skills-tab" class="tab-content active">
-                    <h3>About Page Skills</h3>
-                    <div id="about-skills-container">
-                        <!-- About skills will be loaded here -->
-                    </div>
-                    <button id="add-about-skill" class="btn btn-secondary">Add Skill</button>
-                </div>
-                
-                <div id="resume-skills-tab" class="tab-content">
-                    <h3>Resume Page Skills</h3>
-                    <div id="resume-skills-container">
-                        <!-- Resume skills will be loaded here -->
-                    </div>
-                    <button id="add-resume-skill" class="btn btn-secondary">Add Skill</button>
-                </div>
-            </section>
-
-            <!-- Experience Section -->
-            <section id="experience-section" class="cms-section">
-                <h2>Work Experience</h2>
-                <div id="experience-container">
-                    <!-- Experience will be dynamically loaded here -->
-                </div>
-                <button id="add-experience" class="btn btn-secondary">Add Experience</button>
-            </section>
-
-            <!-- Education Section -->
-            <section id="education-section" class="cms-section">
-                <h2>Education</h2>
-                <div id="education-container">
-                    <!-- Education will be dynamically loaded here -->
-                </div>
-                <button id="add-education" class="btn btn-secondary">Add Education</button>
-            </section>
-
-            <!-- Certifications Section -->
-            <section id="certifications-section" class="cms-section">
-                <h2>Certifications</h2>
-                <div id="certifications-container">
-                    <!-- Certifications will be dynamically loaded here -->
-                </div>
-                <button id="add-certification" class="btn btn-secondary">Add Certification</button>
-            </section>
-
-            <!-- Projects Section -->
-            <section id="projects-section" class="cms-section">
-                <div class="section-header">
-                    <h2>Projects</h2>
-                    <button id="add-project" class="btn btn-primary">➕ Add Project</button>
-                </div>
-                <div class="projects-filter">
-                    <label for="project-filter">Filter by Category:</label>
-                    <select id="project-filter">
-                        <option value="all">All Categories</option>
-                        <option value="web2">Web2</option>
-                        <option value="web3">Web3</option>
-                        <option value="iot & embedded systems">IoT & Embedded Systems</option>
-                        <option value="graphics design">Graphics Design</option>
-                    </select>
-                </div>
-                <div id="projects-container">
-                    <!-- Projects will be dynamically loaded here -->
-                </div>
-            </section>
-
-            <!-- Blog Section -->
-            <section id="blog-section" class="cms-section">
-                <h2>Blog Posts</h2>
-                <div id="blog-container">
-                    <!-- Blog posts will be dynamically loaded here -->
-                </div>
-                <button id="add-blog-post" class="btn btn-secondary">Add Blog Post</button>
-            </section>
-        </main>
-
-        <!-- Settings Modal -->
-        <div id="settings-modal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2>GitHub Configuration</h2>
-                    <button class="modal-close" id="close-settings">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Configure your GitHub repository settings to enable direct file updates.</p>
-                    <div class="form-group">
-                        <label for="github-owner">GitHub Username/Organization</label>
-                        <input type="text" id="github-owner" placeholder="jvcbyte">
-                        <small>The owner of the repository</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="github-repo">Repository Name</label>
-                        <input type="text" id="github-repo" placeholder="jvcbyte.github.io">
-                        <small>The name of your repository</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="github-branch">Branch</label>
-                        <input type="text" id="github-branch" value="main" placeholder="main">
-                        <small>Default branch (usually 'main' or 'master')</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="github-token">GitHub Personal Access Token</label>
-                        <input type="password" id="github-token" placeholder="ghp_xxxxxxxxxxxx">
-                        <small>
-                            <a href="https://github.com/settings/tokens" target="_blank">Create a token</a> with <code>repo</code> scope.
-                            Token is stored locally in your browser.
-                        </small>
-                    </div>
-                    <div class="form-actions">
-                        <button id="save-settings" class="btn btn-primary">Save Settings</button>
-                        <button id="test-connection" class="btn btn-secondary">Test Connection</button>
-                    </div>
-                </div>
-            </div>
+  <!-- Auth Gate -->
+  <div id="auth-gate">
+    <div class="auth-box">
+      <div class="auth-logo">
+        <img src="assets/images/jvc-image.png" alt="JVC" />
+        <h2>Portfolio CMS</h2>
+        <p>Sign in to manage your content</p>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <div class="input-icon">
+          <i class="bi bi-lock"></i>
+          <input type="password" id="cms-password" placeholder="Enter CMS password" autocomplete="current-password" />
         </div>
-
-        <!-- Toast Notification -->
-        <div id="toast" class="toast"></div>
+        <p id="auth-error" class="error-msg" style="display:none">Incorrect password</p>
+      </div>
+      <button class="btn-primary" id="auth-btn">
+        <i class="bi bi-box-arrow-in-right"></i> Sign In
+      </button>
     </div>
+  </div>
 
-    <script src="./js/cms.js"></script>
+  <!-- CMS App -->
+  <div id="cms-app" style="display:none">
+
+    <!-- Sidebar -->
+    <aside class="cms-sidebar">
+      <div class="sidebar-brand">
+        <img src="assets/images/jvc-image.png" alt="JVC" />
+        <span>Portfolio CMS</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <ul>
+          <li><button class="nav-item active" data-section="personal"><i class="bi bi-person-circle"></i> Personal</button></li>
+          <li><button class="nav-item" data-section="experience"><i class="bi bi-briefcase"></i> Experience</button></li>
+          <li><button class="nav-item" data-section="education"><i class="bi bi-mortarboard"></i> Education</button></li>
+          <li><button class="nav-item" data-section="skills"><i class="bi bi-code-slash"></i> Skills</button></li>
+          <li><button class="nav-item" data-section="projects"><i class="bi bi-grid"></i> Projects</button></li>
+          <li><button class="nav-item" data-section="services"><i class="bi bi-hdd-stack"></i> Services</button></li>
+          <li><button class="nav-item" data-section="certifications"><i class="bi bi-patch-check"></i> Certifications</button></li>
+          <li><button class="nav-item" data-section="awards"><i class="bi bi-trophy"></i> Awards</button></li>
+          <li><button class="nav-item" data-section="blog"><i class="bi bi-journal-text"></i> Blog</button></li>
+          <li><button class="nav-item" data-section="settings"><i class="bi bi-gear"></i> Settings</button></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="index.html" target="_blank" class="btn-ghost"><i class="bi bi-eye"></i> View Site</a>
+        <button id="logout-btn" class="btn-ghost"><i class="bi bi-box-arrow-right"></i> Logout</button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="cms-main">
+
+      <!-- Topbar -->
+      <header class="cms-topbar">
+        <button id="sidebar-toggle" class="sidebar-toggle"><i class="bi bi-list"></i></button>
+        <h1 class="topbar-title" id="section-title">Personal Information</h1>
+        <div class="topbar-actions">
+          <button id="save-btn" class="btn-primary">
+            <i class="bi bi-cloud-upload"></i> Save Changes
+          </button>
+        </div>
+      </header>
+
+      <!-- Content Sections -->
+      <main class="cms-content">
+
+        <!-- Personal -->
+        <section id="section-personal" class="cms-section active">
+          <div class="section-grid">
+            <div class="card">
+              <div class="card-header"><h3>Basic Info</h3></div>
+              <div class="form-grid">
+                <div class="form-group"><label>Full Name</label><input type="text" id="p-name" /></div>
+                <div class="form-group"><label>Email</label><input type="email" id="p-email" /></div>
+                <div class="form-group"><label>Phone</label><input type="text" id="p-phone" /></div>
+                <div class="form-group"><label>Location</label><input type="text" id="p-location" /></div>
+                <div class="form-group"><label>Avatar Path</label><input type="text" id="p-avatar" /></div>
+                <div class="form-group"><label>Avatar Large Path</label><input type="text" id="p-avatarLarge" /></div>
+              </div>
+              <div class="form-group"><label>Bio Paragraph 1</label><textarea id="p-bio-0" rows="3"></textarea></div>
+              <div class="form-group"><label>Bio Paragraph 2</label><textarea id="p-bio-1" rows="3"></textarea></div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3>Social Links</h3>
+                <button class="btn-secondary btn-sm" id="add-social"><i class="bi bi-plus"></i> Add</button>
+              </div>
+              <div id="social-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Experience -->
+        <section id="section-experience" class="cms-section">
+          <div class="card-header-top">
+            <button class="btn-primary btn-sm" id="add-experience"><i class="bi bi-plus"></i> Add Experience</button>
+          </div>
+          <div id="experience-list"></div>
+        </section>
+
+        <!-- Education -->
+        <section id="section-education" class="cms-section">
+          <div class="card-header-top">
+            <button class="btn-primary btn-sm" id="add-education"><i class="bi bi-plus"></i> Add Education</button>
+          </div>
+          <div id="education-list"></div>
+        </section>
+
+        <!-- Skills -->
+        <section id="section-skills" class="cms-section">
+          <div class="section-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3>About Page Skills</h3>
+                <button class="btn-secondary btn-sm add-skill-btn" data-type="aboutSkills"><i class="bi bi-plus"></i> Add</button>
+              </div>
+              <div id="about-skills-list" class="skills-list"></div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h3>Resume Page Skills</h3>
+                <button class="btn-secondary btn-sm add-skill-btn" data-type="resumeSkills"><i class="bi bi-plus"></i> Add</button>
+              </div>
+              <div id="resume-skills-list" class="skills-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Projects -->
+        <section id="section-projects" class="cms-section">
+          <div class="card-header-top">
+            <div class="filter-bar">
+              <select id="project-filter">
+                <option value="all">All Categories</option>
+                <option value="web2">Web2</option>
+                <option value="web3">Web3</option>
+                <option value="iot & embedded systems">IoT & Embedded Systems</option>
+                <option value="graphics design">Graphics Design</option>
+              </select>
+            </div>
+            <button class="btn-primary btn-sm" id="add-project"><i class="bi bi-plus"></i> Add Project</button>
+          </div>
+          <div id="projects-list"></div>
+        </section>
+
+        <!-- Services -->
+        <section id="section-services" class="cms-section">
+          <div class="card-header-top">
+            <button class="btn-primary btn-sm" id="add-service"><i class="bi bi-plus"></i> Add Service</button>
+          </div>
+          <div id="services-list"></div>
+        </section>
+
+        <!-- Certifications -->
+        <section id="section-certifications" class="cms-section">
+          <div class="card-header-top">
+            <button class="btn-primary btn-sm" id="add-certification"><i class="bi bi-plus"></i> Add Certification</button>
+          </div>
+          <div id="certifications-list"></div>
+        </section>
+
+        <!-- Awards -->
+        <section id="section-awards" class="cms-section">
+          <div class="card-header-top">
+            <button class="btn-primary btn-sm" id="add-award"><i class="bi bi-plus"></i> Add Award</button>
+          </div>
+          <div id="awards-list"></div>
+        </section>
+
+        <!-- Blog -->
+        <section id="section-blog" class="cms-section">
+          <div class="card-header-top">
+            <button class="btn-primary btn-sm" id="add-blog"><i class="bi bi-plus"></i> Add Post</button>
+          </div>
+          <div id="blog-list"></div>
+        </section>
+
+        <!-- Settings -->
+        <section id="section-settings" class="cms-section">
+          <div class="card">
+            <div class="card-header"><h3><i class="bi bi-github"></i> GitHub Configuration</h3></div>
+            <p class="card-desc">Configure your GitHub repo to enable saving changes directly. The token is stored only in your browser's localStorage.</p>
+            <div class="form-grid">
+              <div class="form-group"><label>GitHub Username</label><input type="text" id="gh-owner" placeholder="jvcByte" /></div>
+              <div class="form-group"><label>Repository Name</label><input type="text" id="gh-repo" placeholder="jvcByte.github.io" /></div>
+              <div class="form-group"><label>Branch</label><input type="text" id="gh-branch" placeholder="main" /></div>
+              <div class="form-group">
+                <label>Personal Access Token <small>(<a href="https://github.com/settings/tokens" target="_blank">create one</a> with <code>repo</code> scope)</small></label>
+                <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx" />
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn-primary" id="save-settings"><i class="bi bi-save"></i> Save Settings</button>
+              <button class="btn-secondary" id="test-connection"><i class="bi bi-wifi"></i> Test Connection</button>
+            </div>
+
+            <div class="card-header mt-4"><h3><i class="bi bi-shield-lock"></i> CMS Password</h3></div>
+            <p class="card-desc">Change your CMS login password. Stored securely in localStorage.</p>
+            <div class="form-grid">
+              <div class="form-group"><label>New Password</label><input type="password" id="new-password" placeholder="New password" /></div>
+              <div class="form-group"><label>Confirm Password</label><input type="password" id="confirm-password" placeholder="Confirm password" /></div>
+            </div>
+            <div class="form-actions">
+              <button class="btn-primary" id="change-password"><i class="bi bi-key"></i> Update Password</button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <script src="js/cms.js"></script>
 </body>
 </html>

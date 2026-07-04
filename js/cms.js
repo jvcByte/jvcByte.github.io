@@ -1,1419 +1,702 @@
-// CMS JavaScript
-class PortfolioCMS {
-    constructor() {
-        this.data = {
-            personal: {},
-            services: [],
-            awards: [],
-            skills: { aboutSkills: [], resumeSkills: [] },
-            experience: [],
-            education: [],
-            certifications: [],
-            projects: [],
-            blog: []
-        };
-        
-        // GitHub configuration
-        this.githubConfig = this.loadGitHubConfig();
-        
-        this.init();
-    }
+/**
+ * Portfolio CMS — John Valentine
+ * Manages content via GitHub API with local JSON editing
+ */
 
-    loadGitHubConfig() {
-        const config = localStorage.getItem('githubConfig');
-        if (config) {
-            return JSON.parse(config);
-        }
-        return {
-            owner: '',
-            repo: '',
-            branch: 'main',
-            token: '',
-            apiEndpoint: ''
-        };
-    }
+'use strict';
 
-    saveGitHubConfig() {
-        localStorage.setItem('githubConfig', JSON.stringify(this.githubConfig));
-    }
+// ─── Constants ────────────────────────────────────────────────────────────────
 
-    async init() {
-        await this.loadData();
-        this.setupEventListeners();
-        this.renderAllSections();
-        this.showToast('CMS loaded successfully!', 'success');
-    }
+const DEFAULT_PASSWORD = 'jvc@cms2024';
+const DATA_FILES = ['personal','experience','education','skills','projects','services','certifications','awards','blog'];
 
-    // Data Loading
-    async loadData() {
-        try {
-            const dataFiles = [
-                'personal', 'services', 'awards', 'skills', 
-                'experience', 'education', 'certifications', 'projects', 'blog'
-            ];
+// ─── State ────────────────────────────────────────────────────────────────────
 
-            for (const file of dataFiles) {
-                try {
-                    // Add cache-busting parameter to prevent stale data
-                    const cacheBuster = `?v=${Date.now()}`;
-                    const response = await fetch(`./data/${file}.json${cacheBuster}`, {
-                        cache: 'no-cache',
-                        headers: {
-                            'Cache-Control': 'no-cache'
-                        }
-                    });
-                    if (response.ok) {
-                        this.data[file] = await response.json();
-                    } else {
-                        // Initialize with default structure if file doesn't exist
-                        this.initializeDefaultData(file);
-                    }
-                } catch (error) {
-                    console.warn(`Could not load ${file}.json:`, error);
-                    this.initializeDefaultData(file);
-                }
-            }
-            
-            // Ensure arrays and objects are properly initialized
-            this.ensureDataStructure();
-        } catch (error) {
-            console.error('Error loading data:', error);
-            this.showToast('Error loading data', 'error');
-        }
-    }
+const state = {
+  data: {},
+  github: {},
+  dirty: new Set(),
+};
 
-    initializeDefaultData(file) {
-        switch(file) {
-            case 'personal':
-                if (!this.data.personal) this.data.personal = { socialLinks: [] };
-                break;
-            case 'services':
-                if (!this.data.services) this.data.services = [];
-                break;
-            case 'awards':
-                if (!this.data.awards) this.data.awards = [];
-                break;
-            case 'skills':
-                if (!this.data.skills) this.data.skills = { aboutSkills: [], resumeSkills: [] };
-                break;
-            case 'experience':
-                if (!this.data.experience) this.data.experience = [];
-                break;
-            case 'education':
-                if (!this.data.education) this.data.education = [];
-                break;
-            case 'certifications':
-                if (!this.data.certifications) this.data.certifications = [];
-                break;
-            case 'projects':
-                if (!this.data.projects) this.data.projects = [];
-                break;
-            case 'blog':
-                if (!this.data.blog) this.data.blog = [];
-                break;
-        }
-    }
+// ─── Auth ─────────────────────────────────────────────────────────────────────
 
-    ensureDataStructure() {
-        // Ensure personal has socialLinks array
-        if (!this.data.personal.socialLinks) {
-            this.data.personal.socialLinks = [];
-        }
-        
-        // Ensure skills has both arrays
-        if (!this.data.skills) {
-            this.data.skills = { aboutSkills: [], resumeSkills: [] };
-        }
-        if (!this.data.skills.aboutSkills) {
-            this.data.skills.aboutSkills = [];
-        }
-        if (!this.data.skills.resumeSkills) {
-            this.data.skills.resumeSkills = [];
-        }
-        
-        // Ensure all array fields are arrays
-        ['services', 'awards', 'experience', 'education', 'certifications', 'projects', 'blog'].forEach(key => {
-            if (!Array.isArray(this.data[key])) {
-                this.data[key] = [];
-            }
-        });
-        
-        // Ensure experience items have achievements arrays
-        this.data.experience.forEach(exp => {
-            if (!exp.achievements) {
-                exp.achievements = [];
-            }
-        });
-        
-        // Ensure education items have courses arrays
-        this.data.education.forEach(edu => {
-            if (!edu.courses) {
-                edu.courses = [];
-            }
-        });
-    }
-
-    // Event Listeners
-    setupEventListeners() {
-        // Navigation
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const section = e.target.dataset.section;
-                this.showSection(section);
-            });
-        });
-
-        // Save All Button
-        document.getElementById('save-all-btn').addEventListener('click', () => {
-            this.saveAllData();
-        });
-
-        // Preview Button
-        document.getElementById('preview-btn').addEventListener('click', () => {
-            // Open with cache-busting to ensure fresh data
-            window.open(`./index.html?v=${Date.now()}`, '_blank');
-        });
-
-        // View Portfolio Button
-        document.getElementById('view-portfolio-btn')?.addEventListener('click', () => {
-            // Navigate to portfolio page
-            window.location.href = './index.html';
-        });
-
-        // Settings Button
-        document.getElementById('config-btn')?.addEventListener('click', () => {
-            this.showSettingsModal();
-        });
-
-        // Settings Modal
-        document.getElementById('close-settings')?.addEventListener('click', () => {
-            this.hideSettingsModal();
-        });
-
-        document.getElementById('save-settings')?.addEventListener('click', () => {
-            this.saveSettings();
-        });
-
-        document.getElementById('test-connection')?.addEventListener('click', () => {
-            this.testGitHubConnection();
-        });
-
-        // Close modal on outside click
-        document.getElementById('settings-modal')?.addEventListener('click', (e) => {
-            if (e.target.id === 'settings-modal') {
-                this.hideSettingsModal();
-            }
-        });
-
-        // Add buttons
-        document.getElementById('add-social-link')?.addEventListener('click', () => {
-            this.addSocialLink();
-        });
-
-        document.getElementById('add-service')?.addEventListener('click', () => {
-            this.addService();
-        });
-
-        document.getElementById('add-award')?.addEventListener('click', () => {
-            this.addAward();
-        });
-
-        document.getElementById('add-about-skill')?.addEventListener('click', () => {
-            this.addSkill('about');
-        });
-
-        document.getElementById('add-resume-skill')?.addEventListener('click', () => {
-            this.addSkill('resume');
-        });
-
-        document.getElementById('add-experience')?.addEventListener('click', () => {
-            this.addExperience();
-        });
-
-        document.getElementById('add-education')?.addEventListener('click', () => {
-            this.addEducation();
-        });
-
-        document.getElementById('add-certification')?.addEventListener('click', () => {
-            this.addCertification();
-        });
-
-        document.getElementById('add-project')?.addEventListener('click', () => {
-            this.addProject();
-        });
-
-        document.getElementById('add-blog-post')?.addEventListener('click', () => {
-            this.addBlogPost();
-        });
-
-        // Skills tabs
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const tab = e.target.dataset.tab;
-                this.showSkillsTab(tab);
-            });
-        });
-
-        // Projects filter
-        document.getElementById('project-filter')?.addEventListener('change', (e) => {
-            this.filterProjects(e.target.value);
-        });
-    }
-
-    // Navigation
-    showSection(sectionName) {
-        // Update nav buttons
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        document.querySelector(`[data-section="${sectionName}"]`).classList.add('active');
-
-        // Update sections
-        document.querySelectorAll('.cms-section').forEach(section => {
-            section.classList.remove('active');
-        });
-        document.getElementById(`${sectionName}-section`).classList.add('active');
-    }
-
-    showSkillsTab(tabName) {
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
-
-        document.querySelectorAll('.tab-content').forEach(content => {
-            content.classList.remove('active');
-        });
-        document.getElementById(`${tabName}-tab`).classList.add('active');
-    }
-
-    // Rendering Methods
-    renderAllSections() {
-        this.renderPersonalInfo();
-        this.renderServices();
-        this.renderAwards();
-        this.renderSkills();
-        this.renderExperience();
-        this.renderEducation();
-        this.renderCertifications();
-        this.renderProjects();
-        this.renderBlog();
-    }
-
-    renderPersonalInfo() {
-        const personal = this.data.personal;
-        
-        // Basic info
-        document.getElementById('name').value = personal.name || '';
-        document.getElementById('title').value = personal.title || '';
-        document.getElementById('email').value = personal.email || '';
-        document.getElementById('phone').value = personal.phone || '';
-        document.getElementById('location').value = personal.location || '';
-        document.getElementById('avatar').value = personal.avatar || '';
-        
-        // Bio
-        if (personal.bio && Array.isArray(personal.bio)) {
-            document.getElementById('bio-1').value = personal.bio[0] || '';
-            document.getElementById('bio-2').value = personal.bio[1] || '';
-        }
-
-        // Social links
-        this.renderSocialLinks();
-
-        // Add event listeners for personal info
-        ['name', 'title', 'email', 'phone', 'location', 'avatar', 'bio-1', 'bio-2'].forEach(field => {
-            document.getElementById(field).addEventListener('input', (e) => {
-                this.updatePersonalInfo(field, e.target.value);
-            });
-        });
-    }
-
-    renderSocialLinks() {
-        const container = document.getElementById('social-links-container');
-        container.innerHTML = '';
-
-        if (this.data.personal.socialLinks) {
-            this.data.personal.socialLinks.forEach((link, index) => {
-                container.appendChild(this.createSocialLinkElement(link, index));
-            });
-        }
-    }
-
-    createSocialLinkElement(link, index) {
-        const div = document.createElement('div');
-        div.className = 'social-link-item';
-        div.innerHTML = `
-            <div class="form-group">
-                <label>Platform</label>
-                <input type="text" value="${link.platform || ''}" onchange="cms.updateSocialLink(${index}, 'platform', this.value)">
-            </div>
-            <div class="form-group">
-                <label>URL</label>
-                <input type="url" value="${link.url || ''}" onchange="cms.updateSocialLink(${index}, 'url', this.value)">
-            </div>
-            <div class="form-group">
-                <label>Icon</label>
-                <input type="text" value="${link.icon || ''}" onchange="cms.updateSocialLink(${index}, 'icon', this.value)">
-            </div>
-            <button class="btn btn-danger btn-small" onclick="cms.removeSocialLink(${index})">Remove</button>
-        `;
-        return div;
-    }
-
-    renderServices() {
-        const container = document.getElementById('services-container');
-        container.innerHTML = '';
-
-        this.data.services.forEach((service, index) => {
-            container.appendChild(this.createServiceElement(service, index));
-        });
-    }
-
-    createServiceElement(service, index) {
-        const div = document.createElement('div');
-        div.className = 'card';
-        div.innerHTML = `
-            <div class="card-header">
-                <h3 class="card-title">Service ${index + 1}</h3>
-                <div class="card-actions">
-                    <button class="btn btn-danger btn-small" onclick="cms.removeService(${index})">Remove</button>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Title</label>
-                <input type="text" value="${service.title || ''}" onchange="cms.updateService(${index}, 'title', this.value)">
-            </div>
-            <div class="form-group">
-                <label>Description</label>
-                <textarea onchange="cms.updateService(${index}, 'description', this.value)">${service.description || ''}</textarea>
-            </div>
-            <div class="form-group">
-                <label>Icon Path</label>
-                <input type="text" value="${service.icon || ''}" onchange="cms.updateService(${index}, 'icon', this.value)">
-            </div>
-        `;
-        return div;
-    }
-
-    renderAwards() {
-        const container = document.getElementById('awards-container');
-        container.innerHTML = '';
-
-        this.data.awards.forEach((award, index) => {
-            container.appendChild(this.createAwardElement(award, index));
-        });
-    }
-
-    createAwardElement(award, index) {
-        const div = document.createElement('div');
-        div.className = 'card';
-        div.innerHTML = `
-            <div class="card-header">
-                <h3 class="card-title">Award ${index + 1}</h3>
-                <div class="card-actions">
-                    <button class="btn btn-danger btn-small" onclick="cms.removeAward(${index})">Remove</button>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Title</label>
-                <input type="text" value="${award.title || ''}" onchange="cms.updateAward(${index}, 'title', this.value)">
-            </div>
-            <div class="form-group">
-                <label>Description</label>
-                <textarea onchange="cms.updateAward(${index}, 'description', this.value)">${award.description || ''}</textarea>
-            </div>
-            <div class="form-group">
-                <label>Image Path</label>
-                <input type="text" value="${award.image || ''}" onchange="cms.updateAward(${index}, 'image', this.value)">
-            </div>
-            <div class="form-group">
-                <label>Image Class</label>
-                <input type="text" value="${award.imageClass || ''}" onchange="cms.updateAward(${index}, 'imageClass', this.value)">
-            </div>
-        `;
-        return div;
-    }
-
-    renderSkills() {
-        this.renderSkillsList('about', 'about-skills-container');
-        this.renderSkillsList('resume', 'resume-skills-container');
-    }
-
-    renderSkillsList(type, containerId) {
-        const container = document.getElementById(containerId);
-        container.innerHTML = '';
-
-        const skills = type === 'about' ? this.data.skills.aboutSkills : this.data.skills.resumeSkills;
-        
-        skills.forEach((skill, index) => {
-            container.appendChild(this.createSkillElement(skill, index, type));
-        });
-    }
-
-    createSkillElement(skill, index, type) {
-        const div = document.createElement('div');
-        div.className = 'skill-item';
-        div.innerHTML = `
-            <input type="text" value="${skill}" onchange="cms.updateSkill('${type}', ${index}, this.value)">
-            <button class="btn btn-danger btn-small" onclick="cms.removeSkill('${type}', ${index})">Remove</button>
-        `;
-        return div;
-    }
-
-    renderExperience() {
-        const container = document.getElementById('experience-container');
-        container.innerHTML = '';
-
-        this.data.experience.forEach((exp, index) => {
-            container.appendChild(this.createExperienceElement(exp, index));
-        });
-    }
-
-    createExperienceElement(exp, index) {
-        const div = document.createElement('div');
-        div.className = 'experience-item';
-        div.innerHTML = `
-            <div class="card-header">
-                <h3 class="card-title">Experience ${index + 1}</h3>
-                <div class="card-actions">
-                    <button class="btn btn-danger btn-small" onclick="cms.removeExperience(${index})">Remove</button>
-                </div>
-            </div>
-            <div class="form-grid">
-                <div class="form-group">
-                    <label>Position</label>
-                    <input type="text" value="${exp.position || ''}" onchange="cms.updateExperience(${index}, 'position', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Company</label>
-                    <input type="text" value="${exp.company || ''}" onchange="cms.updateExperience(${index}, 'company', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Start Date</label>
-                    <input type="date" value="${exp.startDate || ''}" onchange="cms.updateExperience(${index}, 'startDate', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>End Date (or 'present')</label>
-                    <input type="text" value="${exp.endDate || ''}" onchange="cms.updateExperience(${index}, 'endDate', this.value)">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Achievements</label>
-                <div class="achievements-container" id="achievements-${index}">
-                    ${(exp.achievements || []).map((achievement, achIndex) => `
-                        <div class="achievement-item">
-                            <input type="text" value="${achievement}" onchange="cms.updateAchievement(${index}, ${achIndex}, this.value)">
-                            <button class="btn btn-danger btn-small" onclick="cms.removeAchievement(${index}, ${achIndex})">Remove</button>
-                        </div>
-                    `).join('')}
-                </div>
-                <button class="btn btn-secondary btn-small" onclick="cms.addAchievement(${index})">Add Achievement</button>
-            </div>
-        `;
-        return div;
-    }
-
-    renderEducation() {
-        const container = document.getElementById('education-container');
-        container.innerHTML = '';
-
-        this.data.education.forEach((edu, index) => {
-            container.appendChild(this.createEducationElement(edu, index));
-        });
-    }
-
-    createEducationElement(edu, index) {
-        const div = document.createElement('div');
-        div.className = 'education-item';
-        div.innerHTML = `
-            <div class="card-header">
-                <h3 class="card-title">Education ${index + 1}</h3>
-                <div class="card-actions">
-                    <button class="btn btn-danger btn-small" onclick="cms.removeEducation(${index})">Remove</button>
-                </div>
-            </div>
-            <div class="form-grid">
-                <div class="form-group">
-                    <label>Institution</label>
-                    <input type="text" value="${edu.institution || ''}" onchange="cms.updateEducation(${index}, 'institution', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Degree</label>
-                    <input type="text" value="${edu.degree || ''}" onchange="cms.updateEducation(${index}, 'degree', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Period</label>
-                    <input type="text" value="${edu.period || ''}" onchange="cms.updateEducation(${index}, 'period', this.value)">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Courses</label>
-                <div class="achievements-container" id="courses-${index}">
-                    ${(edu.courses || []).map((course, courseIndex) => `
-                        <div class="achievement-item">
-                            <input type="text" value="${course}" onchange="cms.updateCourse(${index}, ${courseIndex}, this.value)">
-                            <button class="btn btn-danger btn-small" onclick="cms.removeCourse(${index}, ${courseIndex})">Remove</button>
-                        </div>
-                    `).join('')}
-                </div>
-                <button class="btn btn-secondary btn-small" onclick="cms.addCourse(${index})">Add Course</button>
-            </div>
-        `;
-        return div;
-    }
-
-    renderCertifications() {
-        const container = document.getElementById('certifications-container');
-        container.innerHTML = '';
-
-        this.data.certifications.forEach((cert, index) => {
-            container.appendChild(this.createCertificationElement(cert, index));
-        });
-    }
-
-    createCertificationElement(cert, index) {
-        const div = document.createElement('div');
-        div.className = 'certification-item';
-        div.innerHTML = `
-            <div class="card-header">
-                <h3 class="card-title">Certification ${index + 1}</h3>
-                <div class="card-actions">
-                    <button class="btn btn-danger btn-small" onclick="cms.removeCertification(${index})">Remove</button>
-                </div>
-            </div>
-            <div class="form-grid">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" value="${cert.name || ''}" onchange="cms.updateCertification(${index}, 'name', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Issuer</label>
-                    <input type="text" value="${cert.issuer || ''}" onchange="cms.updateCertification(${index}, 'issuer', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Issue Date</label>
-                    <input type="text" value="${cert.issueDate || ''}" onchange="cms.updateCertification(${index}, 'issueDate', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Credential ID</label>
-                    <input type="text" value="${cert.credentialId || ''}" onchange="cms.updateCertification(${index}, 'credentialId', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Image Path</label>
-                    <input type="text" value="${cert.image || ''}" onchange="cms.updateCertification(${index}, 'image', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Image Class</label>
-                    <input type="text" value="${cert.imageClass || ''}" onchange="cms.updateCertification(${index}, 'imageClass', this.value)">
-                </div>
-            </div>
-        `;
-        return div;
-    }
-
-    renderProjects() {
-        const container = document.getElementById('projects-container');
-        container.innerHTML = '';
-
-        this.data.projects.forEach((project, index) => {
-            container.appendChild(this.createProjectElement(project, index));
-        });
-    }
-
-    createProjectElement(project, index) {
-        const div = document.createElement('div');
-        div.className = 'card';
-        div.dataset.category = project.category;
-        div.innerHTML = `
-            <div class="card-header">
-                <h3 class="card-title">${project.title || `Project ${index + 1}`}</h3>
-                <div class="card-actions">
-                    <button class="btn btn-danger btn-small" onclick="cms.removeProject(${index})">Remove</button>
-                </div>
-            </div>
-            <div class="form-grid">
-                <div class="form-group">
-                    <label>Title</label>
-                    <input type="text" value="${project.title || ''}" onchange="cms.updateProject(${index}, 'title', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Category</label>
-                    <select onchange="cms.updateProject(${index}, 'category', this.value)">
-                        <option value="web2" ${project.category === 'web2' ? 'selected' : ''}>Web2</option>
-                        <option value="web3" ${project.category === 'web3' ? 'selected' : ''}>Web3</option>
-                        <option value="iot & embedded systems" ${project.category === 'iot & embedded systems' ? 'selected' : ''}>IoT & Embedded Systems</option>
-                        <option value="graphics design" ${project.category === 'graphics design' ? 'selected' : ''}>Graphics Design</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>URL</label>
-                    <input type="url" value="${project.url || ''}" onchange="cms.updateProject(${index}, 'url', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Image Path</label>
-                    <input type="text" value="${project.image || ''}" onchange="cms.updateProject(${index}, 'image', this.value)">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Description</label>
-                <textarea onchange="cms.updateProject(${index}, 'description', this.value)">${project.description || ''}</textarea>
-            </div>
-            <div class="checkbox-group">
-                <input type="checkbox" id="featured-${index}" ${project.featured ? 'checked' : ''} onchange="cms.updateProject(${index}, 'featured', this.checked)">
-                <label for="featured-${index}">Featured Project</label>
-            </div>
-        `;
-        return div;
-    }
-
-    // Update Methods
-    updatePersonalInfo(field, value) {
-        if (field === 'bio-1') {
-            if (!this.data.personal.bio) this.data.personal.bio = ['', ''];
-            this.data.personal.bio[0] = value;
-        } else if (field === 'bio-2') {
-            if (!this.data.personal.bio) this.data.personal.bio = ['', ''];
-            this.data.personal.bio[1] = value;
-        } else {
-            this.data.personal[field] = value;
-        }
-    }
-
-    updateSocialLink(index, field, value) {
-        if (!this.data.personal.socialLinks) this.data.personal.socialLinks = [];
-        if (!this.data.personal.socialLinks[index]) this.data.personal.socialLinks[index] = {};
-        this.data.personal.socialLinks[index][field] = value;
-    }
-
-    updateService(index, field, value) {
-        if (!this.data.services || !this.data.services[index]) {
-            console.error('Invalid service index:', index);
-            return;
-        }
-        this.data.services[index][field] = value;
-    }
-
-    updateAward(index, field, value) {
-        if (!this.data.awards || !this.data.awards[index]) {
-            console.error('Invalid award index:', index);
-            return;
-        }
-        this.data.awards[index][field] = value;
-    }
-
-    updateSkill(type, index, value) {
-        const skillsArray = type === 'about' ? this.data.skills.aboutSkills : this.data.skills.resumeSkills;
-        if (!skillsArray || skillsArray[index] === undefined) {
-            console.error('Invalid skill index:', index, 'type:', type);
-            return;
-        }
-        skillsArray[index] = value;
-    }
-
-    updateExperience(index, field, value) {
-        if (!this.data.experience || !this.data.experience[index]) {
-            console.error('Invalid experience index:', index);
-            return;
-        }
-        this.data.experience[index][field] = value;
-    }
-
-    updateAchievement(expIndex, achIndex, value) {
-        if (!this.data.experience || !this.data.experience[expIndex] || !this.data.experience[expIndex].achievements) {
-            console.error('Invalid achievement index:', expIndex, achIndex);
-            return;
-        }
-        if (achIndex < 0 || achIndex >= this.data.experience[expIndex].achievements.length) {
-            console.error('Achievement index out of bounds:', achIndex);
-            return;
-        }
-        this.data.experience[expIndex].achievements[achIndex] = value;
-    }
-
-    updateEducation(index, field, value) {
-        if (!this.data.education || !this.data.education[index]) {
-            console.error('Invalid education index:', index);
-            return;
-        }
-        this.data.education[index][field] = value;
-    }
-
-    updateCourse(eduIndex, courseIndex, value) {
-        if (!this.data.education || !this.data.education[eduIndex] || !this.data.education[eduIndex].courses) {
-            console.error('Invalid course index:', eduIndex, courseIndex);
-            return;
-        }
-        if (courseIndex < 0 || courseIndex >= this.data.education[eduIndex].courses.length) {
-            console.error('Course index out of bounds:', courseIndex);
-            return;
-        }
-        this.data.education[eduIndex].courses[courseIndex] = value;
-    }
-
-    updateCertification(index, field, value) {
-        if (!this.data.certifications || !this.data.certifications[index]) {
-            console.error('Invalid certification index:', index);
-            return;
-        }
-        this.data.certifications[index][field] = value;
-    }
-
-    updateProject(index, field, value) {
-        if (!this.data.projects || !this.data.projects[index]) {
-            console.error('Invalid project index:', index);
-            return;
-        }
-        this.data.projects[index][field] = value;
-        
-        // Update the card's data-category if category changed
-        if (field === 'category') {
-            const card = document.querySelectorAll('.card')[index];
-            if (card) card.dataset.category = value;
-        }
-    }
-
-    // Add Methods
-    addSocialLink() {
-        if (!this.data.personal.socialLinks) this.data.personal.socialLinks = [];
-        this.data.personal.socialLinks.push({ platform: '', url: '', icon: '' });
-        this.renderSocialLinks();
-    }
-
-    addService() {
-        this.data.services.push({
-            id: Date.now(),
-            title: '',
-            description: '',
-            icon: ''
-        });
-        this.renderServices();
-    }
-
-    addAward() {
-        this.data.awards.push({
-            id: Date.now(),
-            title: '',
-            description: '',
-            image: '',
-            imageClass: ''
-        });
-        this.renderAwards();
-    }
-
-    addSkill(type) {
-        if (type === 'about') {
-            this.data.skills.aboutSkills.push('');
-            this.renderSkillsList('about', 'about-skills-container');
-        } else {
-            this.data.skills.resumeSkills.push('');
-            this.renderSkillsList('resume', 'resume-skills-container');
-        }
-    }
-
-    addExperience() {
-        this.data.experience.push({
-            id: Date.now(),
-            position: '',
-            company: '',
-            startDate: '',
-            endDate: '',
-            achievements: []
-        });
-        this.renderExperience();
-    }
-
-    addAchievement(expIndex) {
-        if (!this.data.experience[expIndex].achievements) {
-            this.data.experience[expIndex].achievements = [];
-        }
-        this.data.experience[expIndex].achievements.push('');
-        this.renderExperience();
-    }
-
-    addEducation() {
-        this.data.education.push({
-            id: Date.now(),
-            institution: '',
-            degree: '',
-            period: '',
-            courses: []
-        });
-        this.renderEducation();
-    }
-
-    addCourse(eduIndex) {
-        if (!this.data.education[eduIndex].courses) {
-            this.data.education[eduIndex].courses = [];
-        }
-        this.data.education[eduIndex].courses.push('');
-        this.renderEducation();
-    }
-
-    addCertification() {
-        this.data.certifications.push({
-            id: Date.now(),
-            name: '',
-            issuer: '',
-            issueDate: '',
-            credentialId: '',
-            image: '',
-            imageClass: ''
-        });
-        this.renderCertifications();
-    }
-
-    addProject() {
-        this.data.projects.unshift({
-            id: Date.now(),
-            title: '',
-            category: 'web2',
-            description: '',
-            image: '',
-            url: '',
-            featured: false
-        });
-        this.renderProjects();
-        this.showToast('New project added at the top', 'success');
-    }
-
-    // Remove Methods
-    removeSocialLink(index) {
-        if (!this.data.personal.socialLinks || index < 0 || index >= this.data.personal.socialLinks.length) {
-            console.error('Invalid index for social link removal');
-            return;
-        }
-        if (confirm('Are you sure you want to remove this social link?')) {
-            this.data.personal.socialLinks.splice(index, 1);
-            this.renderSocialLinks();
-            this.showToast('Social link removed', 'success');
-        }
-    }
-
-    removeService(index) {
-        if (!this.data.services || index < 0 || index >= this.data.services.length) {
-            console.error('Invalid index for service removal');
-            return;
-        }
-        if (confirm('Are you sure you want to remove this service?')) {
-            this.data.services.splice(index, 1);
-            this.renderServices();
-            this.showToast('Service removed', 'success');
-        }
-    }
-
-    removeAward(index) {
-        if (!this.data.awards || index < 0 || index >= this.data.awards.length) {
-            console.error('Invalid index for award removal');
-            return;
-        }
-        if (confirm('Are you sure you want to remove this award?')) {
-            this.data.awards.splice(index, 1);
-            this.renderAwards();
-            this.showToast('Award removed', 'success');
-        }
-    }
-
-    removeSkill(type, index) {
-        // Ensure skills structure exists
-        if (!this.data.skills) {
-            console.error('Skills data structure not found');
-            this.showToast('Error: Skills data not loaded', 'error');
-            return;
-        }
-        
-        const skillsArray = type === 'about' ? this.data.skills.aboutSkills : this.data.skills.resumeSkills;
-        
-        if (!skillsArray) {
-            console.error('Skills array not found for type:', type);
-            this.showToast('Error: Skills array not found', 'error');
-            return;
-        }
-        
-        if (index < 0 || index >= skillsArray.length) {
-            console.error('Invalid index for skill removal:', index, 'Array length:', skillsArray.length);
-            this.showToast('Error: Invalid skill index', 'error');
-            return;
-        }
-        
-        if (confirm('Are you sure you want to remove this skill?')) {
-            const removedSkill = skillsArray[index];
-            skillsArray.splice(index, 1);
-            
-            // Log for debugging
-            console.log(`Removed skill "${removedSkill}" from ${type} skills. New array:`, skillsArray);
-            console.log('Updated skills data:', JSON.stringify(this.data.skills, null, 2));
-            
-            this.renderSkillsList(type, type === 'about' ? 'about-skills-container' : 'resume-skills-container');
-            this.showToast('Skill removed. Remember to click "Save All Changes"!', 'success');
-        }
-    }
-
-    removeExperience(index) {
-        if (!this.data.experience || index < 0 || index >= this.data.experience.length) {
-            console.error('Invalid index for experience removal');
-            return;
-        }
-        if (confirm('Are you sure you want to remove this experience?')) {
-            this.data.experience.splice(index, 1);
-            this.renderExperience();
-            this.showToast('Experience removed', 'success');
-        }
-    }
-
-    removeAchievement(expIndex, achIndex) {
-        if (!this.data.experience[expIndex] || !this.data.experience[expIndex].achievements) {
-            console.error('Invalid index for achievement removal');
-            return;
-        }
-        if (achIndex < 0 || achIndex >= this.data.experience[expIndex].achievements.length) {
-            console.error('Invalid achievement index');
-            return;
-        }
-        if (confirm('Are you sure you want to remove this achievement?')) {
-            this.data.experience[expIndex].achievements.splice(achIndex, 1);
-            this.renderExperience();
-            this.showToast('Achievement removed', 'success');
-        }
-    }
-
-    removeEducation(index) {
-        if (!this.data.education || index < 0 || index >= this.data.education.length) {
-            console.error('Invalid index for education removal');
-            return;
-        }
-        if (confirm('Are you sure you want to remove this education entry?')) {
-            this.data.education.splice(index, 1);
-            this.renderEducation();
-            this.showToast('Education entry removed', 'success');
-        }
-    }
-
-    removeCourse(eduIndex, courseIndex) {
-        if (!this.data.education[eduIndex] || !this.data.education[eduIndex].courses) {
-            console.error('Invalid index for course removal');
-            return;
-        }
-        if (courseIndex < 0 || courseIndex >= this.data.education[eduIndex].courses.length) {
-            console.error('Invalid course index');
-            return;
-        }
-        if (confirm('Are you sure you want to remove this course?')) {
-            this.data.education[eduIndex].courses.splice(courseIndex, 1);
-            this.renderEducation();
-            this.showToast('Course removed', 'success');
-        }
-    }
-
-    removeCertification(index) {
-        if (!this.data.certifications || index < 0 || index >= this.data.certifications.length) {
-            console.error('Invalid index for certification removal');
-            return;
-        }
-        if (confirm('Are you sure you want to remove this certification?')) {
-            this.data.certifications.splice(index, 1);
-            this.renderCertifications();
-            this.showToast('Certification removed', 'success');
-        }
-    }
-
-    removeProject(index) {
-        if (!this.data.projects || index < 0 || index >= this.data.projects.length) {
-            console.error('Invalid index for project removal');
-            return;
-        }
-        if (confirm('Are you sure you want to remove this project?')) {
-            this.data.projects.splice(index, 1);
-            this.renderProjects();
-            this.showToast('Project removed', 'success');
-        }
-    }
-
-    renderBlog() {
-        const container = document.getElementById('blog-container');
-        container.innerHTML = '';
-
-        this.data.blog.forEach((post, index) => {
-            container.appendChild(this.createBlogElement(post, index));
-        });
-    }
-
-    createBlogElement(post, index) {
-        const div = document.createElement('div');
-        div.className = 'card';
-        div.innerHTML = `
-            <div class="card-header">
-                <h3 class="card-title">${post.title || `Blog Post ${index + 1}`}</h3>
-                <div class="card-actions">
-                    <button class="btn btn-danger btn-small" onclick="cms.removeBlogPost(${index})">Remove</button>
-                </div>
-            </div>
-            <div class="form-grid">
-                <div class="form-group">
-                    <label>Title</label>
-                    <input type="text" value="${post.title || ''}" onchange="cms.updateBlogPost(${index}, 'title', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Category</label>
-                    <input type="text" value="${post.category || 'Blog'}" onchange="cms.updateBlogPost(${index}, 'category', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Date</label>
-                    <input type="date" value="${post.date || ''}" onchange="cms.updateBlogPost(${index}, 'date', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>URL</label>
-                    <input type="url" value="${post.url || ''}" onchange="cms.updateBlogPost(${index}, 'url', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Image Path</label>
-                    <input type="text" value="${post.image || ''}" onchange="cms.updateBlogPost(${index}, 'image', this.value)">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Description</label>
-                <textarea onchange="cms.updateBlogPost(${index}, 'description', this.value)">${post.description || ''}</textarea>
-            </div>
-            <div class="checkbox-group">
-                <input type="checkbox" id="blog-featured-${index}" ${post.featured ? 'checked' : ''} onchange="cms.updateBlogPost(${index}, 'featured', this.checked)">
-                <label for="blog-featured-${index}">Featured Post</label>
-            </div>
-        `;
-        return div;
-    }
-
-    updateBlogPost(index, field, value) {
-        if (!this.data.blog || !this.data.blog[index]) {
-            console.error('Invalid blog post index:', index);
-            return;
-        }
-        this.data.blog[index][field] = value;
-    }
-
-    addBlogPost() {
-        this.data.blog.push({
-            id: Date.now(),
-            title: '',
-            category: 'Blog',
-            date: new Date().toISOString().split('T')[0],
-            description: '',
-            image: '',
-            url: '',
-            featured: false
-        });
-        this.renderBlog();
-    }
-
-    removeBlogPost(index) {
-        if (!this.data.blog || index < 0 || index >= this.data.blog.length) {
-            console.error('Invalid index for blog post removal');
-            return;
-        }
-        if (confirm('Are you sure you want to remove this blog post?')) {
-            this.data.blog.splice(index, 1);
-            this.renderBlog();
-            this.showToast('Blog post removed', 'success');
-        }
-    }
-
-    // Filter Projects
-    filterProjects(category) {
-        const cards = document.querySelectorAll('#projects-container .card');
-        cards.forEach(card => {
-            if (category === 'all' || card.dataset.category === category) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    }
-
-
-    // Settings Modal
-    showSettingsModal() {
-        const modal = document.getElementById('settings-modal');
-        if (modal) {
-            // Populate form with current config
-            document.getElementById('github-owner').value = this.githubConfig.owner || '';
-            document.getElementById('github-repo').value = this.githubConfig.repo || '';
-            document.getElementById('github-branch').value = this.githubConfig.branch || 'main';
-            document.getElementById('github-token').value = this.githubConfig.token || '';
-            
-            modal.style.display = 'flex';
-        }
-    }
-
-    hideSettingsModal() {
-        const modal = document.getElementById('settings-modal');
-        if (modal) {
-            modal.style.display = 'none';
-        }
-    }
-
-    saveSettings() {
-        this.githubConfig.owner = document.getElementById('github-owner').value.trim();
-        this.githubConfig.repo = document.getElementById('github-repo').value.trim();
-        this.githubConfig.branch = document.getElementById('github-branch').value.trim() || 'main';
-        this.githubConfig.token = document.getElementById('github-token').value.trim();
-        
-        this.saveGitHubConfig();
-        this.showToast('Settings saved!', 'success');
-        this.hideSettingsModal();
-    }
-
-    async testGitHubConnection() {
-        if (!this.githubConfig.owner || !this.githubConfig.repo || !this.githubConfig.token) {
-            this.showToast('Please fill in all required fields', 'error');
-            return;
-        }
-
-        this.showToast('Testing connection...', 'warning');
-        
-        try {
-            const success = await this.updateFileViaGitHub('personal.json', this.data.personal, true);
-            if (success) {
-                this.showToast('✅ Connection successful!', 'success');
-            } else {
-                this.showToast('❌ Connection failed. Check your settings.', 'error');
-            }
-        } catch (error) {
-            this.showToast('❌ Error: ' + error.message, 'error');
-        }
-    }
-
-    // Save Data - Update files via GitHub API
-    async saveAllData() {
-        // Check if GitHub is configured
-        if (!this.githubConfig.owner || !this.githubConfig.repo || !this.githubConfig.token) {
-            this.showToast('⚠️ Please configure GitHub settings first', 'warning');
-            this.showSettingsModal();
-            return;
-        }
-
-        try {
-            this.showToast('Saving JSON files to GitHub...', 'warning');
-            
-            // Ensure skills structure is correct before saving
-            if (!this.data.skills) {
-                this.data.skills = { aboutSkills: [], resumeSkills: [] };
-            }
-            if (!Array.isArray(this.data.skills.aboutSkills)) {
-                this.data.skills.aboutSkills = [];
-            }
-            if (!Array.isArray(this.data.skills.resumeSkills)) {
-                this.data.skills.resumeSkills = [];
-            }
-            
-            // Log skills data for debugging
-            console.log('Saving skills data:', JSON.stringify(this.data.skills, null, 2));
-            
-            const files = {
-                'personal': this.data.personal,
-                'services': this.data.services,
-                'awards': this.data.awards,
-                'skills': this.data.skills,
-                'experience': this.data.experience,
-                'education': this.data.education,
-                'certifications': this.data.certifications,
-                'projects': this.data.projects,
-                'blog': this.data.blog
-            };
-
-            let savedCount = 0;
-            let failedFiles = [];
-            
-            for (const [filename, data] of Object.entries(files)) {
-                const success = await this.updateFileViaGitHub(`${filename}.json`, data);
-                if (success) {
-                    savedCount++;
-                } else {
-                    failedFiles.push(filename);
-                }
-            }
-            
-            if (savedCount === Object.keys(files).length) {
-                this.showToast(`✅ Successfully saved all ${savedCount} JSON files to GitHub!`, 'success');
-                // Reload data after successful save to reflect changes
-                setTimeout(async () => {
-                    await this.loadData();
-                    this.renderAllSections();
-                    this.showToast('Data refreshed!', 'success');
-                }, 1000);
-            } else if (savedCount > 0) {
-                this.showToast(`⚠️ Saved ${savedCount}/${Object.keys(files).length} files. Some files failed.`, 'warning');
-                console.warn('Failed files:', failedFiles);
-                // Still reload data for successfully saved files
-                setTimeout(async () => {
-                    await this.loadData();
-                    this.renderAllSections();
-                }, 1000);
-            } else {
-                this.showToast('❌ Failed to save files. Check your GitHub settings.', 'error');
-            }
-        } catch (error) {
-            console.error('Error saving files:', error);
-            this.showToast('Error: ' + error.message, 'error');
-        }
-    }
-
-    async updateFileViaGitHub(filename, content, testMode = false) {
-        try {
-            const apiEndpoint = this.githubConfig.apiEndpoint;
-            
-            if (apiEndpoint) {
-                // Use custom API endpoint (serverless function)
-                return await this.updateViaAPI(apiEndpoint, filename, content);
-            } else {
-                // Use GitHub API directly
-                return await this.updateViaGitHubAPI(filename, content, testMode);
-            }
-        } catch (error) {
-            console.error(`Failed to update ${filename}:`, error);
-            return false;
-        }
-    }
-
-    async updateViaAPI(endpoint, filename, content) {
-        const response = await fetch(endpoint, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                filename,
-                content,
-                token: this.githubConfig.token,
-                repo: this.githubConfig.repo,
-                owner: this.githubConfig.owner,
-                branch: this.githubConfig.branch
-            })
-        });
-
-        const result = await response.json();
-        
-        if (response.ok && result.success) {
-            console.log(`✅ ${filename} updated via API`);
-            return true;
-        } else {
-            console.error(`❌ Failed to update ${filename}:`, result.error);
-            return false;
-        }
-    }
-
-    async updateViaGitHubAPI(filename, content, testMode = false) {
-        // Get current file SHA
-        const filePath = `data/${filename}`;
-        const getFileUrl = `https://api.github.com/repos/${this.githubConfig.owner}/${this.githubConfig.repo}/contents/${filePath}?ref=${this.githubConfig.branch}`;
-        
-        let fileSha = null;
-        try {
-            const getFileResponse = await fetch(getFileUrl, {
-                headers: {
-                    'Authorization': `token ${this.githubConfig.token}`,
-                    'Accept': 'application/vnd.github.v3+json'
-                }
-            });
-
-            if (getFileResponse.ok) {
-                const fileData = await getFileResponse.json();
-                fileSha = fileData.sha;
-            }
-        } catch (error) {
-            // File might not exist, that's okay
-            console.log('File does not exist or error fetching:', error.message);
-        }
-
-        // Prepare content
-        const jsonContent = JSON.stringify(content, null, 2);
-        const base64Content = btoa(unescape(encodeURIComponent(jsonContent)));
-
-        // Update file
-        const updateUrl = `https://api.github.com/repos/${this.githubConfig.owner}/${this.githubConfig.repo}/contents/${filePath}`;
-        
-        const updatePayload = {
-            message: testMode ? `Test update ${filename} via CMS` : `Update ${filename} via CMS`,
-            content: base64Content,
-            branch: this.githubConfig.branch
-        };
-
-        if (fileSha) {
-            updatePayload.sha = fileSha;
-        }
-
-        const updateResponse = await fetch(updateUrl, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `token ${this.githubConfig.token}`,
-                'Accept': 'application/vnd.github.v3+json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updatePayload)
-        });
-
-        if (!updateResponse.ok) {
-            const errorData = await updateResponse.json();
-            throw new Error(errorData.message || 'Failed to update file');
-        }
-
-        const result = await updateResponse.json();
-        console.log(`✅ ${filename} updated on GitHub`);
-        return true;
-    }
-
-    // Fallback: Save via downloads
-    saveViaDownloads() {
-        const files = {
-            'personal': this.data.personal,
-            'services': this.data.services,
-            'awards': this.data.awards,
-            'skills': this.data.skills,
-            'experience': this.data.experience,
-            'education': this.data.education,
-            'certifications': this.data.certifications,
-            'projects': this.data.projects,
-            'blog': this.data.blog
-        };
-
-        this.showToast('Downloading JSON files... Please save them to the data/ folder.', 'warning');
-        
-        // Small delay to ensure toast is visible
-        setTimeout(() => {
-            for (const [filename, data] of Object.entries(files)) {
-                this.downloadJSONFile(filename, data);
-            }
-            this.showToast(`✅ Downloaded ${Object.keys(files).length} JSON files. Please replace files in data/ folder.`, 'success');
-        }, 500);
-    }
-    
-    downloadJSONFile(filename, data) {
-        const jsonContent = JSON.stringify(data, null, 2);
-        const blob = new Blob([jsonContent], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `${filename}.json`;
-        link.style.display = 'none';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-    }
-
-    // Toast Notifications
-    showToast(message, type = 'info') {
-        const toast = document.getElementById('toast');
-        toast.textContent = message;
-        toast.className = `toast ${type} show`;
-        
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 3000);
-    }
+function getPassword() {
+  return localStorage.getItem('cms_password') || DEFAULT_PASSWORD;
 }
 
-// Initialize CMS
-let cms;
-document.addEventListener('DOMContentLoaded', () => {
-    cms = new PortfolioCMS();
-    // Make cms globally accessible
-    window.cms = cms;
-});
+function initAuth() {
+  const gate = document.getElementById('auth-gate');
+  const app  = document.getElementById('cms-app');
+  const btn  = document.getElementById('auth-btn');
+  const inp  = document.getElementById('cms-password');
+  const err  = document.getElementById('auth-error');
+
+  if (localStorage.getItem('cms_authed') === 'true') {
+    gate.style.display = 'none';
+    app.style.display  = 'flex';
+    initApp();
+    return;
+  }
+
+  btn.addEventListener('click', () => authenticate(inp, err, gate, app));
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter') authenticate(inp, err, gate, app); });
+}
+
+function authenticate(inp, err, gate, app) {
+  if (inp.value === getPassword()) {
+    localStorage.setItem('cms_authed', 'true');
+    gate.style.display = 'none';
+    app.style.display  = 'flex';
+    err.style.display  = 'none';
+    initApp();
+  } else {
+    err.style.display = 'block';
+    inp.value = '';
+    inp.focus();
+  }
+}
+
+function logout() {
+  localStorage.removeItem('cms_authed');
+  location.reload();
+}
+
+// ─── App Init ─────────────────────────────────────────────────────────────────
+
+async function initApp() {
+  state.github = loadGithubConfig();
+  setupNavigation();
+  setupSidebar();
+  setupSaveButton();
+  setupLogout();
+  await loadAllData();
+  renderAll();
+  initSettings();
+}
+
+// ─── Navigation ───────────────────────────────────────────────────────────────
+
+const SECTION_TITLES = {
+  personal: 'Personal Information', experience: 'Work Experience',
+  education: 'Education', skills: 'Skills',
+  projects: 'Projects', services: 'Services',
+  certifications: 'Certifications', awards: 'Awards & Recognition',
+  blog: 'Blog Posts', settings: 'Settings',
+};
+
+function setupNavigation() {
+  document.querySelectorAll('.nav-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const section = btn.dataset.section;
+      document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.cms-section').forEach(s => s.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(`section-${section}`).classList.add('active');
+      document.getElementById('section-title').textContent = SECTION_TITLES[section];
+    });
+  });
+}
+
+function setupSidebar() {
+  const toggle = document.getElementById('sidebar-toggle');
+  const sidebar = document.querySelector('.cms-sidebar');
+  const main = document.querySelector('.cms-main');
+  toggle?.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+  });
+}
+
+function setupLogout() {
+  document.getElementById('logout-btn')?.addEventListener('click', logout);
+}
+
+// ─── Data Loading ─────────────────────────────────────────────────────────────
+
+async function loadAllData() {
+  await Promise.all(DATA_FILES.map(async file => {
+    try {
+      const res = await fetch(`./data/${file}.json?v=${Date.now()}`, { cache: 'no-cache' });
+      if (res.ok) state.data[file] = await res.json();
+      else         state.data[file] = getDefaultData(file);
+    } catch {
+      state.data[file] = getDefaultData(file);
+    }
+  }));
+  ensureDataStructure();
+}
+
+function getDefaultData(file) {
+  const defaults = {
+    personal: { name:'', title:'', email:'', phone:'', location:'', avatar:'', avatarLarge:'', bio:['',''], socialLinks:[] },
+    experience: [], education: [], skills: { aboutSkills:[], resumeSkills:[] },
+    projects: [], services: [], certifications: [], awards: [], blog: [],
+  };
+  return defaults[file] ?? [];
+}
+
+function ensureDataStructure() {
+  if (!state.data.personal.socialLinks)   state.data.personal.socialLinks = [];
+  if (!state.data.personal.bio)           state.data.personal.bio = ['',''];
+  if (!state.data.skills.aboutSkills)     state.data.skills.aboutSkills = [];
+  if (!state.data.skills.resumeSkills)    state.data.skills.resumeSkills = [];
+  ['experience','education','certifications','awards','blog','projects','services'].forEach(k => {
+    if (!Array.isArray(state.data[k])) state.data[k] = [];
+  });
+  state.data.experience.forEach(e => { if (!e.achievements) e.achievements = []; });
+  state.data.education.forEach(e  => { if (!e.courses)      e.courses = []; });
+}
+
+// ─── Render All ───────────────────────────────────────────────────────────────
+
+function renderAll() {
+  renderPersonal();
+  renderList('experience', renderExperienceItem);
+  renderList('education',  renderEducationItem);
+  renderSkills();
+  renderList('projects',   renderProjectItem);
+  renderList('services',   renderServiceItem);
+  renderList('certifications', renderCertItem);
+  renderList('awards',     renderAwardItem);
+  renderList('blog',       renderBlogItem);
+  setupAddButtons();
+  setupProjectFilter();
+}
+
+// ─── Personal ─────────────────────────────────────────────────────────────────
+
+function renderPersonal() {
+  const p = state.data.personal;
+  document.getElementById('p-name').value        = p.name        || '';
+  document.getElementById('p-email').value       = p.email       || '';
+  document.getElementById('p-phone').value       = p.phone       || '';
+  document.getElementById('p-location').value    = p.location    || '';
+  document.getElementById('p-avatar').value      = p.avatar      || '';
+  document.getElementById('p-avatarLarge').value = p.avatarLarge || '';
+  document.getElementById('p-bio-0').value       = p.bio?.[0]    || '';
+  document.getElementById('p-bio-1').value       = p.bio?.[1]    || '';
+
+  // bind changes
+  ['name','email','phone','location','avatar','avatarLarge'].forEach(f => {
+    const el = document.getElementById(`p-${f}`);
+    el.oninput = () => { state.data.personal[f] = el.value; markDirty('personal'); };
+  });
+  ['0','1'].forEach(i => {
+    const el = document.getElementById(`p-bio-${i}`);
+    el.oninput = () => { state.data.personal.bio[+i] = el.value; markDirty('personal'); };
+  });
+
+  renderSocialLinks();
+}
+
+function renderSocialLinks() {
+  const container = document.getElementById('social-list');
+  container.innerHTML = '';
+  (state.data.personal.socialLinks || []).forEach((link, i) => {
+    const div = document.createElement('div');
+    div.className = 'list-item';
+    div.innerHTML = `
+      <div class="form-grid">
+        <div class="form-group"><label>Platform</label>
+          <input type="text" value="${esc(link.platform)}" data-field="platform" data-index="${i}" /></div>
+        <div class="form-group"><label>URL</label>
+          <input type="url" value="${esc(link.url)}" data-field="url" data-index="${i}" /></div>
+        <div class="form-group"><label>Icon (bootstrap-icons name)</label>
+          <input type="text" value="${esc(link.icon)}" data-field="icon" data-index="${i}" /></div>
+      </div>
+      <button class="btn-danger btn-sm remove-social" data-index="${i}"><i class="bi bi-trash"></i> Remove</button>`;
+    div.querySelectorAll('input').forEach(inp => {
+      inp.oninput = () => {
+        state.data.personal.socialLinks[+inp.dataset.index][inp.dataset.field] = inp.value;
+        markDirty('personal');
+      };
+    });
+    div.querySelector('.remove-social').onclick = () => {
+      state.data.personal.socialLinks.splice(i, 1);
+      markDirty('personal');
+      renderSocialLinks();
+    };
+    container.appendChild(div);
+  });
+}
+
+// ─── Generic List Renderer ────────────────────────────────────────────────────
+
+function renderList(key, itemRenderer) {
+  const container = document.getElementById(`${key}-list`);
+  if (!container) return;
+  container.innerHTML = '';
+  const items = Array.isArray(state.data[key]) ? state.data[key] : [];
+  items.forEach((item, i) => container.appendChild(itemRenderer(item, i, key)));
+}
+
+// ─── Experience ───────────────────────────────────────────────────────────────
+
+function renderExperienceItem(exp, i) {
+  const div = makeCard(`${exp.position || 'Experience ' + (i+1)} — ${exp.company || ''}`, i, 'experience');
+  div.querySelector('.list-item-body').innerHTML = `
+    <div class="form-grid">
+      ${field('Position', 'text', exp.position, `experience.${i}.position`)}
+      ${field('Company',  'text', exp.company,  `experience.${i}.company`)}
+      ${field('Start Date', 'date', exp.startDate, `experience.${i}.startDate`)}
+      ${field('End Date (or "present")', 'text', exp.endDate, `experience.${i}.endDate`)}
+    </div>
+    <div class="form-group"><label>Achievements</label>
+      <div class="sub-list" id="ach-${i}"></div>
+      <button class="btn-secondary btn-sm mt-2 add-ach" data-exp="${i}"><i class="bi bi-plus"></i> Add Achievement</button>
+    </div>`;
+  bindFields(div, 'experience');
+  renderAchievements(i, exp.achievements || []);
+  div.querySelector('.add-ach').onclick = () => {
+    state.data.experience[i].achievements.push('');
+    markDirty('experience');
+    renderAchievements(i, state.data.experience[i].achievements);
+  };
+  return div;
+}
+
+function renderAchievements(expIdx, achievements) {
+  const container = document.getElementById(`ach-${expIdx}`);
+  if (!container) return;
+  container.innerHTML = '';
+  achievements.forEach((ach, j) => {
+    const row = document.createElement('div');
+    row.className = 'sub-item';
+    row.innerHTML = `<input type="text" value="${esc(ach)}" />
+      <button class="btn-danger btn-sm"><i class="bi bi-x"></i></button>`;
+    row.querySelector('input').oninput = e => {
+      state.data.experience[expIdx].achievements[j] = e.target.value;
+      markDirty('experience');
+    };
+    row.querySelector('button').onclick = () => {
+      state.data.experience[expIdx].achievements.splice(j, 1);
+      markDirty('experience');
+      renderAchievements(expIdx, state.data.experience[expIdx].achievements);
+    };
+    container.appendChild(row);
+  });
+}
+
+// ─── Education ────────────────────────────────────────────────────────────────
+
+function renderEducationItem(edu, i) {
+  const div = makeCard(`${edu.institution || 'Education ' + (i+1)}`, i, 'education');
+  div.querySelector('.list-item-body').innerHTML = `
+    <div class="form-grid">
+      ${field('Institution', 'text', edu.institution, `education.${i}.institution`)}
+      ${field('Degree',      'text', edu.degree,      `education.${i}.degree`)}
+      ${field('Period',      'text', edu.period,       `education.${i}.period`)}
+    </div>
+    <div class="form-group"><label>Courses</label>
+      <div class="sub-list" id="courses-${i}"></div>
+      <button class="btn-secondary btn-sm mt-2 add-course" data-edu="${i}"><i class="bi bi-plus"></i> Add Course</button>
+    </div>`;
+  bindFields(div, 'education');
+  renderCourses(i, edu.courses || []);
+  div.querySelector('.add-course').onclick = () => {
+    state.data.education[i].courses.push('');
+    markDirty('education');
+    renderCourses(i, state.data.education[i].courses);
+  };
+  return div;
+}
+
+function renderCourses(eduIdx, courses) {
+  const container = document.getElementById(`courses-${eduIdx}`);
+  if (!container) return;
+  container.innerHTML = '';
+  courses.forEach((c, j) => {
+    const row = document.createElement('div');
+    row.className = 'sub-item';
+    row.innerHTML = `<input type="text" value="${esc(c)}" />
+      <button class="btn-danger btn-sm"><i class="bi bi-x"></i></button>`;
+    row.querySelector('input').oninput = e => {
+      state.data.education[eduIdx].courses[j] = e.target.value;
+      markDirty('education');
+    };
+    row.querySelector('button').onclick = () => {
+      state.data.education[eduIdx].courses.splice(j, 1);
+      markDirty('education');
+      renderCourses(eduIdx, state.data.education[eduIdx].courses);
+    };
+    container.appendChild(row);
+  });
+}
+
+// ─── Skills ───────────────────────────────────────────────────────────────────
+
+function renderSkills() {
+  renderSkillList('aboutSkills',  'about-skills-list');
+  renderSkillList('resumeSkills', 'resume-skills-list');
+  document.querySelectorAll('.add-skill-btn').forEach(btn => {
+    btn.onclick = () => {
+      const type = btn.dataset.type;
+      state.data.skills[type].push('');
+      markDirty('skills');
+      renderSkillList(type, type === 'aboutSkills' ? 'about-skills-list' : 'resume-skills-list');
+    };
+  });
+}
+
+function renderSkillList(type, containerId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  (state.data.skills[type] || []).forEach((skill, i) => {
+    const row = document.createElement('div');
+    row.className = 'skill-row';
+    row.innerHTML = `<input type="text" value="${esc(skill)}" />
+      <button class="btn-danger btn-sm"><i class="bi bi-x"></i></button>`;
+    row.querySelector('input').oninput = e => {
+      state.data.skills[type][i] = e.target.value;
+      markDirty('skills');
+    };
+    row.querySelector('button').onclick = () => {
+      state.data.skills[type].splice(i, 1);
+      markDirty('skills');
+      renderSkillList(type, containerId);
+    };
+    container.appendChild(row);
+  });
+}
+
+// ─── Projects ─────────────────────────────────────────────────────────────────
+
+function renderProjectItem(proj, i) {
+  const div = makeCard(proj.title || `Project ${i+1}`, i, 'projects');
+  div.dataset.category = proj.category || '';
+  div.querySelector('.list-item-body').innerHTML = `
+    <div class="form-grid">
+      ${field('Title',       'text', proj.title,       `projects.${i}.title`)}
+      ${fieldSelect('Category', proj.category, `projects.${i}.category`, [
+        ['web2','Web2'], ['web3','Web3'],
+        ['iot & embedded systems','IoT & Embedded Systems'],
+        ['graphics design','Graphics Design']
+      ])}
+      ${field('URL',         'url',  proj.url,         `projects.${i}.url`)}
+      ${field('Image Path',  'text', proj.image,       `projects.${i}.image`)}
+    </div>
+    <div class="form-group"><label>Description</label>
+      <textarea data-path="projects.${i}.description">${esc(proj.description)}</textarea></div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="feat-${i}" ${proj.featured ? 'checked' : ''} data-path="projects.${i}.featured" data-bool />
+      <label for="feat-${i}">Featured Project</label>
+    </div>`;
+  bindFields(div, 'projects');
+  return div;
+}
+
+function setupProjectFilter() {
+  const filter = document.getElementById('project-filter');
+  filter?.addEventListener('change', () => {
+    const val = filter.value;
+    document.querySelectorAll('#projects-list .list-item').forEach(card => {
+      card.style.display = (val === 'all' || card.dataset.category === val) ? '' : 'none';
+    });
+  });
+}
+
+// ─── Services ─────────────────────────────────────────────────────────────────
+
+function renderServiceItem(svc, i) {
+  const div = makeCard(svc.title || `Service ${i+1}`, i, 'services');
+  div.querySelector('.list-item-body').innerHTML = `
+    <div class="form-grid">
+      ${field('Title',     'text', svc.title, `services.${i}.title`)}
+      ${field('Icon Path', 'text', svc.icon,  `services.${i}.icon`)}
+    </div>
+    <div class="form-group"><label>Description</label>
+      <textarea data-path="services.${i}.description">${esc(svc.description)}</textarea></div>`;
+  bindFields(div, 'services');
+  return div;
+}
+
+// ─── Certifications ───────────────────────────────────────────────────────────
+
+function renderCertItem(cert, i) {
+  const div = makeCard(cert.name || `Certification ${i+1}`, i, 'certifications');
+  div.querySelector('.list-item-body').innerHTML = `
+    <div class="form-grid">
+      ${field('Name',          'text', cert.name,         `certifications.${i}.name`)}
+      ${field('Issuer',        'text', cert.issuer,       `certifications.${i}.issuer`)}
+      ${field('Issue Date',    'text', cert.issueDate,    `certifications.${i}.issueDate`)}
+      ${field('Credential ID', 'text', cert.credentialId, `certifications.${i}.credentialId`)}
+      ${field('Image Path',    'text', cert.image,        `certifications.${i}.image`)}
+    </div>`;
+  bindFields(div, 'certifications');
+  return div;
+}
+
+// ─── Awards ───────────────────────────────────────────────────────────────────
+
+function renderAwardItem(award, i) {
+  const div = makeCard(award.title || `Award ${i+1}`, i, 'awards');
+  div.querySelector('.list-item-body').innerHTML = `
+    <div class="form-grid">
+      ${field('Title',      'text', award.title, `awards.${i}.title`)}
+      ${field('Image Path', 'text', award.image, `awards.${i}.image`)}
+    </div>
+    <div class="form-group"><label>Description</label>
+      <textarea data-path="awards.${i}.description">${esc(award.description)}</textarea></div>`;
+  bindFields(div, 'awards');
+  return div;
+}
+
+// ─── Blog ─────────────────────────────────────────────────────────────────────
+
+function renderBlogItem(post, i) {
+  const div = makeCard(post.title || `Post ${i+1}`, i, 'blog');
+  div.querySelector('.list-item-body').innerHTML = `
+    <div class="form-grid">
+      ${field('Title',      'text', post.title,    `blog.${i}.title`)}
+      ${field('Category',   'text', post.category, `blog.${i}.category`)}
+      ${field('Date',       'date', post.date,     `blog.${i}.date`)}
+      ${field('URL',        'url',  post.url,      `blog.${i}.url`)}
+      ${field('Image Path', 'text', post.image,    `blog.${i}.image`)}
+    </div>
+    <div class="form-group"><label>Description</label>
+      <textarea data-path="blog.${i}.description">${esc(post.description)}</textarea></div>`;
+  bindFields(div, 'blog');
+  return div;
+}
+
+// ─── Add Buttons ──────────────────────────────────────────────────────────────
+
+function setupAddButtons() {
+  const adds = {
+    'add-social':        () => { state.data.personal.socialLinks.push({platform:'',url:'',icon:''}); markDirty('personal'); renderSocialLinks(); },
+    'add-experience':    () => { state.data.experience.unshift({id:Date.now(),position:'',company:'',startDate:'',endDate:'',achievements:[]}); markDirty('experience'); renderList('experience', renderExperienceItem); },
+    'add-education':     () => { state.data.education.unshift({id:Date.now(),institution:'',degree:'',period:'',courses:[]}); markDirty('education'); renderList('education', renderEducationItem); },
+    'add-project':       () => { state.data.projects.unshift({id:Date.now(),title:'',category:'web2',description:'',image:'',url:'',featured:false}); markDirty('projects'); renderList('projects', renderProjectItem); },
+    'add-service':       () => { state.data.services.push({id:Date.now(),title:'',description:'',icon:''}); markDirty('services'); renderList('services', renderServiceItem); },
+    'add-certification': () => { state.data.certifications.push({id:Date.now(),name:'',issuer:'',issueDate:'',credentialId:'',image:''}); markDirty('certifications'); renderList('certifications', renderCertItem); },
+    'add-award':         () => { state.data.awards.push({id:Date.now(),title:'',description:'',image:''}); markDirty('awards'); renderList('awards', renderAwardItem); },
+    'add-blog':          () => { state.data.blog.unshift({id:Date.now(),title:'',category:'Blog',date:today(),description:'',image:'',url:'',featured:false}); markDirty('blog'); renderList('blog', renderBlogItem); },
+  };
+  Object.entries(adds).forEach(([id, fn]) => {
+    document.getElementById(id)?.addEventListener('click', fn);
+  });
+}
+
+// ─── Card Builder ─────────────────────────────────────────────────────────────
+
+function makeCard(title, index, dataKey) {
+  const div = document.createElement('div');
+  div.className = 'list-item';
+  div.innerHTML = `
+    <div class="list-item-header">
+      <h4>${esc(title)}</h4>
+      <div class="item-actions">
+        <button class="btn-secondary btn-sm toggle-btn"><i class="bi bi-chevron-down"></i></button>
+        <button class="btn-danger btn-sm remove-btn"><i class="bi bi-trash"></i> Remove</button>
+      </div>
+    </div>
+    <div class="list-item-body"></div>`;
+
+  // Toggle collapse
+  div.querySelector('.list-item-header').addEventListener('click', e => {
+    if (e.target.closest('.remove-btn')) return;
+    div.querySelector('.list-item-body').classList.toggle('collapsed');
+    const icon = div.querySelector('.toggle-btn i');
+    icon.className = icon.className.includes('down') ? 'bi bi-chevron-up' : 'bi bi-chevron-down';
+  });
+
+  // Remove
+  div.querySelector('.remove-btn').addEventListener('click', () => {
+    if (!confirm(`Remove "${title}"?`)) return;
+    const arr = Array.isArray(state.data[dataKey]) ? state.data[dataKey] : null;
+    if (arr) { arr.splice(index, 1); markDirty(dataKey); }
+    const renderers = {
+      experience: renderExperienceItem, education: renderEducationItem,
+      projects: renderProjectItem,      services:  renderServiceItem,
+      certifications: renderCertItem,   awards:    renderAwardItem,
+      blog: renderBlogItem,
+    };
+    if (renderers[dataKey]) renderList(dataKey, renderers[dataKey]);
+  });
+
+  return div;
+}
+
+// ─── Field Helpers ────────────────────────────────────────────────────────────
+
+function field(label, type, value, path) {
+  return `<div class="form-group"><label>${label}</label>
+    <input type="${type}" value="${esc(value)}" data-path="${path}" /></div>`;
+}
+
+function fieldSelect(label, value, path, options) {
+  const opts = options.map(([v,l]) => `<option value="${v}" ${value===v?'selected':''}>${l}</option>`).join('');
+  return `<div class="form-group"><label>${label}</label>
+    <select data-path="${path}">${opts}</select></div>`;
+}
+
+function bindFields(container, dataKey) {
+  container.querySelectorAll('[data-path]').forEach(el => {
+    const handler = () => {
+      setByPath(state.data, el.dataset.path, el.dataset.bool ? el.checked : el.value);
+      markDirty(dataKey);
+    };
+    el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', handler);
+  });
+}
+
+function setByPath(obj, path, value) {
+  const parts = path.split('.');
+  let cur = obj;
+  for (let i = 0; i < parts.length - 1; i++) cur = cur[parts[i]];
+  cur[parts[parts.length - 1]] = value;
+}
+
+// ─── Settings ─────────────────────────────────────────────────────────────────
+
+function loadGithubConfig() {
+  try { return JSON.parse(localStorage.getItem('cms_github') || '{}'); }
+  catch { return {}; }
+}
+
+function saveGithubConfig(cfg) {
+  localStorage.setItem('cms_github', JSON.stringify(cfg));
+  state.github = cfg;
+}
+
+function initSettings() {
+  const g = state.github;
+  document.getElementById('gh-owner').value  = g.owner  || '';
+  document.getElementById('gh-repo').value   = g.repo   || '';
+  document.getElementById('gh-branch').value = g.branch || 'main';
+  document.getElementById('gh-token').value  = g.token  || '';
+
+  document.getElementById('save-settings').addEventListener('click', () => {
+    saveGithubConfig({
+      owner:  document.getElementById('gh-owner').value.trim(),
+      repo:   document.getElementById('gh-repo').value.trim(),
+      branch: document.getElementById('gh-branch').value.trim() || 'main',
+      token:  document.getElementById('gh-token').value.trim(),
+    });
+    toast('Settings saved', 'success');
+  });
+
+  document.getElementById('test-connection').addEventListener('click', testConnection);
+
+  document.getElementById('change-password').addEventListener('click', () => {
+    const np = document.getElementById('new-password').value;
+    const cp = document.getElementById('confirm-password').value;
+    if (!np) return toast('Enter a new password', 'error');
+    if (np !== cp) return toast('Passwords do not match', 'error');
+    if (np.length < 6) return toast('Password must be at least 6 characters', 'error');
+    localStorage.setItem('cms_password', np);
+    document.getElementById('new-password').value = '';
+    document.getElementById('confirm-password').value = '';
+    toast('Password updated', 'success');
+  });
+}
+
+async function testConnection() {
+  const g = state.github;
+  if (!g.owner || !g.repo || !g.token) return toast('Fill in all GitHub settings first', 'error');
+  try {
+    const res = await fetch(`https://api.github.com/repos/${g.owner}/${g.repo}`, {
+      headers: { Authorization: `token ${g.token}`, Accept: 'application/vnd.github.v3+json' }
+    });
+    if (res.ok) toast('✅ Connection successful!', 'success');
+    else        toast(`❌ Failed: ${res.status} ${res.statusText}`, 'error');
+  } catch (e) {
+    toast('❌ Network error: ' + e.message, 'error');
+  }
+}
+
+// ─── Save ─────────────────────────────────────────────────────────────────────
+
+function setupSaveButton() {
+  document.getElementById('save-btn').addEventListener('click', saveAll);
+}
+
+function markDirty(key) {
+  state.dirty.add(key);
+  const btn = document.getElementById('save-btn');
+  btn.innerHTML = `<i class="bi bi-cloud-upload"></i> Save Changes <span class="dirty-badge">${state.dirty.size}</span>`;
+}
+
+async function saveAll() {
+  const g = state.github;
+  if (!g.owner || !g.repo || !g.token) {
+    toast('⚠️ Configure GitHub settings before saving', 'warning');
+    // Navigate to settings
+    document.querySelector('[data-section="settings"]').click();
+    return;
+  }
+
+  const btn = document.getElementById('save-btn');
+  btn.disabled = true;
+  btn.innerHTML = `<i class="bi bi-hourglass-split"></i> Saving…`;
+
+  const filesToSave = state.dirty.size > 0 ? [...state.dirty] : DATA_FILES;
+  let saved = 0, failed = [];
+
+  for (const file of filesToSave) {
+    const ok = await saveFileToGitHub(file, state.data[file]);
+    if (ok) saved++;
+    else failed.push(file);
+  }
+
+  btn.disabled = false;
+  state.dirty.clear();
+  btn.innerHTML = `<i class="bi bi-cloud-upload"></i> Save Changes`;
+
+  if (failed.length === 0) {
+    toast(`✅ Saved ${saved} file${saved !== 1 ? 's' : ''} successfully`, 'success');
+  } else {
+    toast(`⚠️ Saved ${saved}, failed: ${failed.join(', ')}`, 'error');
+  }
+}
+
+async function saveFileToGitHub(filename, content) {
+  const g = state.github;
+  const path = `data/${filename}.json`;
+  const apiUrl = `https://api.github.com/repos/${g.owner}/${g.repo}/contents/${path}`;
+  const headers = {
+    Authorization: `token ${g.token}`,
+    Accept: 'application/vnd.github.v3+json',
+    'Content-Type': 'application/json',
+  };
+
+  try {
+    // Get current SHA
+    let sha = null;
+    const getRes = await fetch(`${apiUrl}?ref=${g.branch}`, { headers });
+    if (getRes.ok) { const d = await getRes.json(); sha = d.sha; }
+
+    const body = {
+      message: `Update ${filename}.json via CMS`,
+      content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))),
+      branch: g.branch,
+    };
+    if (sha) body.sha = sha;
+
+    const putRes = await fetch(apiUrl, { method: 'PUT', headers, body: JSON.stringify(body) });
+    return putRes.ok;
+  } catch (e) {
+    console.error(`Failed to save ${filename}:`, e);
+    return false;
+  }
+}
+
+// ─── Utilities ────────────────────────────────────────────────────────────────
+
+function esc(str) {
+  return String(str || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function today() {
+  return new Date().toISOString().split('T')[0];
+}
+
+function toast(msg, type = 'success') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = `toast ${type} show`;
+  setTimeout(() => el.classList.remove('show'), 3500);
+}
+
+// ─── Boot ─────────────────────────────────────────────────────────────────────
+
+document.addEventListener('DOMContentLoaded', initAuth);
