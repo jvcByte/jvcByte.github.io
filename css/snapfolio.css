@@ -2658,3 +2658,10 @@ a.skill-tag {
 a.skill-tag:hover {
   color: #1f1f1f;
 }
+
+/* Hide hero profile image on mobile */
+@media (max-width: 991px) {
+  .hero-visual {
+    display: none;
+  }
+}
