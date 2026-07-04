@@ -70,7 +70,15 @@
       })
       .then((data) => {
         thisForm.querySelector(".loading").classList.remove("d-block");
-        if (data.trim() == "OK") {
+        // Support both plain "OK" (php-email-form) and Web3Forms JSON response
+        let success = false;
+        try {
+          const json = JSON.parse(data);
+          success = json.success === true;
+        } catch (e) {
+          success = data.trim() === "OK";
+        }
+        if (success) {
           thisForm.querySelector(".sent-message").classList.add("d-block");
           thisForm.reset();
         } else {
