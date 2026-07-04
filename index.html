@@ -58,7 +58,7 @@
           </ul>
         </nav>
 
-        <div class="social-links text-center">
+        <div class="social-links text-center" id="dyn-sidebar-social">
           <a href="https://x.com/cheena_010" class="twitter" target="_blank"><i class="bi bi-twitter-x"></i></a>
           <a href="https://github.com/jvcByte" class="github" target="_blank"><i class="bi bi-github"></i></a>
           <a href="https://wa.me/08164906365" class="whatsapp" target="_blank"><i class="bi bi-whatsapp"></i></a>
@@ -80,24 +80,17 @@
             <div class="row align-items-center">
               <div class="col-lg-6 col-12" data-aos="fade-right" data-aos-delay="100">
                 <div class="hero-text">
-                  <h1>John<span class="accent-text"> Valentine</span></h1>
-                  <h2>Software Engineer</h2>
+                  <h1 id="dyn-name">John<span class="accent-text"> Valentine</span></h1>
+                  <h2 id="dyn-title">Software Engineer</h2>
                   <p class="lead">
                     <span class="typed" data-typed-items="Software Engineer, Back-End Developer, Automation & Bot Developer, Embedded System & IoT, PCB Design, Web3 Developer @Web3Bridge, Coding Mentor @Learn2Earn NG"></span>
                   </p>
-                  <p class="description">
-                    Versatile Software Engineer who researches and checks documentation before implementation, taking the SDLC as a lifestyle. Bridging blockchain, backend, mobile, and embedded systems.
-                  </p>
+                  <p class="description" id="dyn-bio"></p>
                   <div class="hero-actions">
                     <a href="#portfolio" class="btn btn-primary">View My Work</a>
                     <a href="#contact" class="btn btn-outline">Get In Touch</a>
                   </div>
-                  <div class="social-links">
-                    <a href="https://github.com/jvcByte" target="_blank"><i class="bi bi-github"></i></a>
-                    <a href="https://www.linkedin.com/in/jvcbyte" target="_blank"><i class="bi bi-linkedin"></i></a>
-                    <a href="https://x.com/cheena_010" target="_blank"><i class="bi bi-twitter-x"></i></a>
-                    <a href="https://wa.me/08164906365" target="_blank"><i class="bi bi-whatsapp"></i></a>
-                  </div>
+                  <div class="social-links" id="dyn-hero-social"></div>
                 </div>
               </div>
 
@@ -123,29 +116,16 @@
               <div class="profile-card">
                 <div class="profile-header">
                   <div class="profile-image">
-                    <img src="assets/images/my-avatar.jpg" alt="John Valentine" class="img-fluid" />
+                  <img id="dyn-avatar" src="assets/images/my-avatar.jpg" alt="John Valentine" class="img-fluid" />
                   </div>
                   <div class="profile-badge">
                     <i class="bi bi-check-circle-fill"></i>
                   </div>
                 </div>
                 <div class="profile-content">
-                  <h3>John Valentine</h3>
-                  <p class="profession">Software Engineer & Automation & Bot Developer</p>
-                  <div class="contact-links">
-                    <a href="mailto:jvc8463@gmail.com" class="contact-item">
-                      <i class="bi bi-envelope"></i>
-                      <span>jvc8463@gmail.com</span>
-                    </a>
-                    <a href="tel:+2348164906365" class="contact-item">
-                      <i class="bi bi-telephone"></i>
-                      +234 816 490 6365
-                    </a>
-                    <a href="#" class="contact-item">
-                      <i class="bi bi-geo-alt"></i>
-                      Abuja, Nigeria
-                    </a>
-                  </div>
+                  <h3 id="dyn-about-name">John Valentine</h3>
+                  <p class="profession" id="dyn-profession">Software Engineer & Automation & Bot Developer</p>
+                  <div class="contact-links" id="dyn-contact-links"></div>
                 </div>
               </div>
             </div>
@@ -387,7 +367,7 @@
                 <h3>Professional Summary</h3>
                 <p>Versatile Software Engineer with experience in blockchain development, backend systems, IoT, and embedded systems. Currently a Blockchain Developer at Web3Bridge and Coding Mentor at Learn2Earn.</p>
                 <h3 class="mt-4">Contact Information</h3>
-                <ul class="contact-info list-unstyled">
+                <ul class="contact-info list-unstyled" id="dyn-resume-contact">
                   <li><i class="bi bi-geo-alt"></i> Abuja, Nigeria</li>
                   <li><i class="bi bi-envelope"></i> <a href="mailto:jvc8463@gmail.com">jvc8463@gmail.com</a></li>
                   <li><i class="bi bi-phone"></i> +234 816 490 6365</li>
@@ -395,7 +375,7 @@
                 </ul>
                 <div class="skills-animation mt-4">
                   <h3>Core Skills</h3>
-                  <div class="d-flex flex-wrap gap-2 mt-2">
+                  <div class="d-flex flex-wrap gap-2 mt-2" id="dyn-resume-skills">
                     <span class="skill-tag">Rust</span>
                     <span class="skill-tag">Solidity</span>
                     <span class="skill-tag">TypeScript</span>
@@ -419,6 +399,7 @@
               <!-- Experience -->
               <div class="resume-section" data-aos="fade-up">
                 <h3><i class="bi bi-briefcase me-2"></i>Professional Experience</h3>
+                <div id="dyn-experience"></div>
 
                 <div class="resume-item">
                   <h4>Coding Mentor</h4>
@@ -470,32 +451,13 @@
               <!-- Education -->
               <div class="resume-section" data-aos="fade-up" data-aos-delay="100">
                 <h3><i class="bi bi-mortarboard me-2"></i>Education</h3>
-                <div class="resume-item">
-                  <h4>B.Sc. Software Engineering</h4>
-                  <h5>2022 — 2025</h5>
-                  <p class="company"><i class="bi bi-building"></i> Veritas University, Abuja</p>
-                  <p>Key courses: Data Structures & Algorithms, Web Application Development, Embedded Systems, Distributed & Cloud Computing, Fault Tolerant Computing.</p>
-                </div>
-                <div class="resume-item">
-                  <h4>+2 Science</h4>
-                  <h5>2016 — 2018</h5>
-                  <p class="company"><i class="bi bi-building"></i> Government Science Secondary School, Zuba</p>
-                </div>
+                <div id="dyn-education"></div>
               </div>
 
               <!-- Certifications -->
               <div class="resume-section" data-aos="fade-up" data-aos-delay="200">
                 <h3><i class="bi bi-award me-2"></i>Certifications</h3>
-                <div class="resume-item">
-                  <h4>Certified Ethical Hacker (CEH)</h4>
-                  <h5>Jul 2025</h5>
-                  <p class="company"><i class="bi bi-building"></i> Cisco Networking Academy</p>
-                </div>
-                <div class="resume-item">
-                  <h4>Hashgraph Developer Course</h4>
-                  <h5>Oct 2025</h5>
-                  <p class="company"><i class="bi bi-building"></i> Hedera Hashgraph</p>
-                </div>
+                <div id="dyn-certifications"></div>
               </div>
             </div>
           </div>
@@ -535,7 +497,7 @@
               </div>
 
               <div class="col-lg-9">
-                <div class="row gy-4 portfolio-container isotope-container" data-aos="fade-up" data-aos-delay="200">
+                <div class="row gy-4 portfolio-container isotope-container" id="dyn-portfolio" data-aos="fade-up" data-aos-delay="200">
 
                   <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-web3">
                     <div class="portfolio-wrap">
@@ -718,7 +680,7 @@
             </div>
           </div>
 
-          <div class="row justify-content-center">
+          <div class="row justify-content-center" id="dyn-services">
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
               <div class="service-card position-relative z-1">
                 <div class="service-icon"><i class="bi bi-currency-bitcoin"></i></div>
@@ -855,7 +817,7 @@
           <p>Acknowledgements and achievements earned across academics, engineering, and competitive challenges.</p>
         </div>
         <div class="container" data-aos="fade-up" data-aos-delay="100">
-          <div class="row gy-4 justify-content-center">
+          <div class="row gy-4 justify-content-center" id="dyn-awards">
 
             <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
               <div class="service-card position-relative z-1 text-center">
@@ -926,7 +888,7 @@
         <div class="container">
           <div class="row g-4 g-lg-5">
             <div class="col-lg-5">
-              <div class="info-box">
+              <div class="info-box" id="dyn-contact-info">
                 <h3>Contact Info</h3>
                 <p>Feel free to reach out via email, phone, or connect on social media.</p>
                 <div class="info-item">
@@ -1031,6 +993,8 @@
 
     <!-- Main JS -->
     <script src="js/index.js"></script>
+    <!-- Data Loader -->
+    <script src="js/loader.js"></script>
 
     <script
       defer
