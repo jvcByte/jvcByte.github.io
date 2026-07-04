@@ -130,7 +130,7 @@ const PortfolioLoader = (() => {
 
   function loadExperience(experience) {
     if (!experience?.length) return;
-    const html = experience.map(exp => {
+    const html = [...experience].reverse().map(exp => {
       const ach = exp.achievements?.length
         ? `<ul>${exp.achievements.map(a => `<li>${a}</li>`).join('')}</ul>` : '';
       return `<div class="resume-item">
