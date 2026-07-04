@@ -1,1082 +1,917 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta
-            name="description"
-            content="Portfolio showcasing expertise in Software Engineering, Blockchain Development, Backend Systems, Mobile Apps, and IoT/Embedded Systems."
-        />
-        <meta
-            name="keywords"
-            content="Software Engineer, Blockchain Developer, Web3, DLT, Backend Developer, Mobile Apps, IoT, Embedded Systems, PCB Design, Portfolio"
-        />
-        <meta name="author" content="Portfolio Owner" />
-        <title>Portfolio | Personal Portfolio</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>John Valentine | Software Engineer & Blockchain Developer</title>
+    <meta name="description" content="Portfolio of John Valentine — Software Engineer specializing in Blockchain, DLT, Backend, Mobile, and IoT/Embedded Systems." />
+    <meta name="keywords" content="Software Engineer, Blockchain Developer, Web3, DLT, Backend, IoT, Embedded Systems, Nigeria" />
 
-        <!--- favicon -->
-        <link
-            rel="shortcut icon"
-            href="./assets/images/avatar-1.png"
-            type="image/x-icon"
-        />
+    <!-- Favicons -->
+    <link href="assets/images/jvc-image.png" rel="icon" />
+    <link href="assets/images/jvc-image.png" rel="apple-touch-icon" />
 
-        <!--- custom css link -->
-        <link rel="stylesheet" href="./css/style.css" />
-        <link rel="stylesheet" href="./css/skeleton.css" />
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
 
-        <!--- google font link -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
-            rel="stylesheet"
-        />
-    </head>
+    <!-- Vendor CSS Files -->
+    <link href="vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="vendors/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="vendors/aos/aos.css" rel="stylesheet" />
+    <link href="vendors/glightbox/css/glightbox.min.css" rel="stylesheet" />
+    <link href="vendors/swiper/swiper-bundle.min.css" rel="stylesheet" />
 
-    <body>
-        <!--- #MAIN -->
+    <!-- Main CSS File -->
+    <link href="css/snapfolio.css" rel="stylesheet" />
 
-        <main>
-            <!--- #SIDEBAR -->
+    <!-- =======================================================
+  * Template Name: SnapFolio
+  * Template URL: https://bootstrapmade.com/snapfolio-bootstrap-portfolio-template/
+  * Updated: Jul 21 2025 with Bootstrap v5.3.7
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  </head>
 
-            <aside class="sidebar" data-sidebar>
-                <div class="sidebar-info">
-                    <a
-                        href="./assets/images/my-avatar.jpg"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        title="Click me!"
-                        id="avatar-link"
-                    >
-                        <figure class="avatar-box">
-                            <img
-                                class="thumbnail"
-                                src="./assets/images/jvc-image.png"
-                                alt="Portfolio Owner"
-                                width="80"
-                            />
-                        </figure>
-                    </a>
+  <body class="index-page">
+    <header
+      id="header"
+      class="header dark-background d-flex flex-column justify-content-center"
+    >
+      <i class="header-toggle d-xl-none bi bi-list"></i>
 
-                    <div class="info-content">
-                        <h1 class="name" title="Portfolio Owner">
-                            John Valentine
-                        </h1>
-                        <p class="title">
-                            Software Engineer
-                        </p>
-                    </div>
-                    <button class="info_more-btn" data-sidebar-btn>
-                        <span>Show Contacts</span>
-                        <ion-icon name="chevron-down"></ion-icon>
-                    </button>
+      <div class="header-container d-flex flex-column align-items-start">
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="#hero" class="active"><i class="bi bi-house navicon"></i> Home</a></li>
+            <li><a href="#about"><i class="bi bi-person navicon"></i> About</a></li>
+            <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i> Resume</a></li>
+            <li><a href="#portfolio"><i class="bi bi-images navicon"></i> Portfolio</a></li>
+            <li><a href="#services"><i class="bi bi-hdd-stack navicon"></i> Services</a></li>
+            <li><a href="#contact"><i class="bi bi-envelope navicon"></i> Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="social-links text-center">
+          <a href="https://x.com/cheena_010" class="twitter" target="_blank"><i class="bi bi-twitter-x"></i></a>
+          <a href="https://github.com/jvcByte" class="github" target="_blank"><i class="bi bi-github"></i></a>
+          <a href="https://wa.me/08164906365" class="whatsapp" target="_blank"><i class="bi bi-whatsapp"></i></a>
+          <a href="https://www.linkedin.com/in/jvcbyte" class="linkedin" target="_blank"><i class="bi bi-linkedin"></i></a>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- Hero Section -->
+      <section id="hero" class="hero section">
+        <div class="background-elements">
+          <div class="bg-circle circle-1"></div>
+          <div class="bg-circle circle-2"></div>
+        </div>
+
+        <div class="hero-content">
+          <div class="container">
+            <div class="row align-items-center">
+              <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
+                <div class="hero-text">
+                  <h1>John<span class="accent-text"> Valentine</span></h1>
+                  <h2>Software Engineer</h2>
+                  <p class="lead">
+                    I'm a
+                    <span class="typed" data-typed-items="Blockchain Developer, Backend Engineer, IoT Developer, Coding Mentor"></span>
+                  </p>
+                  <p class="description">
+                    Versatile Software Engineer who researches and checks documentation before implementation, taking the SDLC as a lifestyle. Bridging blockchain, backend, mobile, and embedded systems.
+                  </p>
+                  <div class="hero-actions">
+                    <a href="#portfolio" class="btn btn-primary">View My Work</a>
+                    <a href="#contact" class="btn btn-outline">Get In Touch</a>
+                  </div>
+                  <div class="social-links">
+                    <a href="https://github.com/jvcByte" target="_blank"><i class="bi bi-github"></i></a>
+                    <a href="https://www.linkedin.com/in/jvcbyte" target="_blank"><i class="bi bi-linkedin"></i></a>
+                    <a href="https://x.com/cheena_010" target="_blank"><i class="bi bi-twitter-x"></i></a>
+                    <a href="https://wa.me/08164906365" target="_blank"><i class="bi bi-whatsapp"></i></a>
+                  </div>
                 </div>
+              </div>
 
-                <div class="sidebar-info_more">
-                    <div class="separator"></div>
-
-                    <ul class="contacts-list">
-                        <li class="contact-item">
-                            <div class="icon-box">
-                                <ion-icon name="mail-outline"></ion-icon>
-                            </div>
-
-                            <div class="contact-info">
-                                <p class="contact-title">Email</p>
-
-                                <a
-                                    href="mailto:jvc8***@gmail.com"
-                                    class="contact-link"
-                                    >jvc8***@gmail.com</a
-                                >
-                            </div>
-                        </li>
-
-                        <li class="contact-item">
-                            <div class="icon-box">
-                                <ion-icon
-                                    name="phone-portrait-outline"
-                                ></ion-icon>
-                            </div>
-
-                            <div class="contact-info">
-                                <p class="contact-title">Phone</p>
-
-                                <a
-                                    href="tel:+2348164906365"
-                                    class="contact-link"
-                                    >+234 816 *** **65</a
-                                >
-                            </div>
-                        </li>
-
-                        <li class="contact-item">
-                            <div class="icon-box">
-                                <ion-icon name="location-outline"></ion-icon>
-                            </div>
-
-                            <div class="contact-info">
-                                <p class="contact-title">Location</p>
-
-                                <address>Abuja, Nigeria</address>
-                            </div>
-                        </li>
-                    </ul>
-
-                    <div class="separator"></div>
-
-                    <ul class="social-list">
-                        <!-- Social links will be dynamically loaded here -->
-                    </ul>
+              <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
+                <div class="hero-visual">
+                  <div class="profile-container">
+                    <div class="profile-background"></div>
+                    <img src="assets/images/jvc-image.png" alt="John Valentine" class="profile-image" />
+                  </div>
                 </div>
-            </aside>
-
-            <!--- #main-content -->
-
-            <div class="main-content">
-                <!--- #NAVBAR -->
-
-                <nav class="navbar">
-                    <ul class="navbar-list">
-                        <li class="navbar-item">
-                            <button class="navbar-link active" data-nav-link>
-                                About
-                            </button>
-                        </li>
-
-                        <li class="navbar-item">
-                            <button class="navbar-link" data-nav-link>
-                                Resume
-                            </button>
-                        </li>
-
-                        <li class="navbar-item">
-                            <button class="navbar-link" data-nav-link>
-                                Projects
-                            </button>
-                        </li>
-
-                        <li class="navbar-item">
-                            <button class="navbar-link" data-nav-link>
-                                Blog
-                            </button>
-                        </li>
-
-                        <li class="navbar-item">
-                            <button class="navbar-link" data-nav-link>
-                                Contact
-                            </button>
-                        </li>
-                    </ul>
-                </nav>
-
-                <!--- #ABOUT -->
-
-                <article class="about active" data-page="about">
-                    <header>
-                        <h2 class="h2 article-title">About me</h2>
-                    </header>
-
-                    <section class="about-text">
-                        <!-- Skeleton placeholder for bio text -->
-                        <div
-                            class="skeleton-container skeleton-about"
-                            aria-live="polite"
-                            aria-label="Loading about section content"
-                            role="status"
-                        >
-                            <span class="sr-only"
-                                >Loading about section, please wait...</span
-                            >
-                            <div
-                                class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                aria-hidden="true"
-                            ></div>
-                            <div
-                                class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                aria-hidden="true"
-                            ></div>
-                            <div
-                                class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                aria-hidden="true"
-                            ></div>
-                        </div>
-                        <!-- Bio will be dynamically loaded here -->
-                        <div class="actual-content" style="display: none">
-                            <p>Loading bio...</p>
-                        </div>
-                    </section>
-
-                    <!--- service -->
-
-                    <section class="service">
-                        <h3 class="h3 service-title">What I Do</h3>
-
-                        <ul class="service-list">
-                            <!-- Skeleton placeholder for services -->
-                            <div
-                                class="skeleton-container skeleton-services"
-                                aria-live="polite"
-                                aria-label="Loading services content"
-                                role="status"
-                            >
-                                <span class="sr-only"
-                                    >Loading services section, please
-                                    wait...</span
-                                >
-                                <li
-                                    class="skeleton-card skeleton-service-card"
-                                    aria-hidden="true"
-                                >
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-image skeleton-service-icon"
-                                    ></div>
-                                    <div class="skeleton-content">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                    </div>
-                                </li>
-                                <li
-                                    class="skeleton-card skeleton-service-card"
-                                    aria-hidden="true"
-                                >
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-image skeleton-service-icon"
-                                    ></div>
-                                    <div class="skeleton-content">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                    </div>
-                                </li>
-                                <li
-                                    class="skeleton-card skeleton-service-card"
-                                    aria-hidden="true"
-                                >
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-image skeleton-service-icon"
-                                    ></div>
-                                    <div class="skeleton-content">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                    </div>
-                                </li>
-                                <li
-                                    class="skeleton-card skeleton-service-card"
-                                    aria-hidden="true"
-                                >
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-image skeleton-service-icon"
-                                    ></div>
-                                    <div class="skeleton-content">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                    </div>
-                                </li>
-                            </div>
-                            <!-- Services will be dynamically loaded here -->
-                            <div
-                                class="actual-content"
-                                style="display: none"
-                            ></div>
-                        </ul>
-                    </section>
-
-                    <section class="skill">
-                        <h3 class="h3 skills-title">My skills</h3>
-
-                        <ul class="skills-list content-card">
-                            <!-- Skeleton placeholder for skills -->
-                            <div
-                                class="skeleton-container skeleton-skills"
-                                aria-live="polite"
-                                aria-label="Loading skills content"
-                                role="status"
-                            >
-                                <span class="sr-only"
-                                    >Loading skills section, please
-                                    wait...</span
-                                >
-                                <li
-                                    class="skeleton skeleton-shimmer skeleton-skills-item"
-                                    aria-hidden="true"
-                                ></li>
-                                <li
-                                    class="skeleton skeleton-shimmer skeleton-skills-item"
-                                    aria-hidden="true"
-                                ></li>
-                                <li
-                                    class="skeleton skeleton-shimmer skeleton-skills-item"
-                                    aria-hidden="true"
-                                ></li>
-                                <li
-                                    class="skeleton skeleton-shimmer skeleton-skills-item"
-                                    aria-hidden="true"
-                                ></li>
-                                <li
-                                    class="skeleton skeleton-shimmer skeleton-skills-item"
-                                    aria-hidden="true"
-                                ></li>
-                                <li
-                                    class="skeleton skeleton-shimmer skeleton-skills-item"
-                                    aria-hidden="true"
-                                ></li>
-                                <li
-                                    class="skeleton skeleton-shimmer skeleton-skills-item"
-                                    aria-hidden="true"
-                                ></li>
-                                <li
-                                    class="skeleton skeleton-shimmer skeleton-skills-item"
-                                    aria-hidden="true"
-                                ></li>
-                            </div>
-                            <!-- Skills will be dynamically loaded here -->
-                            <div
-                                class="actual-content"
-                                style="display: none"
-                            ></div>
-                        </ul>
-                    </section>
-                </article>
-
-                <!--- #RESUME -->
-
-                <article class="resume" data-page="resume">
-                    <header>
-                        <h2 class="h2 article-title">Resume</h2>
-                    </header>
-
-                    <section class="timeline">
-                        <div class="title-wrapper">
-                            <div class="icon-box">
-                                <ion-icon name="book-outline"></ion-icon>
-                            </div>
-                            <h3 class="h3">Education</h3>
-                        </div>
-
-                        <ol class="timeline-list">
-                            <!-- Skeleton placeholder for education timeline -->
-                            <div class="skeleton-container skeleton-timeline">
-                                <li class="skeleton-timeline-item">
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                    ></div>
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                    ></div>
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                    ></div>
-                                </li>
-                                <li class="skeleton-timeline-item">
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                    ></div>
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                    ></div>
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                    ></div>
-                                </li>
-                                <li class="skeleton-timeline-item">
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                    ></div>
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                    ></div>
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                    ></div>
-                                </li>
-                            </div>
-                            <!-- Education and Experience will be dynamically loaded here -->
-                            <div
-                                class="actual-content"
-                                style="display: none"
-                            ></div>
-                        </ol>
-                    </section>
-
-                    <section class="timeline">
-                        <div class="title-wrapper">
-                            <div class="icon-box">
-                                <ion-icon name="book-outline"></ion-icon>
-                            </div>
-                            <h3 class="h3">Work Experience</h3>
-                        </div>
-
-                        <ol class="timeline-list" id="experience-timeline">
-                            <!-- Skeleton placeholder for experience timeline -->
-                            <div class="skeleton-container skeleton-timeline">
-                                <li class="skeleton-timeline-item">
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                    ></div>
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                    ></div>
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                    ></div>
-                                </li>
-                                <li class="skeleton-timeline-item">
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                    ></div>
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                    ></div>
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                    ></div>
-                                </li>
-                                <li class="skeleton-timeline-item">
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                    ></div>
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                    ></div>
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                    ></div>
-                                </li>
-                            </div>
-                            <!-- Work experience will be dynamically loaded here -->
-                            <div
-                                class="actual-content"
-                                style="display: none"
-                            ></div>
-                        </ol>
-                    </section>
-
-                    <section class="skill">
-                        <h3 class="h3 skills-title">My skills</h3>
-
-                        <ul class="skills-list content-card">
-                            <!-- Skeleton placeholder for resume skills -->
-                            <div class="skeleton-container skeleton-skills">
-                                <li
-                                    class="skeleton skeleton-shimmer skeleton-skills-item"
-                                ></li>
-                                <li
-                                    class="skeleton skeleton-shimmer skeleton-skills-item"
-                                ></li>
-                                <li
-                                    class="skeleton skeleton-shimmer skeleton-skills-item"
-                                ></li>
-                                <li
-                                    class="skeleton skeleton-shimmer skeleton-skills-item"
-                                ></li>
-                                <li
-                                    class="skeleton skeleton-shimmer skeleton-skills-item"
-                                ></li>
-                                <li
-                                    class="skeleton skeleton-shimmer skeleton-skills-item"
-                                ></li>
-                                <li
-                                    class="skeleton skeleton-shimmer skeleton-skills-item"
-                                ></li>
-                                <li
-                                    class="skeleton skeleton-shimmer skeleton-skills-item"
-                                ></li>
-                            </div>
-                            <!-- Resume skills will be dynamically loaded here -->
-                            <div
-                                class="actual-content"
-                                style="display: none"
-                            ></div>
-                        </ul>
-                    </section>
-                    <section class="">
-                        <h3 class="h3 service-title h3-awards">
-                            Certifications
-                        </h3>
-
-                        <ul class="award-list">
-                            <!-- Skeleton placeholder for certifications -->
-                            <div class="skeleton-container skeleton-awards">
-                                <li class="skeleton-award-item">
-                                    <div class="skeleton-award-icon-box">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-award-image"
-                                        ></div>
-                                    </div>
-                                    <div class="skeleton-award-content-box">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                    </div>
-                                </li>
-                                <li class="skeleton-award-item">
-                                    <div class="skeleton-award-icon-box">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-award-image"
-                                        ></div>
-                                    </div>
-                                    <div class="skeleton-award-content-box">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                    </div>
-                                </li>
-                            </div>
-                            <!-- Certifications will be dynamically loaded here -->
-                            <div
-                                class="actual-content"
-                                style="display: none"
-                            ></div>
-                        </ul>
-
-                        <h3 class="h3 service-title h3-awards">
-                            Awards & Recognition
-                        </h3>
-
-                        <ul class="award-list">
-                            <!-- Skeleton placeholder for awards -->
-                            <div class="skeleton-container skeleton-awards">
-                                <li class="skeleton-award-item">
-                                    <div class="skeleton-award-icon-box">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-award-image"
-                                        ></div>
-                                    </div>
-                                    <div class="skeleton-award-content-box">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                    </div>
-                                </li>
-                                <li class="skeleton-award-item">
-                                    <div class="skeleton-award-icon-box">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-award-image"
-                                        ></div>
-                                    </div>
-                                    <div class="skeleton-award-content-box">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                    </div>
-                                </li>
-                                <li class="skeleton-award-item">
-                                    <div class="skeleton-award-icon-box">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-award-image"
-                                        ></div>
-                                    </div>
-                                    <div class="skeleton-award-content-box">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                    </div>
-                                </li>
-                                <li class="skeleton-award-item">
-                                    <div class="skeleton-award-icon-box">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-award-image"
-                                        ></div>
-                                    </div>
-                                    <div class="skeleton-award-content-box">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                    </div>
-                                </li>
-                            </div>
-                            <!-- Awards will be dynamically loaded here -->
-                            <div
-                                class="actual-content"
-                                style="display: none"
-                            ></div>
-                        </ul>
-                    </section>
-                </article>
-
-                <!--- #PROJECTS -->
-
-                <article class="project" data-page="projects">
-                    <header>
-                        <h2 class="h2 article-title">Projects</h2>
-                    </header>
-
-                    <section class="projects">
-                        <ul class="filter-list">
-                            <li class="filter-item">
-                                <button class="active" data-filter-btn>
-                                    All
-                                </button>
-                            </li>
-                            <li class="filter-item">
-                                <button data-filter-btn>Graphics Design</button>
-                            </li>
-                            <li class="filter-item">
-                                <button data-filter-btn>Web2</button>
-                            </li>
-                            <li class="filter-item">
-                                <button data-filter-btn>Web3</button>
-                            </li>
-                            <li class="filter-item">
-                                <button data-filter-btn>
-                                    IoT & Embedded Systems
-                                </button>
-                            </li>
-                        </ul>
-
-                        <div class="filter-select-box">
-                            <button class="filter-select" data-select>
-                                <div class="select-value" data-selecct-value>
-                                    Select category
-                                </div>
-                                <div class="select-icon">
-                                    <ion-icon name="chevron-down"></ion-icon>
-                                </div>
-                            </button>
-
-                            <ul class="select-list">
-                                <li class="select-item">
-                                    <button data-select-item>All</button>
-                                </li>
-                                <li class="select-item">
-                                    <button data-select-item>
-                                        IoT & Embedded Systems
-                                    </button>
-                                </li>
-                                <li class="select-item">
-                                    <button data-select-item>Web2</button>
-                                </li>
-                                <li class="select-item">
-                                    <button data-select-item>Web3</button>
-                                </li>
-                                <li class="select-item">
-                                    <button data-select-item>
-                                        Graphics Design
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <ul class="project-list">
-                            <!-- Skeleton placeholder for projects -->
-                            <div
-                                class="skeleton-container skeleton-projects"
-                                aria-live="polite"
-                                aria-label="Loading projects content"
-                                role="status"
-                            >
-                                <span class="sr-only"
-                                    >Loading projects section, please
-                                    wait...</span
-                                >
-                                <li
-                                    class="skeleton-card skeleton-project-card"
-                                    aria-hidden="true"
-                                >
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-image skeleton-project-image"
-                                    ></div>
-                                    <div class="skeleton-content">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                    </div>
-                                </li>
-                                <li
-                                    class="skeleton-card skeleton-project-card"
-                                    aria-hidden="true"
-                                >
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-image skeleton-project-image"
-                                    ></div>
-                                    <div class="skeleton-content">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                    </div>
-                                </li>
-                                <li
-                                    class="skeleton-card skeleton-project-card"
-                                    aria-hidden="true"
-                                >
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-image skeleton-project-image"
-                                    ></div>
-                                    <div class="skeleton-content">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                    </div>
-                                </li>
-                                <li
-                                    class="skeleton-card skeleton-project-card"
-                                    aria-hidden="true"
-                                >
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-image skeleton-project-image"
-                                    ></div>
-                                    <div class="skeleton-content">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                    </div>
-                                </li>
-                                <li
-                                    class="skeleton-card skeleton-project-card"
-                                    aria-hidden="true"
-                                >
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-image skeleton-project-image"
-                                    ></div>
-                                    <div class="skeleton-content">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                    </div>
-                                </li>
-                                <li
-                                    class="skeleton-card skeleton-project-card"
-                                    aria-hidden="true"
-                                >
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-image skeleton-project-image"
-                                    ></div>
-                                    <div class="skeleton-content">
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                    </div>
-                                </li>
-                            </div>
-                            <!-- Projects will be dynamically loaded here -->
-                            <div
-                                class="actual-content"
-                                style="display: none"
-                            ></div>
-                        </ul>
-                    </section>
-                </article>
-
-                <!--- #BLOG -->
-
-                <article class="blog" data-page="blog">
-                    <header>
-                        <h2 class="h2 article-title">Blog</h2>
-                    </header>
-
-                    <section class="blog-posts">
-                        <ul class="blog-posts-list">
-                            <!-- Skeleton placeholder for blog posts -->
-                            <div
-                                class="skeleton-container skeleton-blog"
-                                aria-live="polite"
-                                aria-label="Loading blog posts content"
-                                role="status"
-                            >
-                                <span class="sr-only"
-                                    >Loading blog posts section, please
-                                    wait...</span
-                                >
-                                <li
-                                    class="skeleton-card skeleton-blog-card"
-                                    aria-hidden="true"
-                                >
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-image skeleton-blog-image"
-                                    ></div>
-                                    <div class="skeleton-content">
-                                        <div class="skeleton-meta">
-                                            <div
-                                                class="skeleton skeleton-shimmer skeleton-text"
-                                            ></div>
-                                            <div class="skeleton-dot"></div>
-                                            <div
-                                                class="skeleton skeleton-shimmer skeleton-text"
-                                            ></div>
-                                        </div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                    </div>
-                                </li>
-                                <li
-                                    class="skeleton-card skeleton-blog-card"
-                                    aria-hidden="true"
-                                >
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-image skeleton-blog-image"
-                                    ></div>
-                                    <div class="skeleton-content">
-                                        <div class="skeleton-meta">
-                                            <div
-                                                class="skeleton skeleton-shimmer skeleton-text"
-                                            ></div>
-                                            <div class="skeleton-dot"></div>
-                                            <div
-                                                class="skeleton skeleton-shimmer skeleton-text"
-                                            ></div>
-                                        </div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                    </div>
-                                </li>
-                                <li
-                                    class="skeleton-card skeleton-blog-card"
-                                    aria-hidden="true"
-                                >
-                                    <div
-                                        class="skeleton skeleton-shimmer skeleton-image skeleton-blog-image"
-                                    ></div>
-                                    <div class="skeleton-content">
-                                        <div class="skeleton-meta">
-                                            <div
-                                                class="skeleton skeleton-shimmer skeleton-text"
-                                            ></div>
-                                            <div class="skeleton-dot"></div>
-                                            <div
-                                                class="skeleton skeleton-shimmer skeleton-text"
-                                            ></div>
-                                        </div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-h4"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                        <div
-                                            class="skeleton skeleton-shimmer skeleton-text skeleton-text-body"
-                                        ></div>
-                                    </div>
-                                </li>
-                            </div>
-                            <!-- Blog posts will be dynamically loaded here -->
-                            <div
-                                class="actual-content"
-                                style="display: none"
-                            ></div>
-                        </ul>
-                    </section>
-                </article>
-
-                <!--- #CONTACT -->
-
-                <article class="contact" data-page="contact">
-                    <header>
-                        <h2 class="h2 article-title">Contact</h2>
-                    </header>
-
-                    <!-- contact form -->
-
-                    <section class="contact-form">
-                        <h3 class="h3 form-title">Contact Form</h3>
-
-                        <form
-                            action="https://api.web3forms.com/submit"
-                            method="POST"
-                            class="form"
-                            data-form
-                        >
-                            <input
-                                type="hidden"
-                                name="access_key"
-                                value="411cf332-1bf4-4ce9-a45f-cc37d43797be"
-                            />
-                            <input
-                                type="hidden"
-                                name="from_name"
-                                value="Portfolio"
-                            />
-
-                            <div class="input-wrapper">
-                                <input
-                                    type="text"
-                                    name="fullname"
-                                    class="form-input"
-                                    placeholder="Full name"
-                                    required
-                                    data-form-input
-                                />
-                                <input
-                                    type="email"
-                                    name="email"
-                                    class="form-input"
-                                    placeholder="Email address"
-                                    required
-                                    data-form-input
-                                />
-                            </div>
-
-                            <input
-                                type="text"
-                                name="subject"
-                                class="form-input"
-                                placeholder="Subject"
-                                required
-                                data-form-input
-                            />
-
-                            <textarea
-                                name="message"
-                                class="form-input"
-                                placeholder="Your Message"
-                                required
-                                data-form-input
-                            ></textarea>
-
-                            <button
-                                class="form-btn"
-                                type="submit"
-                                disabled
-                                data-form-btn
-                            >
-                                <ion-icon name="paper-plane"></ion-icon>
-                                <span>Send Message</span>
-                            </button>
-                        </form>
-                    </section>
-
-                    <div id="toast" class="toast"></div>
-
-                    <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-                </article>
+              </div>
             </div>
-        </main>
+          </div>
+        </div>
+      </section>
+      <!-- /Hero Section -->
 
-        <!--- custom js link -->
-        <script src="./js/skeleton-manager.js"></script>
-        <script src="./js/data-loader.js"></script>
-        <script src="./js/script.js"></script>
+      <!-- About Section -->
+      <section id="about" class="about section">
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+          <div class="row">
+            <div class="col-lg-5" data-aos="zoom-in" data-aos-delay="200">
+              <div class="profile-card">
+                <div class="profile-header">
+                  <div class="profile-image">
+                    <img src="assets/images/my-avatar.jpg" alt="John Valentine" class="img-fluid" />
+                  </div>
+                  <div class="profile-badge">
+                    <i class="bi bi-check-circle-fill"></i>
+                  </div>
+                </div>
+                <div class="profile-content">
+                  <h3>John Valentine</h3>
+                  <p class="profession">Software Engineer & Blockchain Developer</p>
+                  <div class="contact-links">
+                    <a href="mailto:jvc8463@gmail.com" class="contact-item">
+                      <i class="bi bi-envelope"></i>
+                      <span>jvc8463@gmail.com</span>
+                    </a>
+                    <a href="tel:+2348164906365" class="contact-item">
+                      <i class="bi bi-telephone"></i>
+                      +234 816 490 6365
+                    </a>
+                    <a href="#" class="contact-item">
+                      <i class="bi bi-geo-alt"></i>
+                      Abuja, Nigeria
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        <!--- ionicon link -->
-        <script
-            type="module"
-            src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-        ></script>
-        <script
-            nomodule
-            src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-        ></script>
+            <div class="col-lg-7" data-aos="fade-left" data-aos-delay="300">
+              <div class="about-content">
+                <div class="section-header">
+                  <span class="badge-text">Get to Know Me</span>
+                  <h2>Passionate About Building Real-World Tech Solutions</h2>
+                </div>
+                <div class="description">
+                  <p>Welcome to my personal portfolio! I'm a versatile Software Engineer who researches and checks documentation before implementation, taking the Software Development Life Cycle (SDLC) as a lifestyle.</p>
+                  <p>This portfolio showcases my journey across multiple technology domains — from blockchain and distributed ledger technologies to traditional web development, mobile applications, and embedded systems.</p>
+                </div>
+                <div class="stats-grid">
+                  <div class="stat-item">
+                    <div class="stat-number">20+</div>
+                    <div class="stat-label">Projects Built</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-number">3+</div>
+                    <div class="stat-label">Years Experience</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-number">6+</div>
+                    <div class="stat-label">Awards Won</div>
+                  </div>
+                </div>
+                <div class="details-grid">
+                  <div class="detail-row">
+                    <div class="detail-item">
+                      <span class="detail-label">Specialization</span>
+                      <span class="detail-value">Blockchain & Backend Dev</span>
+                    </div>
+                    <div class="detail-item">
+                      <span class="detail-label">Experience Level</span>
+                      <span class="detail-value">Mid-Level Professional</span>
+                    </div>
+                  </div>
+                  <div class="detail-row">
+                    <div class="detail-item">
+                      <span class="detail-label">Education</span>
+                      <span class="detail-value">B.Sc Software Engineering</span>
+                    </div>
+                    <div class="detail-item">
+                      <span class="detail-label">Location</span>
+                      <span class="detail-value">Abuja, Nigeria</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="cta-section">
+                  <a href="https://github.com/jvcByte" class="btn btn-primary" target="_blank">
+                    <i class="bi bi-github"></i> GitHub Profile
+                  </a>
+                  <a href="#contact" class="btn btn-outline">
+                    <i class="bi bi-chat-dots"></i> Let's Talk
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- /About Section -->
 
-        <!--- chatbot -->
+      <!-- Stats Section -->
+      <section id="stats" class="stats section light-background">
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+          <div class="row justify-content-center">
+            <div class="col-lg-10">
+              <div class="stats-wrapper">
+                <div class="stats-item" data-aos="zoom-in" data-aos-delay="150">
+                  <div class="icon-wrapper"><i class="bi bi-journal-code"></i></div>
+                  <span data-purecounter-start="0" data-purecounter-end="20" data-purecounter-duration="1" class="purecounter"></span>
+                  <p>Projects Built</p>
+                </div>
+                <div class="stats-item" data-aos="zoom-in" data-aos-delay="200">
+                  <div class="icon-wrapper"><i class="bi bi-trophy"></i></div>
+                  <span data-purecounter-start="0" data-purecounter-end="6" data-purecounter-duration="1" class="purecounter"></span>
+                  <p>Awards Won</p>
+                </div>
+                <div class="stats-item" data-aos="zoom-in" data-aos-delay="250">
+                  <div class="icon-wrapper"><i class="bi bi-mortarboard"></i></div>
+                  <span data-purecounter-start="0" data-purecounter-end="2" data-purecounter-duration="1" class="purecounter"></span>
+                  <p>Certifications</p>
+                </div>
+                <div class="stats-item" data-aos="zoom-in" data-aos-delay="300">
+                  <div class="icon-wrapper"><i class="bi bi-people"></i></div>
+                  <span data-purecounter-start="0" data-purecounter-end="5" data-purecounter-duration="1" class="purecounter"></span>
+                  <p>Roles Held</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- /Stats Section -->
 
-        <!--
-    <script type='text/javascript'>
-            (function(I, L, T, i, c, k, s) {if(I.iticks) return;I.iticks = {host:c, settings:s, clientId:k, cdn:L, queue:[]};var h = T.head || T.documentElement;var e = T.createElement(i);var l = I.location;e.async = true;e.src = (L||c)+'/client/inject-v2.min.js';h.insertBefore(e, h.firstChild);I.iticks.call = function(a, b) {I.iticks.queue.push([a, b]);};})(window, 'https://cdn-v1.intelliticks.com/prod/common', document, 'script', 'https://app.intelliticks.com', 'QDSJoM9bye7eFGLsn_c', {});
-    </script>
-    --></body>
+      <!-- Skills Section -->
+      <section id="skills" class="skills section">
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Skills</h2>
+          <p>Technologies and tools I work with across blockchain, backend, mobile, and embedded systems.</p>
+        </div>
+        <!-- End Section Title -->
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="skills-category" data-aos="fade-up" data-aos-delay="200">
+                <h3>Blockchain & Web3</h3>
+                <div class="skills-animation">
+                  <div class="skill-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h4>Solidity</h4><span class="skill-percentage">85%</span>
+                    </div>
+                    <div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div></div>
+                  </div>
+                  <div class="skill-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h4>Rust</h4><span class="skill-percentage">75%</span>
+                    </div>
+                    <div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div></div>
+                  </div>
+                  <div class="skill-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h4>TypeScript</h4><span class="skill-percentage">80%</span>
+                    </div>
+                    <div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="skills-category" data-aos="fade-up" data-aos-delay="300">
+                <h3>Backend & Systems</h3>
+                <div class="skills-animation">
+                  <div class="skill-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h4>Python</h4><span class="skill-percentage">80%</span>
+                    </div>
+                    <div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div></div>
+                  </div>
+                  <div class="skill-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h4>SQL & Databases</h4><span class="skill-percentage">75%</span>
+                    </div>
+                    <div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div></div>
+                  </div>
+                  <div class="skill-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h4>PCB Design & IoT</h4><span class="skill-percentage">70%</span>
+                    </div>
+                    <div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- /Skills Section -->
+
+      <!-- Resume Section -->
+      <section id="resume" class="resume section">
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Resume</h2>
+          <p>My academic background, professional experience, and certifications across software engineering, blockchain, and embedded systems.</p>
+        </div>
+        <!-- End Section Title -->
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+          <div class="row gy-4">
+            <div class="col-lg-4">
+              <div class="resume-side" data-aos="fade-right" data-aos-delay="100">
+                <div class="profile-img mb-4">
+                  <img src="assets/images/my-avatar.jpg" alt="John Valentine" class="img-fluid rounded" />
+                </div>
+                <h3>Professional Summary</h3>
+                <p>Versatile Software Engineer with experience in blockchain development, backend systems, IoT, and embedded systems. Currently a Blockchain Developer at Web3Bridge and Coding Mentor at Learn2Earn.</p>
+                <h3 class="mt-4">Contact Information</h3>
+                <ul class="contact-info list-unstyled">
+                  <li><i class="bi bi-geo-alt"></i> Abuja, Nigeria</li>
+                  <li><i class="bi bi-envelope"></i> <a href="mailto:jvc8463@gmail.com">jvc8463@gmail.com</a></li>
+                  <li><i class="bi bi-phone"></i> +234 816 490 6365</li>
+                  <li><i class="bi bi-linkedin"></i> <a href="https://www.linkedin.com/in/jvcbyte" target="_blank">linkedin.com/in/jvcbyte</a></li>
+                </ul>
+                <div class="skills-animation mt-4">
+                  <h3>Core Skills</h3>
+                  <div class="skill-item">
+                    <div class="d-flex justify-content-between"><span>Solidity / Rust</span><span>85%</span></div>
+                    <div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div></div>
+                  </div>
+                  <div class="skill-item">
+                    <div class="d-flex justify-content-between"><span>TypeScript / Python</span><span>80%</span></div>
+                    <div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div></div>
+                  </div>
+                  <div class="skill-item">
+                    <div class="d-flex justify-content-between"><span>APIs & Databases</span><span>78%</span></div>
+                    <div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div></div>
+                  </div>
+                  <div class="skill-item">
+                    <div class="d-flex justify-content-between"><span>PCB Design & IoT</span><span>70%</span></div>
+                    <div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-8 ps-4 ps-lg-5">
+              <!-- Experience -->
+              <div class="resume-section" data-aos="fade-up">
+                <h3><i class="bi bi-briefcase me-2"></i>Professional Experience</h3>
+
+                <div class="resume-item">
+                  <h4>Coding Mentor</h4>
+                  <h5>Nov 2025 — Present</h5>
+                  <p class="company"><i class="bi bi-building"></i> Learn2Earn</p>
+                  <ul>
+                    <li>Guide students using the peer-to-peer learning platform.</li>
+                    <li>Conduct code reviews and offer mentorship support.</li>
+                    <li>Monitor learners' progress and report challenges or bugs.</li>
+                    <li>Perform database queries for analytics and insights.</li>
+                  </ul>
+                </div>
+
+                <div class="resume-item">
+                  <h4>Blockchain Developer</h4>
+                  <h5>Jul 2025 — Present</h5>
+                  <p class="company"><i class="bi bi-building"></i> Web3Bridge</p>
+                  <ul>
+                    <li>Implemented a DAO for voting on proposals.</li>
+                    <li>Implemented secure data storage on blockchain while optimising performance.</li>
+                    <li>Implemented an AI marketplace on blockchain.</li>
+                  </ul>
+                </div>
+
+                <div class="resume-item">
+                  <h4>Project Team Lead</h4>
+                  <h5>Jul 2024 — Oct 2024</h5>
+                  <p class="company"><i class="bi bi-building"></i> Know the Blocks Maven (KBM)</p>
+                  <ul>
+                    <li>Led a team implementing a layer 2 scaling solution.</li>
+                    <li>Applied elliptic curve cryptography concepts to programming.</li>
+                    <li>Developed custom bank and token using Solidity.</li>
+                    <li>Performed code review, deployed, and verified bank contracts on multiple networks.</li>
+                  </ul>
+                </div>
+
+                <div class="resume-item">
+                  <h4>PHP Intern</h4>
+                  <h5>Jul 2023 — Oct 2023</h5>
+                  <p class="company"><i class="bi bi-building"></i> Software Engineering Dept.</p>
+                  <ul>
+                    <li>Developed new features and transformed UI designs into functional interfaces.</li>
+                    <li>Identified and resolved bugs, improving app stability.</li>
+                    <li>Collaborated with backend developers and cross-functional teams.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Education -->
+              <div class="resume-section" data-aos="fade-up" data-aos-delay="100">
+                <h3><i class="bi bi-mortarboard me-2"></i>Education</h3>
+                <div class="resume-item">
+                  <h4>B.Sc. Software Engineering</h4>
+                  <h5>2022 — 2025</h5>
+                  <p class="company"><i class="bi bi-building"></i> Veritas University, Abuja</p>
+                  <p>Key courses: Data Structures & Algorithms, Web Application Development, Embedded Systems, Distributed & Cloud Computing, Fault Tolerant Computing.</p>
+                </div>
+                <div class="resume-item">
+                  <h4>+2 Science</h4>
+                  <h5>2016 — 2018</h5>
+                  <p class="company"><i class="bi bi-building"></i> Government Science Secondary School, Zuba</p>
+                </div>
+              </div>
+
+              <!-- Certifications -->
+              <div class="resume-section" data-aos="fade-up" data-aos-delay="200">
+                <h3><i class="bi bi-award me-2"></i>Certifications</h3>
+                <div class="resume-item">
+                  <h4>Certified Ethical Hacker (CEH)</h4>
+                  <h5>Jul 2025</h5>
+                  <p class="company"><i class="bi bi-building"></i> Cisco Networking Academy</p>
+                </div>
+                <div class="resume-item">
+                  <h4>Hashgraph Developer Course</h4>
+                  <h5>Oct 2025</h5>
+                  <p class="company"><i class="bi bi-building"></i> Hedera Hashgraph</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <!-- /Resume Section -->
+
+      <!-- Portfolio Section -->
+      <section id="portfolio" class="portfolio section">
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Portfolio</h2>
+          <p>A selection of projects across Web3, Web2, IoT & Embedded Systems, and Graphics Design.</p>
+        </div>
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+          <div
+            class="isotope-layout"
+            data-default-filter="*"
+            data-layout="masonry"
+            data-sort="original-order"
+          >
+            <div class="row">
+              <div class="col-lg-3 filter-sidebar">
+                <div
+                  class="filters-wrapper"
+                  data-aos="fade-right"
+                  data-aos-delay="150"
+                >
+                  <ul class="portfolio-filters isotope-filters">
+                    <li data-filter="*" class="filter-active">All Projects</li>
+                    <li data-filter=".filter-web3">Web3</li>
+                    <li data-filter=".filter-web2">Web2</li>
+                    <li data-filter=".filter-iot">IoT & Embedded</li>
+                    <li data-filter=".filter-design">Graphics Design</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="col-lg-9">
+                <div class="row gy-4 portfolio-container isotope-container" data-aos="fade-up" data-aos-delay="200">
+
+                  <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-web3">
+                    <div class="portfolio-wrap">
+                      <img src="assets/images/projects/certchain.png" class="img-fluid" alt="Certificate Chain" loading="lazy" />
+                      <div class="portfolio-info"><div class="content">
+                        <span class="category">Web3</span><h4>Certificate Chain</h4>
+                        <div class="portfolio-links">
+                          <a href="https://certificatechain.vercel.app/" target="_blank" title="Visit"><i class="bi bi-arrow-right"></i></a>
+                        </div>
+                      </div></div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-web3">
+                    <div class="portfolio-wrap">
+                      <img src="assets/images/projects/aisilo.png" class="img-fluid" alt="AIsilo" loading="lazy" />
+                      <div class="portfolio-info"><div class="content">
+                        <span class="category">Web3</span><h4>AIsilo</h4>
+                        <div class="portfolio-links">
+                          <a href="https://aisilo.vercel.app/" target="_blank" title="Visit"><i class="bi bi-arrow-right"></i></a>
+                        </div>
+                      </div></div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-web3">
+                    <div class="portfolio-wrap">
+                      <img src="assets/images/projects/fileit.png" class="img-fluid" alt="File It" loading="lazy" />
+                      <div class="portfolio-info"><div class="content">
+                        <span class="category">Web3</span><h4>File It</h4>
+                        <div class="portfolio-links">
+                          <a href="https://file-it.vercel.app/" target="_blank" title="Visit"><i class="bi bi-arrow-right"></i></a>
+                        </div>
+                      </div></div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-web2">
+                    <div class="portfolio-wrap">
+                      <img src="assets/images/projects/tranzit.png" class="img-fluid" alt="Tranzit Mobility" loading="lazy" />
+                      <div class="portfolio-info"><div class="content">
+                        <span class="category">Web2</span><h4>Tranzit Mobility</h4>
+                        <div class="portfolio-links">
+                          <a href="https://tranzit.cc/" target="_blank" title="Visit"><i class="bi bi-arrow-right"></i></a>
+                        </div>
+                      </div></div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-web3">
+                    <div class="portfolio-wrap">
+                      <img src="assets/images/projects/stv2.png" class="img-fluid" alt="SealedTrust" loading="lazy" />
+                      <div class="portfolio-info"><div class="content">
+                        <span class="category">Web3</span><h4>SealedTrust Escrow</h4>
+                        <div class="portfolio-links">
+                          <a href="https://stv2.vercel.app/" target="_blank" title="Visit"><i class="bi bi-arrow-right"></i></a>
+                        </div>
+                      </div></div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-iot">
+                    <div class="portfolio-wrap">
+                      <img src="assets/images/projects/smartfarm.png" class="img-fluid" alt="Smart Farm" loading="lazy" />
+                      <div class="portfolio-info"><div class="content">
+                        <span class="category">IoT & Embedded</span><h4>Smart Farm</h4>
+                        <div class="portfolio-links">
+                          <a href="https://smart-farm-one.vercel.app/" target="_blank" title="Visit"><i class="bi bi-arrow-right"></i></a>
+                        </div>
+                      </div></div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-iot">
+                    <div class="portfolio-wrap">
+                      <img src="assets/images/projects/gesture_based_access.png" class="img-fluid" alt="Gesture Access Control" loading="lazy" />
+                      <div class="portfolio-info"><div class="content">
+                        <span class="category">IoT & Embedded</span><h4>Gesture Access Control</h4>
+                        <div class="portfolio-links">
+                          <a href="https://github.com/jvcByte/gesture-based-access-control" target="_blank" title="Visit"><i class="bi bi-arrow-right"></i></a>
+                        </div>
+                      </div></div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-web2">
+                    <div class="portfolio-wrap">
+                      <img src="assets/images/projects/cvd.png" class="img-fluid" alt="CVD Predictor" loading="lazy" />
+                      <div class="portfolio-info"><div class="content">
+                        <span class="category">Web2</span><h4>CVD Predictor</h4>
+                        <div class="portfolio-links">
+                          <a href="https://cvd-expert.streamlit.app/" target="_blank" title="Visit"><i class="bi bi-arrow-right"></i></a>
+                        </div>
+                      </div></div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-web2">
+                    <div class="portfolio-wrap">
+                      <img src="assets/images/projects/invoice.png" class="img-fluid" alt="Invoice App" loading="lazy" />
+                      <div class="portfolio-info"><div class="content">
+                        <span class="category">Web2</span><h4>Invoice Application</h4>
+                        <div class="portfolio-links">
+                          <a href="https://invoice-app-eight-chi.vercel.app/" target="_blank" title="Visit"><i class="bi bi-arrow-right"></i></a>
+                        </div>
+                      </div></div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-design">
+                    <div class="portfolio-wrap">
+                      <img src="assets/images/projects/automotive.png" class="img-fluid" alt="Automotive E-commerce" loading="lazy" />
+                      <div class="portfolio-info"><div class="content">
+                        <span class="category">Graphics Design</span><h4>Automotive E-commerce</h4>
+                        <div class="portfolio-links">
+                          <a href="https://www.figma.com/proto/s1VpoweYdxCtd2KKpc3Onh/Automotive-e-comerce?node-id=7-517" target="_blank" title="Visit"><i class="bi bi-arrow-right"></i></a>
+                        </div>
+                      </div></div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-iot">
+                    <div class="portfolio-wrap">
+                      <img src="assets/images/projects/smart_city.png" class="img-fluid" alt="Smart City" loading="lazy" />
+                      <div class="portfolio-info"><div class="content">
+                        <span class="category">IoT & Embedded</span><h4>Smart City</h4>
+                        <div class="portfolio-links">
+                          <a href="https://pes-pi.vercel.app/" target="_blank" title="Visit"><i class="bi bi-arrow-right"></i></a>
+                        </div>
+                      </div></div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-design">
+                    <div class="portfolio-wrap">
+                      <img src="assets/images/projects/coaching_site.png" class="img-fluid" alt="Coaching Site" loading="lazy" />
+                      <div class="portfolio-info"><div class="content">
+                        <span class="category">Graphics Design</span><h4>Coaching Site</h4>
+                        <div class="portfolio-links">
+                          <a href="https://www.figma.com/proto/J7SaQocps21SRJa8kHkpKJ/Untitled?node-id=52-137" target="_blank" title="Visit"><i class="bi bi-arrow-right"></i></a>
+                        </div>
+                      </div></div>
+                    </div>
+                  </div>
+
+                </div>
+                <!-- End Portfolio Container -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- /Portfolio Section -->
+
+      <!-- Services Section -->
+      <section id="services" class="services section">
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Services</h2>
+          <p>What I offer across blockchain, backend, mobile, and embedded systems development.</p>
+        </div>
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+          <div class="service-header">
+            <div class="row align-items-center">
+              <div class="col-lg-8 col-md-12">
+                <div class="service-intro">
+                  <h2 class="service-heading">
+                    <div>Building solutions that</div>
+                    <div><span>bridge tech and reality</span></div>
+                  </h2>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-12">
+                <div class="service-summary">
+                  <p>From smart contracts to IoT systems, I deliver quality software that solves real problems across multiple technology domains.</p>
+                  <a href="#contact" class="service-btn">Get In Touch <i class="bi bi-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+              <div class="service-card position-relative z-1">
+                <div class="service-icon"><i class="bi bi-currency-bitcoin"></i></div>
+                <h3>DLT & Blockchain <span>Development</span></h3>
+                <p>Integration of blockchain and Distributed Ledger Technology (DLT) into web2 applications. Smart contracts, DAOs, DeFi, and decentralized storage.</p>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+              <div class="service-card position-relative z-1">
+                <div class="service-icon"><i class="bi bi-server"></i></div>
+                <h3>Backend <span>Development</span></h3>
+                <p>Implementation of backend systems and APIs using Node.js, Python, and Go. Scalable architectures, database design, and server-side logic.</p>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+              <div class="service-card position-relative z-1">
+                <div class="service-icon"><i class="bi bi-phone"></i></div>
+                <h3>Mobile App <span>Development</span></h3>
+                <p>Creation of mobile UIs that interact with backend APIs. Cross-platform mobile experiences built for performance and usability.</p>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+              <div class="service-card position-relative z-1">
+                <div class="service-icon"><i class="bi bi-cpu"></i></div>
+                <h3>Embedded Systems <span>& IoT</span></h3>
+                <p>PCB design and embedded system development. IoT solutions integrating sensors, microcontrollers, and cloud connectivity for real-world applications.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+      <!-- /Services Section -->
+
+
+      <!-- Awards & Recognition Section -->
+      <section id="awards" class="testimonials section light-background">
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Awards & Recognition</h2>
+          <p>Acknowledgements and achievements earned across academics, engineering, and competitive challenges.</p>
+        </div>
+        <div class="container">
+          <div class="testimonial-masonry">
+
+            <div class="testimonial-item" data-aos="fade-up">
+              <div class="testimonial-content">
+                <div class="quote-pattern"><i class="bi bi-trophy"></i></div>
+                <p>Implementation of an Automated water pumping system.</p>
+                <div class="client-info">
+                  <div class="client-details">
+                    <h3>Vice Chancellor Award — Embedded System</h3>
+                    <span class="position">Veritas University</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-item highlight" data-aos="fade-up" data-aos-delay="100">
+              <div class="testimonial-content">
+                <div class="quote-pattern"><i class="bi bi-star-fill"></i></div>
+                <p>Award of Excellence from NACOS for outstanding academic performance in software engineering department 2023/2024.</p>
+                <div class="client-info">
+                  <div class="client-details">
+                    <h3>Award of Excellence — NACOS</h3>
+                    <span class="position">Nigerian Association of Computing Students</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-item" data-aos="fade-up" data-aos-delay="200">
+              <div class="testimonial-content">
+                <div class="quote-pattern"><i class="bi bi-trophy"></i></div>
+                <p>Development of IoT-Based smart Lighting System.</p>
+                <div class="client-info">
+                  <div class="client-details">
+                    <h3>Vice Chancellor Award — IoT</h3>
+                    <span class="position">Veritas University</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-item" data-aos="fade-up" data-aos-delay="300">
+              <div class="testimonial-content">
+                <div class="quote-pattern"><i class="bi bi-award"></i></div>
+                <p>Design and Implementation of a smart Farming System — 3rd place at ATU Challenge.</p>
+                <div class="client-info">
+                  <div class="client-details">
+                    <h3>3rd Place — ATU Challenge</h3>
+                    <span class="position">Smart Farming Track</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-item highlight" data-aos="fade-up" data-aos-delay="400">
+              <div class="testimonial-content">
+                <div class="quote-pattern"><i class="bi bi-star-fill"></i></div>
+                <p>Award of Excellence from NACOS for outstanding academic performance in software engineering department 2024/2025.</p>
+                <div class="client-info">
+                  <div class="client-details">
+                    <h3>Award of Excellence — NACOS</h3>
+                    <span class="position">Nigerian Association of Computing Students</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-item" data-aos="fade-up" data-aos-delay="500">
+              <div class="testimonial-content">
+                <div class="quote-pattern"><i class="bi bi-people"></i></div>
+                <p>Leadership Award from NACOS in the software engineering department 2024/2025.</p>
+                <div class="client-info">
+                  <div class="client-details">
+                    <h3>Leadership Legacy Award</h3>
+                    <span class="position">Nigerian Association of Computing Students</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+      <!-- /Awards Section -->
+
+
+      <!-- Contact Section -->
+      <section id="contact" class="contact section">
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Contact</h2>
+          <p>Have a project in mind or want to collaborate? Let's connect.</p>
+        </div>
+        <div class="container">
+          <div class="row g-4 g-lg-5">
+            <div class="col-lg-5">
+              <div class="info-box">
+                <h3>Contact Info</h3>
+                <p>Feel free to reach out via email, phone, or connect on social media.</p>
+                <div class="info-item">
+                  <div class="icon-box"><i class="bi bi-geo-alt"></i></div>
+                  <div class="content"><h4>Location</h4><p>Abuja, Nigeria</p></div>
+                </div>
+                <div class="info-item">
+                  <div class="icon-box"><i class="bi bi-telephone"></i></div>
+                  <div class="content"><h4>Phone</h4><p><a href="tel:+2348164906365">+234 816 490 6365</a></p></div>
+                </div>
+                <div class="info-item">
+                  <div class="icon-box"><i class="bi bi-envelope"></i></div>
+                  <div class="content"><h4>Email</h4><p><a href="mailto:jvc8463@gmail.com">jvc8463@gmail.com</a></p></div>
+                </div>
+                <div class="info-item">
+                  <div class="icon-box"><i class="bi bi-linkedin"></i></div>
+                  <div class="content"><h4>LinkedIn</h4><p><a href="https://www.linkedin.com/in/jvcbyte" target="_blank">linkedin.com/in/jvcbyte</a></p></div>
+                </div>
+                <div class="info-item">
+                  <div class="icon-box"><i class="bi bi-github"></i></div>
+                  <div class="content"><h4>GitHub</h4><p><a href="https://github.com/jvcByte" target="_blank">github.com/jvcByte</a></p></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-7">
+              <div class="contact-form">
+                <h3>Send a Message</h3>
+                <p>I'll get back to you as soon as possible.</p>
+                <form action="https://formspree.io/f/jvc8463@gmail.com" method="post" class="php-email-form">
+                  <div class="row gy-4">
+                    <div class="col-md-6">
+                      <input type="text" name="name" class="form-control" placeholder="Your Name" required />
+                    </div>
+                    <div class="col-md-6">
+                      <input type="email" class="form-control" name="email" placeholder="Your Email" required />
+                    </div>
+                    <div class="col-12">
+                      <input type="text" class="form-control" name="subject" placeholder="Subject" required />
+                    </div>
+                    <div class="col-12">
+                      <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+                    </div>
+                    <div class="col-12 text-center">
+                      <div class="loading">Loading</div>
+                      <div class="error-message"></div>
+                      <div class="sent-message">Your message has been sent. Thank you!</div>
+                      <button type="submit" class="btn">Send Message</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- /Contact Section -->
+    </main>
+
+    <footer id="footer" class="footer position-relative">
+      <div class="container">
+        <div class="copyright text-center">
+          <p>
+            © <span>Copyright</span>
+            <strong class="px-1 sitename">iPortfolio</strong>
+            <span>All Rights Reserved</span>
+          </p>
+        </div>
+        <div class="credits">
+          <!-- All the links in the footer should remain intact. -->
+          <!-- You can delete the links only if you've purchased the pro version. -->
+          <!-- Licensing information: https://bootstrapmade.com/license/ -->
+          <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scroll Top -->
+    <a
+      href="#"
+      id="scroll-top"
+      class="scroll-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Preloader -->
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script
+      data-cfasync="false"
+      src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script>
+    <script src="vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendors/php-email-form/validate.js"></script>
+    <script src="vendors/aos/aos.js"></script>
+    <script src="vendors/typed.js/typed.umd.js"></script>
+    <script src="vendors/purecounter/purecounter_vanilla.js"></script>
+    <script src="vendors/waypoints/noframework.waypoints.js"></script>
+    <script src="vendors/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="vendors/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="vendors/glightbox/js/glightbox.min.js"></script>
+    <script src="vendors/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Main JS -->
+    <script src="js/snapfolio.js"></script>
+
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496"
+      integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ=="
+      data-cf-beacon='{"version":"2024.11.0","token":"68c5ca450bae485a842ff76066d69420","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
