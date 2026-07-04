@@ -7,7 +7,7 @@
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const DEFAULT_PASSWORD = 'jvc@cms2024';
+const DEFAULT_PASSWORD = 'jvc@cms2026';
 const DATA_FILES = ['personal','experience','education','skills','projects','services','certifications','awards','blog'];
 
 // ─── State ────────────────────────────────────────────────────────────────────
