@@ -368,6 +368,7 @@ function renderProjectItem(proj, i) {
       ${field('Title',       'text', proj.title,       `projects.${i}.title`)}
       ${fieldSelect('Category', proj.category, `projects.${i}.category`, [
         ['web2','Web2'], ['web3','Web3'],
+        ['automation','Automation & Bots'],
         ['iot & embedded systems','IoT & Embedded Systems'],
         ['graphics design','Graphics Design']
       ])}

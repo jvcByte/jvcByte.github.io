@@ -1,5 +1,32 @@
 [
   {
+    "id": 1000001,
+    "title": "Twitter Bot",
+    "category": "automation",
+    "description": "Automated Twitter/X bot built with Python. Handles scheduled posting, engagement automation, and content management via the Twitter API.",
+    "image": "./assets/images/projects/chatbot.png",
+    "url": "https://github.com/jvcByte/twitter_bot",
+    "featured": true
+  },
+  {
+    "id": 1000002,
+    "title": "Signal Bot",
+    "category": "automation",
+    "description": "Automated trading bot that monitors Telegram channels for trading signals and executes trades on IQ Option via WebSocket API — no browser required, runs fully headless on any server.",
+    "image": "./assets/images/projects/brain_bulb.png",
+    "url": "https://github.com/jvcByte/signal_bot",
+    "featured": true
+  },
+  {
+    "id": 1000003,
+    "title": "IQ Option Trading Bot",
+    "category": "automation",
+    "description": "Analyzes IQ Option market data and posts profitable signals to a Telegram channel. Signals are compatible with the Signal Bot (websocket-api branch) consumer.",
+    "image": "./assets/images/projects/to_do_app.png",
+    "url": "https://github.com/jvcByte/iqoption_trading_bot",
+    "featured": true
+  },
+  {
     "id": 1778253433482,
     "title": "certificate-verification-system",
     "category": "web3",

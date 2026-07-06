@@ -221,6 +221,7 @@ const PortfolioLoader = (() => {
   const CATEGORY_FILTER = {
     'web3':                   'filter-web3',
     'web2':                   'filter-web2',
+    'automation':             'filter-automation',
     'iot & embedded systems': 'filter-iot',
     'graphics design':        'filter-design',
   };
@@ -228,6 +229,7 @@ const PortfolioLoader = (() => {
   const CATEGORY_LABEL = {
     'web3':                   'Web3',
     'web2':                   'Web2',
+    'automation':             'Automation & Bots',
     'iot & embedded systems': 'IoT & Embedded',
     'graphics design':        'Graphics Design',
   };
