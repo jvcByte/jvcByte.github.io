@@ -868,6 +868,7 @@ section,
   border: 1px solid color-mix(in srgb, var(--accent-color), transparent 90%);
   position: relative;
   overflow: hidden;
+  height: 100vh;
 }
 
 .about .profile-card::before {

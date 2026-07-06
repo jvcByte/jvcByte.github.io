@@ -2,25 +2,31 @@
   {
     "id": 1,
     "title": "DLT and Blockchain Development",
-    "description": "Integration of blockchain and Distributed Ledger Technology (DLT) into web2 applications.",
+    "description": "Integration of blockchain and Distributed Ledger Technology (DLT) into web2 applications. Smart contracts, DAOs, DeFi, and decentralized storage on Ethereum, Hedera, and other networks.",
     "icon": "./assets/images/icon-dev.svg"
   },
   {
     "id": 2,
     "title": "Backend Development",
-    "description": "Implementation of backend systems and APIs using Node.js, Python, and Go. Specializing in scalable architectures, database design, and server-side logic that powers modern applications.",
+    "description": "Implementation of backend systems and APIs using Node.js, Python, Go, and Rust. Scalable architectures, database design, and server-side logic that powers modern applications.",
     "icon": "./assets/images/icon-backend.svg"
   },
   {
     "id": 3,
-    "title": "Mobile App Development",
-    "description": "Creation of Mobile UIs that interacts with backend APIs.",
+    "title": "Automation and Bot Development",
+    "description": "Building scripts, bots, and automated workflows that eliminate repetitive tasks. Telegram bots, Twitter bots, trading signal bots, GitHub automations, and CI/CD pipeline configuration.",
     "icon": "./assets/images/icon-app.svg"
   },
   {
     "id": 4,
+    "title": "Mobile App Development",
+    "description": "Creation of cross-platform mobile UIs using Flutter and React Native that interact with backend APIs.",
+    "icon": "./assets/images/icon-app.svg"
+  },
+  {
+    "id": 5,
     "title": "Embedded System and IoT",
-    "description": "PCB Designs and Embedded System Development.",
+    "description": "PCB design and embedded system development. IoT solutions integrating sensors, microcontrollers, and cloud connectivity for real-world applications.",
     "icon": "./assets/images/icon-design.svg"
   }
 ]
