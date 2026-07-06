@@ -2669,21 +2669,9 @@ a.skill-tag:hover {
   }
 }
 
-/* About section — equal height columns */
-.about .row {
-  align-items: stretch;
-}
-
-.about .col-lg-5 {
-  display: flex;
-  flex-direction: column;
-}
-
-.about .profile-card {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+/* About section — full width centered */
+.about .about-content {
+  text-align: justify;
 }
 
 /* Typed heading in hero */
@@ -2692,4 +2680,15 @@ a.skill-tag:hover {
   font-weight: 500;
   color: var(--accent-color);
   min-height: 2rem;
+}
+
+/* Typed.js cursor — keep it subtle */
+.typed-cursor {
+  color: var(--accent-color);
+  font-weight: 300;
+}
+
+/* Remove any accidental underline on hero h1 */
+.hero .hero-text h1 {
+  text-decoration: none;
 }
