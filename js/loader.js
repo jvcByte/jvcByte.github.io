@@ -105,16 +105,8 @@ const PortfolioLoader = (() => {
     ].join('');
     set('dyn-contact-links', contactLinks);
 
-    // Resume sidebar contact
-    const resumeContact = [
-      p.location ? `<li><i class="bi bi-geo-alt"></i> ${p.location}</li>` : '',
-      p.email    ? `<li><i class="bi bi-envelope"></i> <a href="mailto:${p.email}">${p.email}</a></li>` : '',
-      p.phone    ? `<li><i class="bi bi-phone"></i> ${p.phone}</li>` : '',
-      ...(p.socialLinks || []).filter(l => l.platform === 'LinkedIn').map(l =>
-        `<li><i class="bi bi-linkedin"></i> <a href="${l.url}" target="_blank">${l.url.replace('https://','')}</a></li>`
-      ),
-    ].join('');
-    set('dyn-resume-contact', resumeContact);
+    // Resume sidebar contact — removed (sidebar now has static skills)
+    // Resume summary — removed
 
     // Contact section info items
     const infoItems = [
@@ -225,8 +217,8 @@ const PortfolioLoader = (() => {
   // ─── Skills ─────────────────────────────────────────────────────────────────
 
   function loadSkills(skills) {
-    // resumeSkills used in the skills section tags (aboutSkills and resumeSkills are the same)
-    // Resume sidebar was removed in cleanup — no-op here
+    // Skills are now rendered statically in the resume sidebar
+    // No dynamic injection needed
   }
 
   // ─── Portfolio ──────────────────────────────────────────────────────────────
