@@ -167,6 +167,7 @@ function renderAll() {
 function renderPersonal() {
   const p = state.data.personal;
   document.getElementById('p-name').value        = p.name        || '';
+  document.getElementById('p-title').value       = p.title       || '';
   document.getElementById('p-email').value       = p.email       || '';
   document.getElementById('p-phone').value       = p.phone       || '';
   document.getElementById('p-location').value    = p.location    || '';
@@ -176,7 +177,7 @@ function renderPersonal() {
   document.getElementById('p-bio-1').value       = p.bio?.[1]    || '';
 
   // bind changes
-  ['name','email','phone','location','avatar','avatarLarge'].forEach(f => {
+  ['name','title','email','phone','location','avatar','avatarLarge'].forEach(f => {
     const el = document.getElementById(`p-${f}`);
     el.oninput = () => { state.data.personal[f] = el.value; markDirty('personal'); };
   });
