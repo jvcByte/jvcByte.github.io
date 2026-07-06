@@ -179,6 +179,7 @@ function renderPersonal() {
   // bind changes
   ['name','title','email','phone','location','avatar','avatarLarge'].forEach(f => {
     const el = document.getElementById(`p-${f}`);
+    if (!el) return;
     el.oninput = () => { state.data.personal[f] = el.value; markDirty('personal'); };
   });
   ['0','1'].forEach(i => {
