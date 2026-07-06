@@ -103,6 +103,8 @@
       typeSpeed: 100,
       backSpeed: 50,
       backDelay: 2000,
+      smartBackspace: true,
+      html: false,
     });
   }
 

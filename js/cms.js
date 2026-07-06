@@ -166,17 +166,24 @@ function renderAll() {
 
 function renderPersonal() {
   const p = state.data.personal;
-  document.getElementById('p-name').value        = p.name        || '';
-  document.getElementById('p-title').value       = p.title       || '';
-  document.getElementById('p-email').value       = p.email       || '';
-  document.getElementById('p-phone').value       = p.phone       || '';
-  document.getElementById('p-location').value    = p.location    || '';
-  document.getElementById('p-avatar').value      = p.avatar      || '';
-  document.getElementById('p-avatarLarge').value = p.avatarLarge || '';
-  document.getElementById('p-bio-0').value       = p.bio?.[0]    || '';
-  document.getElementById('p-bio-1').value       = p.bio?.[1]    || '';
 
-  // bind changes
+  // Only set values if the field is not currently focused (prevents cursor jump)
+  const setVal = (id, val) => {
+    const el = document.getElementById(id);
+    if (el && document.activeElement !== el) el.value = val || '';
+  };
+
+  setVal('p-name',        p.name);
+  setVal('p-title',       p.title);
+  setVal('p-email',       p.email);
+  setVal('p-phone',       p.phone);
+  setVal('p-location',    p.location);
+  setVal('p-avatar',      p.avatar);
+  setVal('p-avatarLarge', p.avatarLarge);
+  setVal('p-bio-0',       p.bio?.[0]);
+  setVal('p-bio-1',       p.bio?.[1]);
+
+  // bind changes — assign once, guard against null
   ['name','title','email','phone','location','avatar','avatarLarge'].forEach(f => {
     const el = document.getElementById(`p-${f}`);
     if (!el) return;
@@ -184,6 +191,7 @@ function renderPersonal() {
   });
   ['0','1'].forEach(i => {
     const el = document.getElementById(`p-bio-${i}`);
+    if (!el) return;
     el.oninput = () => { state.data.personal.bio[+i] = el.value; markDirty('personal'); };
   });
 

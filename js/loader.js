@@ -58,7 +58,7 @@ const PortfolioLoader = (() => {
       const first = parts[0], rest = parts.slice(1).join(' ');
       set('dyn-name', `${first}<span class="accent-text"> ${rest}</span>`);
     }
-    if (p.title) set('dyn-title', p.title);
+    // dyn-title removed — title is now handled by typed.js animation
     if (p.bio?.length) set('dyn-bio', p.bio[0]);
 
     // About section — use bio[1], split on natural paragraph breaks (\n\n)

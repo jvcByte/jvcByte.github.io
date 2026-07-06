@@ -2685,3 +2685,11 @@ a.skill-tag:hover {
   flex-direction: column;
   justify-content: flex-start;
 }
+
+/* Typed heading in hero */
+.hero .hero-text h2 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--accent-color);
+  min-height: 2rem;
+}
