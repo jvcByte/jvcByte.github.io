@@ -61,9 +61,15 @@ const PortfolioLoader = (() => {
     if (p.title) set('dyn-title', p.title);
     if (p.bio?.length) set('dyn-bio', p.bio[0]);
 
-    // About section — both bio paragraphs
+    // About section — use bio[1] only, split into 3 paragraphs
     if (p.bio?.length) {
-      set('dyn-about-bio', p.bio.filter(Boolean).map(b => `<p>${b}</p>`).join(''));
+      const bioText = p.bio[1] || p.bio[0] || '';
+      const sentences = bioText.match(/[^.!?]+[.!?]+/g) || [bioText];
+      const size = Math.ceil(sentences.length / 3);
+      const p1 = sentences.slice(0, size).join(' ').trim();
+      const p2 = sentences.slice(size, size * 2).join(' ').trim();
+      const p3 = sentences.slice(size * 2).join(' ').trim();
+      set('dyn-about-bio', [p1, p2, p3].filter(Boolean).map(s => `<p>${s}</p>`).join(''));
     }
     if (p.title)    set('dyn-specialization',  p.title);
     if (p.location) set('dyn-location-label',  p.location);
@@ -243,7 +249,7 @@ const PortfolioLoader = (() => {
 
   function loadPortfolio(projects) {
     if (!projects?.length) return;
-    const container = document.getElementById('dyn-portfolio');
+    const container = document.getElementById('dyn-projects');
     if (!container) return;
 
     container.innerHTML = projects.map(p => {
