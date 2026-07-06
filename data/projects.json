@@ -13,7 +13,7 @@
     "title": "Signal Bot",
     "category": "automation",
     "description": "Automated trading bot that monitors Telegram channels for trading signals and executes trades on IQ Option via WebSocket API — no browser required, runs fully headless on any server.",
-    "image": "./assets/images/projects/brain_bulb.png",
+    "image": "./assets/images/projects/signal_bot.png",
     "url": "https://github.com/jvcByte/signal_bot",
     "featured": true
   },
@@ -22,7 +22,7 @@
     "title": "IQ Option Trading Bot",
     "category": "automation",
     "description": "Analyzes IQ Option market data and posts profitable signals to a Telegram channel. Signals are compatible with the Signal Bot (websocket-api branch) consumer.",
-    "image": "./assets/images/projects/to_do_app.png",
+    "image": "./assets/images/projects/iqoption_trading_bot.png",
     "url": "https://github.com/jvcByte/iqoption_trading_bot",
     "featured": true
   },
