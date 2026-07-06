@@ -219,12 +219,8 @@ const PortfolioLoader = (() => {
   // ─── Skills ─────────────────────────────────────────────────────────────────
 
   function loadSkills(skills) {
-    if (!skills) return;
-    if (skills.resumeSkills?.length) {
-      set('dyn-resume-skills', skills.resumeSkills.map(s =>
-        `<span class="skill-tag">${s}</span>`
-      ).join(''));
-    }
+    // resumeSkills used in the skills section tags (aboutSkills and resumeSkills are the same)
+    // Resume sidebar was removed in cleanup — no-op here
   }
 
   // ─── Portfolio ──────────────────────────────────────────────────────────────
