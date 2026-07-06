@@ -61,6 +61,13 @@ const PortfolioLoader = (() => {
     if (p.title) set('dyn-title', p.title);
     if (p.bio?.length) set('dyn-bio', p.bio[0]);
 
+    // About section — both bio paragraphs
+    if (p.bio?.length) {
+      set('dyn-about-bio', p.bio.filter(Boolean).map(b => `<p>${b}</p>`).join(''));
+    }
+    if (p.title)    set('dyn-specialization',  p.title);
+    if (p.location) set('dyn-location-label',  p.location);
+
     // Hero social links
     if (p.socialLinks?.length) {
       set('dyn-hero-social', p.socialLinks.map(l =>
@@ -158,6 +165,10 @@ const PortfolioLoader = (() => {
 
   function loadEducation(education) {
     if (!education?.length) return;
+
+    // Update the "Get to Know Me" education label with the first degree
+    const first = education[0];
+    if (first) set('dyn-education-label', first.degree || first.institution || '');
     const html = education.map(edu => {
       const courses = edu.courses?.length
         ? `<p>${edu.courses.slice(0,3).join(' · ')}${edu.courses.length > 3 ? '…' : ''}</p>` : '';
@@ -361,6 +372,10 @@ const PortfolioLoader = (() => {
     loadPortfolio(projects);
     loadServices(services);
     loadAwards(awards);
+
+    // Dynamic stats
+    if (projects?.length) set('dyn-stat-projects', projects.length + '+');
+    if (awards?.length)   set('dyn-stat-awards',   awards.length + '');
   }
 
   return { init };
