@@ -15,7 +15,7 @@
     "description": "Automated trading bot that monitors Telegram channels for trading signals and executes trades on IQ Option via WebSocket API — no browser required, runs fully headless on any server.",
     "image": "./assets/images/projects/signal_bot.png",
     "url": "https://github.com/jvcByte/signal_bot",
-    "featured": true
+    "featured": "on"
   },
   {
     "id": 1000003,
@@ -24,7 +24,7 @@
     "description": "Analyzes IQ Option market data and posts profitable signals to a Telegram channel. Signals are compatible with the Signal Bot (websocket-api branch) consumer.",
     "image": "./assets/images/projects/iqoption_trading_bot.png",
     "url": "https://github.com/jvcByte/iqoption_trading_bot",
-    "featured": true
+    "featured": "on"
   },
   {
     "id": 1778253433482,
@@ -42,7 +42,7 @@
     "description": "AIsilo is a decentralized marketplace for AI models and datasets that combines client-side encryption, IPFS storage, and Hedera blockchain for immutable metadata and access control.",
     "image": "./assets/images/projects/aisilo.png",
     "url": "https://aisilo.vercel.app/",
-    "featured": true
+    "featured": "on"
   },
   {
     "id": 2,
@@ -51,7 +51,7 @@
     "description": "A decentralized, blockchain-based secure data encryption and storage platform. Your data your own, zero knowledge platform.",
     "image": "./assets/images/projects/fileit.png",
     "url": "https://file-it.vercel.app/",
-    "featured": true
+    "featured": "on"
   },
   {
     "id": 3,
@@ -69,7 +69,7 @@
     "description": "A comprehensive transportation management system built with Next.js. Features real-time tracking, route optimization, and seamless user experience for urban mobility solutions.",
     "image": "./assets/images/projects/tranzit.png",
     "url": "https://tranzit.cc/",
-    "featured": true
+    "featured": "on"
   },
   {
     "id": 5,
@@ -87,7 +87,7 @@
     "description": "IoT-based agricultural monitoring system featuring real-time sensor data collection, automated irrigation control, and environmental monitoring for precision farming applications.",
     "image": "./assets/images/projects/smartfarm.png",
     "url": "https://smart-farm-one.vercel.app/",
-    "featured": true
+    "featured": "on"
   },
   {
     "id": 7,
@@ -159,7 +159,7 @@
     "description": "Advanced access control system using computer vision and gesture recognition. Integrates cameras, microcontrollers, and machine learning algorithms for secure, contactless authentication.",
     "image": "./assets/images/projects/gesture_based_access.png",
     "url": "https://github.com/jvcByte/gesture-based-access-control",
-    "featured": true
+    "featured": "on"
   },
   {
     "id": 15,
