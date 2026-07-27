@@ -1,5 +1,14 @@
 [
   {
+    "id": 1785180871036,
+    "title": "Digital Tech Talent Hub",
+    "category": "web2",
+    "description": "",
+    "image": "./assets/images/projects/dtth.png",
+    "url": "https:digitaltecth.vercel.app",
+    "featured": false
+  },
+  {
     "id": 1000001,
     "title": "Twitter Bot",
     "category": "automation",
