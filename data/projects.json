@@ -5,7 +5,7 @@
     "category": "web2",
     "description": "A web-based marketplace connecting clients with verified digital technology professionals. Built with Next.js, Supabase, Tailwind CSS, and Paystack.",
     "image": "./assets/images/projects/dtth.png",
-    "url": "https:digitaltecth.vercel.app",
+    "url": "https://digitaltecth.vercel.app",
     "featured": "on"
   },
   {
