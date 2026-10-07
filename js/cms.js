@@ -377,6 +377,7 @@ function renderProjectItem(proj, i) {
     <div class="form-grid">
       ${field('Title',       'text', proj.title,       `projects.${i}.title`)}
       ${fieldSelect('Category', proj.category, `projects.${i}.category`, [
+        ['ai','AI'],
         ['web2','Web2'], ['web3','Web3'],
         ['automation','Automation & Bots'],
         ['iot & embedded systems','IoT & Embedded Systems'],

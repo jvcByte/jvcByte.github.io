@@ -1638,6 +1638,33 @@ section,
   height: 100%;
 }
 
+/* Flash the card a service link just jumped to — see focusProject() in js/loader.js */
+@keyframes projectFlash {
+  0%,
+  100% {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  12%,
+  70% {
+    box-shadow:
+      0 0 0 3px var(--accent-color),
+      0 0 34px color-mix(in srgb, var(--accent-color), transparent 55%);
+  }
+}
+
+.portfolio .portfolio-item.project-flash .portfolio-wrap {
+  animation: projectFlash 2.6s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio .portfolio-item.project-flash .portfolio-wrap {
+    animation: none;
+    outline: 3px solid var(--accent-color);
+    outline-offset: 2px;
+  }
+}
+
 .portfolio .portfolio-wrap img {
   transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
   width: 100%;
@@ -1846,6 +1873,71 @@ section,
   color: var(--default-color);
   transition: color 0.3s ease;
   margin-bottom: 0;
+}
+
+/* Work behind each service — see loadServices()/focusProject() in js/loader.js */
+.services .service-card .service-projects {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid color-mix(in srgb, var(--accent-color), transparent 90%);
+}
+
+.services .service-card .service-projects-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--default-color), transparent 60%);
+}
+
+.services .service-card .service-projects-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: color-mix(in srgb, var(--accent-color), transparent 88%);
+}
+
+.services .service-card .service-projects ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.services .service-card .service-project {
+  display: block;
+  width: 100%;
+  padding: 3px 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+  color: color-mix(in srgb, var(--default-color), transparent 28%);
+  transition: color 0.3s ease;
+}
+
+.services .service-card .service-project::before {
+  content: "→";
+  margin-right: 8px;
+  color: color-mix(in srgb, var(--default-color), transparent 68%);
+  transition: color 0.3s ease;
+}
+
+.services .service-card .service-project:hover,
+.services .service-card .service-project:hover::before {
+  color: var(--accent-color);
+}
+
+.services .service-card .service-project:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 .services .service-card .card-action {

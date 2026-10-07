@@ -225,6 +225,7 @@ const PortfolioLoader = (() => {
   // ─── Portfolio ──────────────────────────────────────────────────────────────
 
   const CATEGORY_FILTER = {
+    'ai':                     'filter-ai',
     'web3':                   'filter-web3',
     'web2':                   'filter-web2',
     'automation':             'filter-automation',
@@ -233,6 +234,7 @@ const PortfolioLoader = (() => {
   };
 
   const CATEGORY_LABEL = {
+    'ai':                     'AI',
     'web3':                   'Web3',
     'web2':                   'Web2',
     'automation':             'Automation & Bots',
@@ -240,10 +242,16 @@ const PortfolioLoader = (() => {
     'graphics design':        'Graphics Design',
   };
 
+  // Populated by loadPortfolio so a service card can drive the grid.
+  let portfolioIso = null;
+  let portfolioProjects = [];
+
   function loadPortfolio(projects) {
     if (!projects?.length) return;
     const container = document.getElementById('dyn-projects');
     if (!container) return;
+
+    portfolioProjects = projects;
 
     container.innerHTML = projects.map(p => {
       const filterClass = CATEGORY_FILTER[p.category] || 'filter-web2';
@@ -258,7 +266,7 @@ const PortfolioLoader = (() => {
                 <h4>${p.title}</h4>
                 <p style="color:#ccc;font-size:0.82rem;margin-bottom:12px">${p.description || ''}</p>
                 <div class="portfolio-links">
-                  <a href="${p.url}" target="_blank" rel="noopener" title="Visit"><i class="bi bi-arrow-right"></i></a>
+                  ${p.url ? `<a href="${p.url}" target="_blank" rel="noopener" title="Visit"><i class="bi bi-arrow-right"></i></a>` : ''}
                 </div>
               </div>
             </div>
@@ -274,6 +282,7 @@ const PortfolioLoader = (() => {
           layoutMode: 'masonry',
           filter: '*',
         });
+        portfolioIso = iso;
         // Re-bind filter buttons
         document.querySelectorAll('.isotope-filters li').forEach(btn => {
           btn.addEventListener('click', function () {
@@ -284,6 +293,47 @@ const PortfolioLoader = (() => {
         });
       });
     }
+  }
+
+  /**
+   * Jump to the projects grid, filter it to the target's own category, and flash
+   * that card. Driven by the service cards, which name the work behind each service.
+   * Filtering by the target's category (not the service's) guarantees the card we
+   * are about to scroll to is actually visible.
+   */
+  function focusProject(title) {
+    const proj = portfolioProjects.find(p => p.title === title);
+    if (!proj) return;
+
+    const filterClass = CATEGORY_FILTER[proj.category] || 'filter-web2';
+    const btn = document.querySelector(`.isotope-filters li[data-filter=".${filterClass}"]`);
+    if (btn) {
+      document.querySelector('.isotope-filters .filter-active')?.classList.remove('filter-active');
+      btn.classList.add('filter-active');
+    }
+
+    portfolioIso?.arrange({ filter: `.${filterClass}` });
+
+    // Filter first, then scroll once the grid has settled — scrolling during the
+    // arrange animation lands on the wrong place because the cards are still moving.
+    setTimeout(() => {
+      const card = Array.from(document.querySelectorAll('#dyn-projects .isotope-item'))
+        .find(el => el.querySelector('h4')?.textContent.trim() === title);
+      if (!card) return;
+
+      // An explicit behavior option overrides the site's CSS scroll-behavior,
+      // so honour the user's motion preference here too.
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.getElementById('projects')?.scrollIntoView({
+        behavior: reduceMotion ? 'instant' : 'smooth',
+        block: 'start',
+      });
+
+      card.classList.remove('project-flash');
+      void card.offsetWidth; // restart the animation if one is already running
+      card.classList.add('project-flash');
+      setTimeout(() => card.classList.remove('project-flash'), 2600);
+    }, 450);
   }
 
   // ─── Services ───────────────────────────────────────────────────────────────
@@ -325,9 +375,20 @@ const PortfolioLoader = (() => {
             </a>
             <h3>${first} <span>${rest.join(' ')}</span></h3>
             <p>${svc.description || ''}</p>
+            ${svc.projects?.length ? `
+            <div class="service-projects">
+              <span class="service-projects-label">See it in</span>
+              <ul>${svc.projects.map(t => `
+                <li><button type="button" class="service-project" data-project="${t.replace(/"/g, '&quot;')}">${t}</button></li>`).join('')}
+              </ul>
+            </div>` : ''}
           </div>
         </div>`;
     }).join('');
+
+    container.querySelectorAll('.service-project').forEach(btn => {
+      btn.addEventListener('click', () => focusProject(btn.dataset.project));
+    });
   }
 
   // ─── Awards ─────────────────────────────────────────────────────────────────

@@ -1,5 +1,95 @@
 [
   {
+    "id": 2000003,
+    "title": "AI Sales Employee",
+    "category": "ai",
+    "description": "WhatsApp, Instagram and TikTok AI sales assistant for Nigerian businesses. It answers customers, qualifies leads, follows up and sends Paystack payment links — engineered so it can never invent a price, stock figure, policy or payment confirmation.",
+    "image": "./assets/images/projects/aisales.png",
+    "url": "",
+    "featured": false
+  },
+  {
+    "id": 2000023,
+    "title": "Videosynx — AI Tutorial Video Generator",
+    "category": "ai",
+    "description": "Give it a topic and it writes the code, runs it, narrates each line while the code types itself on screen, and renders an .mp4 with captions and a matching .srt. Also runs as a hosted service with a worker and object storage.",
+    "image": "./assets/images/projects/videosynx.png",
+    "url": "",
+    "featured": false
+  },
+  {
+    "id": 2000001,
+    "title": "WeGoComply — AI Compliance Platform",
+    "category": "ai",
+    "description": "AI-powered compliance platform for Nigerian fintechs. Automates KYC/KYB verification, real-time AML transaction monitoring, and bulk TIN reconciliation on Microsoft Azure AI.",
+    "image": "./assets/images/projects/wecomply.png",
+    "url": "https://github.com/jvcByte/WeGoComply",
+    "featured": false
+  },
+  {
+    "id": 5,
+    "title": "CVD Predictor",
+    "category": "ai",
+    "description": "Machine learning application for cardiovascular disease prediction using Python. Integrates data analysis, predictive modeling, and interactive visualizations to help assess health risks.",
+    "image": "./assets/images/projects/cvd.png",
+    "url": "https://cvd-expert.streamlit.app/",
+    "featured": false
+  },
+  {
+    "id": 2000024,
+    "title": "Layrus Labs — Engineering Site",
+    "category": "web2",
+    "description": "Company site for Layrus Labs, covering software systems, AI solutions and connected/embedded hardware — services, project case studies, an architecture walkthrough and a site assistant.",
+    "image": "./assets/images/projects/layrus.png",
+    "url": "",
+    "featured": false
+  },
+  {
+    "id": 2000025,
+    "title": "RAGAT — Auto Shop Management Platform",
+    "category": "web2",
+    "description": "Auto-shop management platform for a Mercedes-Benz specialist: work orders, invoicing, inventory and customer booking. Rust/Actix-Web API with JWT and role-based access, Tauri + React front end, PostgreSQL via SeaORM. Live as RcareNG.",
+    "image": "./assets/images/projects/ragat.png",
+    "url": "https://rcareng.com/",
+    "featured": false
+  },
+  {
+    "id": 2000004,
+    "title": "Recoding — Exercise Platform",
+    "category": "web2",
+    "description": "Platform for running timed coding and writing exercises. Instructors assign work, set time limits, and watch participant activity live, with anti-cheat monitoring running inside the session.",
+    "image": "./assets/images/projects/recoding.png",
+    "url": "https://dbirecoding.vercel.app/login",
+    "featured": false
+  },
+  {
+    "id": 2000002,
+    "title": "GanSystems — Farm Automation Control Hub",
+    "category": "iot & embedded systems",
+    "description": "Control plane for ESP32-based farm automation — multi-user authenticated dashboards with telemetry ingestion, MQTT command delivery, and live WebSocket updates.",
+    "image": "./assets/images/projects/gansys.png",
+    "url": "https://gansystems.vercel.app",
+    "featured": false
+  },
+  {
+    "id": 6,
+    "title": "Smart Farm",
+    "category": "iot & embedded systems",
+    "description": "IoT-based agricultural monitoring system featuring real-time sensor data collection, automated irrigation control, and environmental monitoring for precision farming applications.",
+    "image": "./assets/images/projects/smartfarm.png",
+    "url": "https://smart-farm-one.vercel.app/",
+    "featured": "on"
+  },
+  {
+    "id": 2000006,
+    "title": "University Timetable Scheduler",
+    "category": "web2",
+    "description": "Automated lecture timetabling with course, instructor, room and student-group management. Generates clash-free schedules with an OR-Tools constraint solver, backed by a simulated-annealing local solver.",
+    "image": "./assets/images/projects/timetable_scheduler.png",
+    "url": "https://moiraweb.vercel.app",
+    "featured": false
+  },
+  {
     "id": 1785180871036,
     "title": "Digital Tech Talent Hub",
     "category": "web2",
@@ -7,42 +97,6 @@
     "image": "./assets/images/projects/dtth.png",
     "url": "https://digitaltecth.vercel.app",
     "featured": "on"
-  },
-  {
-    "id": 1000001,
-    "title": "Twitter Bot",
-    "category": "automation",
-    "description": "Automated Twitter/X bot built with Python. Handles scheduled posting, engagement automation, and content management via the Twitter API.",
-    "image": "./assets/images/projects/chatbot.png",
-    "url": "https://github.com/jvcByte/twitter_bot",
-    "featured": true
-  },
-  {
-    "id": 1000002,
-    "title": "Signal Bot",
-    "category": "automation",
-    "description": "Automated trading bot that monitors Telegram channels for trading signals and executes trades on IQ Option via WebSocket API — no browser required, runs fully headless on any server.",
-    "image": "./assets/images/projects/signal_bot.png",
-    "url": "https://github.com/jvcByte/signal_bot",
-    "featured": "on"
-  },
-  {
-    "id": 1000003,
-    "title": "IQ Option Trading Bot",
-    "category": "automation",
-    "description": "Analyzes IQ Option market data and posts profitable signals to a Telegram channel. Signals are compatible with the Signal Bot (websocket-api branch) consumer.",
-    "image": "./assets/images/projects/iqoption_trading_bot.png",
-    "url": "https://github.com/jvcByte/iqoption_trading_bot",
-    "featured": "on"
-  },
-  {
-    "id": 1778253433482,
-    "title": "certificate-verification-system",
-    "category": "web3",
-    "description": "A complete prototype system for issuing, managing, and verifying academic certificates using blockchain technology and IPFS.",
-    "image": "./assets/images/projects/certchain.png",
-    "url": "https://certificatechain.vercel.app/",
-    "featured": false
   },
   {
     "id": 1,
@@ -63,12 +117,12 @@
     "featured": "on"
   },
   {
-    "id": 3,
-    "title": "Cohort XIII DAO",
+    "id": 1778253433482,
+    "title": "certificate-verification-system",
     "category": "web3",
-    "description": "A simple DAO for managing proposals and voting.",
-    "image": "./assets/images/projects/cxiiidao.png",
-    "url": "https://github.com/jvcByte/CXIII_DAO",
+    "description": "A complete prototype system for issuing, managing, and verifying academic certificates using blockchain technology and IPFS.",
+    "image": "./assets/images/projects/certchain.png",
+    "url": "https://certificatechain.vercel.app/",
     "featured": false
   },
   {
@@ -81,22 +135,31 @@
     "featured": "on"
   },
   {
-    "id": 5,
-    "title": "CVD Predictor",
+    "id": 2000005,
+    "title": "Code Runner",
     "category": "web2",
-    "description": "Machine learning application for cardiovascular disease prediction using Python. Integrates data analysis, predictive modeling, and interactive visualizations to help assess health risks.",
-    "image": "./assets/images/projects/cvd.png",
-    "url": "https://cvd-expert.streamlit.app/",
+    "description": "Lightweight Go HTTP service that compiles and executes submitted code on demand — the execution backend behind the Recoding exercise platform.",
+    "image": "./assets/images/projects/code_runner.png",
+    "url": "https://github.com/jvcByte/code-runner",
     "featured": false
   },
   {
-    "id": 6,
-    "title": "Smart Farm",
-    "category": "iot & embedded systems",
-    "description": "IoT-based agricultural monitoring system featuring real-time sensor data collection, automated irrigation control, and environmental monitoring for precision farming applications.",
-    "image": "./assets/images/projects/smartfarm.png",
-    "url": "https://smart-farm-one.vercel.app/",
-    "featured": "on"
+    "id": 2000007,
+    "title": "ENS — Ethereum Name Service",
+    "category": "web3",
+    "description": "Minimalist Ethereum Name Service client for registering, updating and managing .eth identities on-chain, with live contract event handling.",
+    "image": "./assets/images/projects/ens.png",
+    "url": "https://nameservice.vercel.app/",
+    "featured": false
+  },
+  {
+    "id": 2000008,
+    "title": "EasyInteract — EVM Contract UI",
+    "category": "web3",
+    "description": "Plug-and-play interface for any EVM-compatible chain — supply an ABI and contract address and the UI generates itself. Ships with ERC-20 tooling and a to-do app.",
+    "image": "./assets/images/projects/easy_interact.png",
+    "url": "https://easy-interact.vercel.app",
+    "featured": false
   },
   {
     "id": 7,
@@ -108,12 +171,21 @@
     "featured": false
   },
   {
-    "id": 8,
-    "title": "Automotive E-commerce",
-    "category": "graphics design",
-    "description": "Modern and intuitive UI/UX design for automotive e-commerce platform. Features product catalogs, shopping cart interface, and checkout flow optimized for automotive parts and accessories.",
-    "image": "./assets/images/projects/automotive.png",
-    "url": "https://www.figma.com/proto/s1VpoweYdxCtd2KKpc3Onh/Automotive-e-comerce?node-id=7-517&starting-point-node-id=7%3A517&t=6HbP5OQcp7agjySK-1",
+    "id": 2000012,
+    "title": "Mercedes-Benz Diagnostic Tools Guide",
+    "category": "web2",
+    "description": "mdBook technical reference covering professional Mercedes-Benz diagnostic, testing and programming tools: what each module does, how it communicates, and how to test, read, renew and program it safely.",
+    "image": "./assets/images/projects/prodoc.png",
+    "url": "https://jvcbyte.github.io/prodoc/",
+    "featured": false
+  },
+  {
+    "id": 2000013,
+    "title": "PCB Design — Health Monitor & Smart Power Strip",
+    "category": "iot & embedded systems",
+    "description": "Two PCB designs taken from schematic capture through to board layout — a Bluetooth health monitor with charger, and a smart power strip with bill of materials and SPICE simulation.",
+    "image": "./assets/images/projects/pcb_circuit.png",
+    "url": "https://github.com/jvcByte/sen382-PCB-circuit",
     "featured": false
   },
   {
@@ -126,6 +198,15 @@
     "featured": false
   },
   {
+    "id": 11,
+    "title": "Student Management System",
+    "category": "web2",
+    "description": "Comprehensive student information system for educational institutions. Features enrollment management, grade tracking, attendance monitoring, and automated report generation.",
+    "image": "./assets/images/projects/student_management.png",
+    "url": "https://student-management-system-zeta-teal.vercel.app/",
+    "featured": false
+  },
+  {
     "id": 10,
     "title": "AI Chatbot",
     "category": "web2",
@@ -135,13 +216,76 @@
     "featured": false
   },
   {
-    "id": 11,
-    "title": "Student Management System",
+    "id": 2000014,
+    "title": "Employee Management System",
     "category": "web2",
-    "description": "Comprehensive student information system for educational institutions. Features enrollment management, grade tracking, attendance monitoring, and automated report generation.",
-    "image": "./assets/images/projects/student_management.png",
-    "url": "https://student-management-system-zeta-teal.vercel.app/",
+    "description": "Full-stack HR platform covering employee records, attendance tracking and payroll processing, with a responsive admin interface.",
+    "image": "./assets/images/projects/ems.png",
+    "url": "https://github.com/jvcByte/ems",
     "featured": false
+  },
+  {
+    "id": 2000015,
+    "title": "Chucks Inventory Management System",
+    "category": "web2",
+    "description": "Laravel system tracking goods from supplier to warehouse to store, split into warehouse, manager and shop modules with sales analysis.",
+    "image": "./assets/images/projects/inventory_system.png",
+    "url": "https://github.com/jvcByte/inventory_management_system",
+    "featured": false
+  },
+  {
+    "id": 2000016,
+    "title": "Electronics E-commerce with Chatbot",
+    "category": "web2",
+    "description": "Full-stack electronics store built with React and Python, pairing the product catalogue and cart with an attention-based chatbot for customer service.",
+    "image": "./assets/images/projects/ecommerce_chatbot.png",
+    "url": "https://github.com/jvcByte/ecommerce_chatbot",
+    "featured": false
+  },
+  {
+    "id": 2000022,
+    "title": "Coaching Platform",
+    "category": "web2",
+    "description": "Coaching platform with a unified login for admins and users, supporting peer-to-peer and classic in-person sessions alongside virtual ones.",
+    "image": "./assets/images/projects/coaching_platform.png",
+    "url": "https://github.com/jvcByte/coaching-site",
+    "featured": false
+  },
+  {
+    "id": 2000021,
+    "title": "Rust JWT Microservice",
+    "category": "web2",
+    "description": "Production-ready REST API template on Actix Web, with JWT authentication, user management and PostgreSQL integration in a monorepo layout.",
+    "image": "./assets/images/projects/rs_jwt_microservice.png",
+    "url": "https://github.com/jvcByte/rs_jwt_microservice",
+    "featured": false
+  },
+  {
+    "id": 2000020,
+    "title": "Crawl It — Article to Speech",
+    "category": "web2",
+    "description": "Turns any web article into audio — extracts clean text from a URL and reads it back with text-to-speech controls, as a reading and accessibility aid.",
+    "image": "./assets/images/projects/crawl_it.png",
+    "url": "https://github.com/jvcByte/text-to-speech",
+    "featured": false
+  },
+  {
+    "id": 15,
+    "title": "Smart City",
+    "category": "iot & embedded systems",
+    "description": "Comprehensive smart city management platform integrating various IoT sensors for traffic monitoring, waste management, environmental tracking, and public safety systems.",
+    "image": "./assets/images/projects/smart_city.png",
+    "url": "https://pes-pi.vercel.app/",
+    "featured": false
+  },
+  {
+    "id": 14,
+    "title": "Gesture Based Access Control",
+    "category": "iot & embedded systems",
+    "description": "Advanced access control system using computer vision and gesture recognition. Integrates cameras, microcontrollers, and machine learning algorithms for secure, contactless authentication.",
+    "image": "./assets/images/projects/gesture_based_access.png",
+    "url": "https://github.com/jvcByte/gesture-based-access-control",
+    "featured": "on"
   },
   {
     "id": 12,
@@ -162,22 +306,58 @@
     "featured": false
   },
   {
-    "id": 14,
-    "title": "Gesture Based Access Control",
-    "category": "iot & embedded systems",
-    "description": "Advanced access control system using computer vision and gesture recognition. Integrates cameras, microcontrollers, and machine learning algorithms for secure, contactless authentication.",
-    "image": "./assets/images/projects/gesture_based_access.png",
-    "url": "https://github.com/jvcByte/gesture-based-access-control",
+    "id": 2000011,
+    "title": "TechLaunch Nigeria",
+    "category": "web2",
+    "description": "Marketing and enrolment site for a three-track technology training programme — AI/ML, Automation, and App & Web3 Development — with package breakdowns, mentoring tiers, payment plans and FAQ.",
+    "image": "./assets/images/projects/tln.png",
+    "url": "https://jvcbyte.github.io/TLN/",
+    "featured": false
+  },
+  {
+    "id": 2000009,
+    "title": "GitHub Followers Manager",
+    "category": "automation",
+    "description": "Go CLI for managing GitHub following relationships at scale — follow the followers of any account, or unfollow everyone who doesn't follow back.",
+    "image": "./assets/images/projects/gh_followers.png",
+    "url": "https://github.com/jvcByte/gh_followers",
+    "featured": false
+  },
+  {
+    "id": 2000010,
+    "title": "Bulk Email Credential Sender",
+    "category": "automation",
+    "description": "Sends personalised login credentials to participants in professional HTML emails, with batch processing, rate limiting and logging around a layered architecture.",
+    "image": "./assets/images/projects/send_bulk_email.png",
+    "url": "https://github.com/jvcByte/send_bulk_email",
+    "featured": false
+  },
+  {
+    "id": 1000002,
+    "title": "Signal Bot",
+    "category": "automation",
+    "description": "Automated trading bot that monitors Telegram channels for trading signals and executes trades on IQ Option via WebSocket API — no browser required, runs fully headless on any server.",
+    "image": "./assets/images/projects/signal_bot.png",
+    "url": "https://github.com/jvcByte/signal_bot",
     "featured": "on"
   },
   {
-    "id": 15,
-    "title": "Smart City",
-    "category": "iot & embedded systems",
-    "description": "Comprehensive smart city management platform integrating various IoT sensors for traffic monitoring, waste management, environmental tracking, and public safety systems.",
-    "image": "./assets/images/projects/smart_city.png",
-    "url": "https://pes-pi.vercel.app/",
-    "featured": false
+    "id": 1000003,
+    "title": "IQ Option Trading Bot",
+    "category": "automation",
+    "description": "Analyzes IQ Option market data and posts profitable signals to a Telegram channel. Signals are compatible with the Signal Bot (websocket-api branch) consumer.",
+    "image": "./assets/images/projects/iqoption_trading_bot.png",
+    "url": "https://github.com/jvcByte/iqoption_trading_bot",
+    "featured": "on"
+  },
+  {
+    "id": 1000001,
+    "title": "Twitter Bot",
+    "category": "automation",
+    "description": "Automated Twitter/X bot built with Python. Handles scheduled posting, engagement automation, and content management via the Twitter API.",
+    "image": "./assets/images/projects/chatbot.png",
+    "url": "https://github.com/jvcByte/twitter_bot",
+    "featured": true
   },
   {
     "id": 16,
@@ -186,6 +366,51 @@
     "description": "A very minimalistic implementation of escrow system on blockchain.",
     "image": "./assets/images/projects/sealedtrust.png",
     "url": "https://sealed-trust.vercel.app/",
+    "featured": false
+  },
+  {
+    "id": 3,
+    "title": "Cohort XIII DAO",
+    "category": "web3",
+    "description": "A simple DAO for managing proposals and voting.",
+    "image": "./assets/images/projects/cxiiidao.png",
+    "url": "https://github.com/jvcByte/CXIII_DAO",
+    "featured": false
+  },
+  {
+    "id": 2000018,
+    "title": "JVC Bank — ERC-20",
+    "category": "web3",
+    "description": "Decentralised bank running on smart contracts, using a custom ERC-20 token (JVCToken) as its currency. Deployed and verified on Base Sepolia.",
+    "image": "./assets/images/projects/jvc_bank.png",
+    "url": "https://sepolia.basescan.org/address/0xCf812b5595a03819Bd23Cb904F0c4237D894221A",
+    "featured": false
+  },
+  {
+    "id": 2000019,
+    "title": "Blockdemia NFT",
+    "category": "web3",
+    "description": "NFT contract built during Web3Bridge Cohort XIII, deployed and verified on Base Sepolia.",
+    "image": "./assets/images/projects/blockdemia_nft.png",
+    "url": "https://sepolia.basescan.org/address/0x6D153b812e191FcBA26A8f5eC085363B66Bb8B77",
+    "featured": false
+  },
+  {
+    "id": 2000017,
+    "title": "Clothing Brand UI Templates",
+    "category": "graphics design",
+    "description": "Collection of eight responsive eCommerce templates for clothing brands — fully-featured Bootstrap layouts alongside hand-coded minimalist designs.",
+    "image": "./assets/images/projects/clothing_brand_templates.png",
+    "url": "https://jvcbyte.github.io/clothing_brand_ui_templates",
+    "featured": false
+  },
+  {
+    "id": 8,
+    "title": "Automotive E-commerce",
+    "category": "graphics design",
+    "description": "Modern and intuitive UI/UX design for automotive e-commerce platform. Features product catalogs, shopping cart interface, and checkout flow optimized for automotive parts and accessories.",
+    "image": "./assets/images/projects/automotive.png",
+    "url": "https://www.figma.com/proto/s1VpoweYdxCtd2KKpc3Onh/Automotive-e-comerce?node-id=7-517&starting-point-node-id=7%3A517&t=6HbP5OQcp7agjySK-1",
     "featured": false
   },
   {
