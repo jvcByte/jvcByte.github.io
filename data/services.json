@@ -15,7 +15,7 @@
     "id": 1,
     "title": "DLT and Blockchain Development",
     "description": "Integration of blockchain and Distributed Ledger Technology (DLT) into web2 applications. Smart contracts, DAOs, DeFi, and decentralized storage on Ethereum, Hedera, and other networks.",
-    "icon": "./assets/images/icon-dev.svg",
+    "icon": "./assets/images/icon-blockchain.svg",
     "projects": [
       "AIsilo",
       "File It",
@@ -41,7 +41,7 @@
     "id": 3,
     "title": "Automation and Bot Development",
     "description": "Building scripts, bots, and automated workflows that eliminate repetitive tasks. Telegram bots, Twitter bots, trading signal bots, GitHub automations, and CI/CD pipeline configuration.",
-    "icon": "./assets/images/icon-app.svg",
+    "icon": "./assets/images/icon-automation.svg",
     "projects": [
       "Signal Bot",
       "IQ Option Trading Bot",
@@ -63,7 +63,7 @@
     "id": 5,
     "title": "Embedded System and IoT",
     "description": "PCB design and embedded system development. IoT solutions integrating sensors, microcontrollers, and cloud connectivity for real-world applications.",
-    "icon": "./assets/images/icon-design.svg",
+    "icon": "./assets/images/icon-iot.svg",
     "projects": [
       "Smart Farm",
       "GanSystems — Farm Automation Control Hub",

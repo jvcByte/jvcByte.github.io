@@ -1,35 +1,43 @@
 <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect opacity="0.15" x="1" y="1" width="40" height="40" rx="9" fill="url(#paint0_linear)"/>
-<rect x="1.1" y="1.1" width="39.8" height="39.8" rx="9" stroke="url(#paint1_linear)" stroke-width="1.7"/>
-<g stroke="url(#paint2_linear)" stroke-width="1.5" stroke-linecap="round">
-<path d="M13.2 13.6L20.4 20.4"/>
-<path d="M12.6 28.7L20.4 21.6"/>
-<path d="M21.6 20.4L28.4 13.6"/>
-<path d="M21.6 21.6L28.8 28.7"/>
+<g stroke="url(#g)" stroke-width="0.62" stroke-linecap="round" opacity="0.34">
+<path d="M7.5 8L15 11"/>
+<path d="M7.5 8L15 21"/>
+<path d="M7.5 8L15 31"/>
+<path d="M7.5 16.67L15 11"/>
+<path d="M7.5 16.67L15 21"/>
+<path d="M7.5 16.67L15 31"/>
+<path d="M7.5 25.33L15 11"/>
+<path d="M7.5 25.33L15 21"/>
+<path d="M7.5 25.33L15 31"/>
+<path d="M7.5 34L15 11"/>
+<path d="M7.5 34L15 21"/>
+<path d="M7.5 34L15 31"/>
+<path d="M15 11L22 14"/>
+<path d="M15 11L22 21"/>
+<path d="M15 11L22 28"/>
+<path d="M15 21L22 14"/>
+<path d="M15 21L22 21"/>
+<path d="M15 21L22 28"/>
+<path d="M15 31L22 14"/>
+<path d="M15 31L22 21"/>
+<path d="M15 31L22 28"/>
+<path d="M22 14L27.5 14"/>
+<path d="M22 21L27.5 21"/>
+<path d="M22 28L27.5 28"/>
 </g>
-<g fill="url(#paint3_linear)">
-<circle cx="12.4" cy="12.8" r="3.3"/>
-<circle cx="11.8" cy="29.5" r="3.3"/>
-<circle cx="21" cy="21" r="3.9"/>
-<circle cx="29.6" cy="12.8" r="3.3"/>
-<circle cx="30" cy="29.5" r="3.3"/>
+<g fill="url(#g)">
+<circle cx="7.5" cy="8" r="2.4"/>
+<circle cx="7.5" cy="16.67" r="2.4"/>
+<circle cx="7.5" cy="25.33" r="2.4"/>
+<circle cx="7.5" cy="34" r="2.4"/>
+<circle cx="15" cy="11" r="2.1"/>
+<circle cx="15" cy="21" r="2.1"/>
+<circle cx="15" cy="31" r="2.1"/>
+<circle cx="22" cy="14" r="1.9"/>
+<circle cx="22" cy="21" r="1.9"/>
+<circle cx="22" cy="28" r="1.9"/>
+<rect x="27.5" y="12.4" width="8.5" height="3.2" rx="0.7"/>
+<rect x="27.5" y="19.4" width="8.5" height="3.2" rx="0.7"/>
+<rect x="27.5" y="26.4" width="8.5" height="3.2" rx="0.7"/>
 </g>
-<defs>
-<linearGradient id="paint0_linear" x1="1" y1="1" x2="37" y2="41" gradientUnits="userSpaceOnUse">
-<stop offset="0.259336" stop-color="#FFDB6E"/>
-<stop offset="1" stop-color="#FFBC5E"/>
-</linearGradient>
-<linearGradient id="paint1_linear" x1="1" y1="1" x2="37" y2="41" gradientUnits="userSpaceOnUse">
-<stop offset="0.259336" stop-color="#FFDB6E"/>
-<stop offset="1" stop-color="#FFBC5E"/>
-</linearGradient>
-<linearGradient id="paint2_linear" x1="12" y1="13" x2="29" y2="29" gradientUnits="userSpaceOnUse">
-<stop offset="0.259336" stop-color="#FFDB6E"/>
-<stop offset="1" stop-color="#FFBC5E"/>
-</linearGradient>
-<linearGradient id="paint3_linear" x1="11" y1="12" x2="31" y2="30" gradientUnits="userSpaceOnUse">
-<stop offset="0.259336" stop-color="#FFDB6E"/>
-<stop offset="1" stop-color="#FFBC5E"/>
-</linearGradient>
-</defs>
-</svg>
+<defs><linearGradient id="g" x1="5" y1="5" x2="37" y2="37" gradientUnits="userSpaceOnUse"><stop offset="0.259336" stop-color="#FFDB6E"/><stop offset="1" stop-color="#FFBC5E"/></linearGradient></defs></svg>
