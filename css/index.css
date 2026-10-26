@@ -2761,10 +2761,8 @@ a.skill-tag:hover {
   }
 }
 
-/* About section — full width centered */
-.about .about-content {
-  text-align: justify;
-}
+/* About copy is left-aligned. Justifying it stretched the headings into
+   word-gap rivers on narrow screens, so the rule was removed. */
 
 /* Typed heading in hero */
 .hero .hero-text h2 {
