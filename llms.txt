@@ -33,5 +33,5 @@ Telecommunication Union grant.
 
 ## Pages
 
-- [Portfolio](https://jvcbyte.dev/): profile, projects, services, resume and contact
+- [Portfolio](https://www.jvcbyte.dev/): profile, projects, services, resume and contact
 - [Templates](https://templates.jvcbyte.dev/): website templates by Layrus

@@ -21,4 +21,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://jvcbyte.dev/sitemap.xml
+Sitemap: https://www.jvcbyte.dev/sitemap.xml
