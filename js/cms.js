@@ -1,5 +1,5 @@
 /**
- * Portfolio CMS — John Valentine
+ * Portfolio CMS — John Okonkwo
  * Manages content via GitHub API with local JSON editing
  */
 

@@ -1,5 +1,5 @@
 /**
- * Portfolio Data Loader — John Valentine
+ * Portfolio Data Loader — John Okonkwo
  * Fetches JSON data files and populates the page dynamically
  */
 

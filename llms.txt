@@ -1,11 +1,11 @@
-# John Valentine
+# John Okonkwo
 
 > Software engineer based in Abuja, Nigeria. Builds back-end systems, automation,
 > bots and Web3 applications in Python, Go, Rust and TypeScript.
 
 ## About
 
-John Valentine is a software engineer in Abuja, Nigeria. He holds a First-Class
+John Okonkwo is a software engineer in Abuja, Nigeria. He holds a First-Class
 degree in Software Engineering and the Vice Chancellor Award. His work covers
 back-end and systems programming (Python, Go, Rust/Actix Web), front-end
 development (React, Next.js, JavaScript/TypeScript), blockchain and Web3
