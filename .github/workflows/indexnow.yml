@@ -1,0 +1,28 @@
+name: IndexNow
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Wait for the deploy to serve the key file
+        run: |
+          for i in $(seq 1 40); do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "https://www.jvcbyte.dev/414c09aa3c5981352bbf4ea238037c99.txt")
+            if [ "$code" = "200" ]; then
+              echo "key file is live"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "key file did not appear within 6 minutes"
+          exit 1
+
+      - name: Submit every URL in the sitemap
+        run: python3 scripts/indexnow.py
