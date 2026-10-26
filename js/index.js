@@ -273,3 +273,69 @@
       `.\n\nA bit about the project:\n\n`;
   }
 })();
+
+/**
+ * Re-assert the URL hash once the page reaches its real height.
+ *
+ * The project grid is fetched and laid out after first paint, which pushes
+ * every following section down by thousands of pixels. The browser honours
+ * the hash against the pre-fetch height, so arriving at #contact lands in the
+ * middle of Projects and the visitor has to scroll down to find the form.
+ */
+(function () {
+  const hash = window.location.hash;
+  if (hash.length < 2) return;
+
+  const target = document.querySelector(hash);
+  if (!target) return;
+
+  let userTookOver = false;
+  ["wheel", "touchstart", "keydown", "pointerdown"].forEach((evt) => {
+    // if the visitor starts moving themselves, stop correcting under them
+    window.addEventListener(evt, () => { userTookOver = true; }, { once: true, passive: true });
+  });
+
+  let aligned = false;
+  const align = () => {
+    if (aligned || userTookOver) return;
+    aligned = true;
+    target.scrollIntoView({ behavior: "instant", block: "start" });
+  };
+
+  /* Wait for the document height to stop changing rather than guessing a
+     delay: the grid is injected, then isotope lays the cards out, then images
+     settle — each of those moves everything below. */
+  const settle = () => {
+    let last = -1;
+    let stable = 0;
+    const tick = setInterval(() => {
+      const h = document.documentElement.scrollHeight;
+      if (h === last) {
+        if (++stable >= 3) {
+          clearInterval(tick);
+          align();
+        }
+      } else {
+        last = h;
+        stable = 0;
+      }
+    }, 150);
+    setTimeout(() => { clearInterval(tick); align(); }, 4000); // fail-safe
+  };
+
+  const grid = document.getElementById("dyn-projects");
+  const waiting = grid && grid.children.length === 0 && window.MutationObserver;
+
+  if (waiting) {
+    const observer = new MutationObserver(() => {
+      if (grid.children.length) {
+        observer.disconnect();
+        settle();
+      }
+    });
+    observer.observe(grid, { childList: true });
+    setTimeout(settle, 3500); // fallback if the fetch never resolves
+  } else {
+    settle();
+  }
+})();
