@@ -1,0 +1,37 @@
+# John Valentine
+
+> Software engineer based in Abuja, Nigeria. Builds back-end systems, automation,
+> bots and Web3 applications in Python, Go, Rust and TypeScript.
+
+## About
+
+John Valentine is a software engineer in Abuja, Nigeria. He holds a First-Class
+degree in Software Engineering and the Vice Chancellor Award. His work covers
+back-end and systems programming (Python, Go, Rust/Actix Web), front-end
+development (React, Next.js, JavaScript/TypeScript), blockchain and Web3
+(Solidity, IPFS, Hedera), and embedded systems.
+
+Selected work includes WeGoComply, an AI-powered KYC/AML/TIN compliance platform
+for Nigerian fintechs, and an IoT smart-farm system that won an African
+Telecommunication Union grant.
+
+## Services
+
+- Back-end development
+- Automation and bot development
+- Web3 and smart contracts
+- Embedded systems
+- AI integration
+
+## Contact
+
+- Email: jvc8463@gmail.com
+- GitHub: https://github.com/jvcByte
+- LinkedIn: https://www.linkedin.com/in/jvcbyte
+- X: https://x.com/cheena_010
+- Location: Abuja, Nigeria
+
+## Pages
+
+- [Portfolio](https://jvcbyte.dev/): profile, projects, services, resume and contact
+- [Templates](https://templates.jvcbyte.dev/): website templates by Layrus
