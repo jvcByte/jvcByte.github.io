@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page not found</title>
+  <script>
+    /*
+     * The template collection moved from a project site
+     * (jvcbyte.github.io/clothing_brand_ui_templates/...) to its own
+     * subdomain. GitHub does not redirect project Pages URLs when a repo is
+     * renamed, so catch the old prefix here — this is the user site's 404
+     * page — and forward the exact path, query and hash to the new home.
+     */
+    (function () {
+      var OLD_PREFIX = '/clothing_brand_ui_templates';
+      var NEW_ORIGIN = 'https://templates.jvcbyte.dev';
+      var path = location.pathname;
+
+      /* The template folders were later grouped under their category, so these
+         moved one level deeper. Everything else keeps its original path. */
+      var MOVED_INTO_CATEGORY = [
+        'kyro_fashion',
+        'portotheme.com_1', 'portotheme.com_2', 'portotheme.com_3',
+        'portotheme.com_4', 'portotheme.com_5',
+        'template6', 'template7', 'template8', 'template9'
+      ];
+
+      if (path === OLD_PREFIX || path.indexOf(OLD_PREFIX + '/') === 0) {
+        var rest = path.slice(OLD_PREFIX.length) || '/';
+
+        if (rest !== '/') {
+          var first = rest.replace(/^\//, '').split('/')[0];
+          if (MOVED_INTO_CATEGORY.indexOf(first) !== -1) {
+            rest = '/clothing-brands' + rest;
+          }
+        }
+        location.replace(NEW_ORIGIN + rest + location.search + location.hash);
+      }
+    })();
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #1f1f1f;
+      color: #eee;
+      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 24px;
+    }
+    h1 { font-size: 1.6rem; margin: 0 0 12px; }
+    p { color: #999; line-height: 1.6; margin: 0 0 8px; }
+    a { color: #fff; }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>Page not found</h1>
+    <p>The template collection now lives at
+      <a href="https://templates.jvcbyte.dev">templates.jvcbyte.dev</a>.</p>
+    <p><a href="/">Back to the portfolio</a></p>
+  </div>
+</body>
+</html>

@@ -244,3 +244,32 @@
   window.addEventListener("load", navmenuScrollspy);
   document.addEventListener("scroll", navmenuScrollspy);
 })();
+
+/**
+ * Prefill the contact form when a visitor arrives from the template library:
+ *   jvcbyte.dev/?template=Classic%20Fashion&category=Clothing%20%26%20Fashion#contact
+ * The "Use this template" buttons on templates.jvcbyte.dev link here.
+ */
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const template = params.get("template");
+  if (!template) return;
+
+  const category = params.get("category") || "";
+  const form = document.querySelector(".contact-form form");
+  if (!form) return;
+
+  const subject = form.querySelector('[name="subject"]');
+  const message = form.querySelector('[name="message"]');
+
+  if (subject && !subject.value) {
+    subject.value = `Template enquiry — ${template}`;
+  }
+  if (message && !message.value) {
+    message.value =
+      `Hi John,\n\n` +
+      `I'm interested in the "${template}" template` +
+      (category ? ` from your ${category} collection` : "") +
+      `.\n\nA bit about the project:\n\n`;
+  }
+})();
