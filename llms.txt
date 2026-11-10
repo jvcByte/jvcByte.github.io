@@ -25,7 +25,7 @@ Telecommunication Union grant.
 
 ## Contact
 
-- Email: jvc8463@gmail.com
+- Email: work@jvcbyte.dev
 - GitHub: https://github.com/jvcByte
 - LinkedIn: https://www.linkedin.com/in/jvcbyte
 - X: https://x.com/cheena_010
@@ -34,4 +34,4 @@ Telecommunication Union grant.
 ## Pages
 
 - [Portfolio](https://www.jvcbyte.dev/): profile, projects, services, resume and contact
-- [Templates](https://templates.jvcbyte.dev/): website templates by Layrus
+- [Templates](https://templates.layrus.com/): website templates by Layrus

@@ -248,7 +248,7 @@
 /**
  * Prefill the contact form when a visitor arrives from the template library:
  *   jvcbyte.dev/?template=Classic%20Fashion&category=Clothing%20%26%20Fashion#contact
- * The "Use this template" buttons on templates.jvcbyte.dev link here.
+ * The "Use this template" buttons on templates.layrus.com link here.
  */
 (function () {
   const params = new URLSearchParams(window.location.search);
