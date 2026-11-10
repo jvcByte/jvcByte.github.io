@@ -1,11 +1,11 @@
 [
   {
     "id": 2000003,
-    "title": "AI Sales Employee",
+    "title": "Peengly — AI Sales Employee",
     "category": "ai",
-    "description": "WhatsApp, Instagram and TikTok AI sales assistant for Nigerian businesses. It answers customers, qualifies leads, follows up and sends Paystack payment links — engineered so it can never invent a price, stock figure, policy or payment confirmation.",
-    "image": "./assets/images/projects/aisales.png",
-    "url": "",
+    "description": "AI sales employee for businesses that sell on WhatsApp, Instagram and TikTok. It answers customers, quotes from the shop's own catalogue, qualifies leads, follows up and takes payment — engineered so it can never invent a price, stock figure or payment confirmation.",
+    "image": "./assets/images/projects/peengly.png",
+    "url": "https://peengly.com",
     "featured": false
   },
   {

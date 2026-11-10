@@ -5,7 +5,7 @@
     "description": "AI features built to hold up in production — LLM agents, retrieval pipelines, and trained models, with the evaluation and guardrails that keep their output reliable.",
     "icon": "./assets/images/icon-ai.svg",
     "projects": [
-      "AI Sales Employee",
+      "Peengly — AI Sales Employee",
       "Videosynx — AI Tutorial Video Generator",
       "WeGoComply — AI Compliance Platform",
       "CVD Predictor"
